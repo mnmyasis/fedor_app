@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Стыковщик{% endblock %}</title>
+    <script src="{% static 'fw/jquery/jquery-3.5.1.min.js' %}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'fw/materialize/css/materialize.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark_style.css' %}">
+    <script src="{% static 'fw/vuejs/vue.js' %}"></script>
+    <script src="{% static 'fw/axios/dist/axios.min.js' %}"></script>
+
+</head>
+<body class="{{ request.COOKIES.body }}">
+{% include 'header.html' %}
+{% include 'preloader.html' %}
+{% include 'main_menu.html' %}
+{% block content %}{% endblock %}
+</body>
+<script src="{% static 'fw/materialize/js/materialize.min.js' %}"></script>
+<script src="{% static 'fedor/js/main_menu.js' %}"></script>
+<script src="{% static 'fedor/js/show_error_window.js' %}"></script>
+<script src="{% static 'fedor/js/show_preloader.js' %}"></script>
+{% block script %}{% endblock %}
+</html>

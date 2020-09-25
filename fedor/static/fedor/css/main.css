@@ -1,0 +1,28 @@
+.text-center{
+    text-align:  center;
+}
+
+.f-mt{
+    margin-top: 20px;
+}
+
+.f-mb{
+    margin-bottom: 20px;
+}
+
+.f-preloader{
+    display: block;
+    position: fixed !important;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 999 !important;
+
+}
+
+.f-preloader .container{
+    background-color: #212121 !important;
+    padding: 50px;
+    border-radius: 10px;
+    opacity: 95%;
+}
+

@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    <div>
+        <h5 class="text-center">MANUAL MATCHING</h5>
+        <div class="row f-mt" id="manual_matching_app">
+            <div class="col s6">
+                <ul class="collection with-header">
+                    <li class="collection-item"
+                    v-for="data in sku"
+                    v-on:click="element_select(data.pk)"
+                    v-bind:class="change_status(data.pk)"
+                    v-html="data.fields.name"></li>
+                </ul>
+            </div>
+            <div class="col s6">
+                <ul class="collection with-header">
+                    <li class="collection-header"><h4 class="text-center">EAK</h4></li>
+                    <li class="collection-item">Alv<b>in</b></li>
+                    <li class="collection-item">Alvin</li>
+                    <li class="collection-item">Alvin</li>
+                    <li class="collection-item">Alvin</li>
+                </ul>
+            </div>
+            {% include 'error_window.html'  %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'manual_matching/js/manual_matching_app.js' %}"></script>
+{% endblock %}

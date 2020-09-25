@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+{% block title %}Форма регистрации пользователя{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 mt-md-3 offset-md-3 text-center">
+			<h1>Форма регистрации</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 offset-md-3 mt-md-3 p-md-3">
+			<form method="post", action="{% url 'admin_joint:create_user' %}">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="exampleInputEmail1">Логин</label>
+					<input type="text" class="form-control" placeholder="Ваш логин" name="username">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Пароль</label>
+					<input type="password" class="form-control" aria-describedby="passwordHelp" placeholder="Ваш пароль" name="password1">
+					<small id="passwordHelp" class="form-text text-muted">Пароль должен быть динной не менее 6 символов и содержать буквы и цифры</small>
+					{% if error %}
+						<p class="text-danger">{{ error }}</p>
+					{% endif %}
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Повторите пароль</label>
+					<input type="password" class="form-control" aria-describedby="passwordHelp" placeholder="Повторите ваш пароль" name="password2">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Почтовый ящик</label>
+					<input type="email" class="form-control"  placeholder="Ваш почтовый ящик" name="email">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Имя</label>
+					<input type="text" class="form-control" placeholder="Ваше имя" name="first_name">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Фамилия</label>
+					<input type="text" class="form-control" placeholder="Ваша фамилия" name="last_name">
+				</div>
+
+				<button type="submit" class="btn btn-primary">Зарегистрировать</button>
+			</form>
+
+		</div>
+	</div>
+</div>
+{% endblock %}
