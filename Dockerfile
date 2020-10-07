@@ -7,7 +7,7 @@ RUN apt update \
 	&& apt install git -y \
 	&& apt-get install python3 -y \
 	&& apt-get install python3-pip -y && pip3 install --upgrade pip \
-	&& cd /home/dev/fedor_app/ \
+	&& cd /home/dev/ \
 	&& git clone git@bitbucket.org:mnmyasis1/fedor_app.git \
 	&& cd fedor_app \
 	&& git init \
@@ -18,4 +18,4 @@ RUN apt update \
 WORKDIR /home/dev/fedor_app
 
 #CMD service postgresql start
-#CMD python3 fedor/manage.py runserver
+#CMD python3 fedor/manage.py runserver 0.0.0.0:8000
