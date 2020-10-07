@@ -88,7 +88,15 @@ DATABASES = {
         'PASSWORD': 'kajshdf^&%234sadhjgf43265433654$%&^*$@#%',
         'HOST': '127.0.0.1',
         'PORT': '5432'
-    }
+    },
+    'EAS': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'temp12345',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        'USER': 'django',
+        'PASSWORD': 'kajshdf^&%234sadhjgf43265433654$%&^*$@#%'
+    },
 }
 
 
