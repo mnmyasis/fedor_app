@@ -7,7 +7,8 @@ RUN apt update \
 	&& apt install git -y \
 	&& apt-get install python3 -y \
 	&& apt-get install python3-pip -y && pip3 install --upgrade pip \
-	&& cd /home/dev/fedor_app/ \
+#	&& cd /home/dev/fedor_app/ \
+	&& cd /home/dev/ && rm -rf fedor_app && mkdir fedor_app && cd fedor_app
 	&& git init \
 	&& git fetch && git checkout dev \
 	&& git pull \
