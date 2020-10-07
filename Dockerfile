@@ -1,4 +1,4 @@
-FROM mnmyasis/fedor:v4
+FROM mnmyasis/fedor:v3
 RUN apt update \
 	&& apt install doxygen-doc -y \
 	&& apt install graphviz -y \
@@ -8,7 +8,8 @@ RUN apt update \
 	&& cd /home/dev/fedor_app/ \
 	&& git init \
 	&& git fetch && git checkout dev \
-	&& git pull
+	&& git pull \
+	&& pip3 install -r requirements.txt
 
 WORKDIR ./fedor_app
 
