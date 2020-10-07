@@ -1,0 +1,43 @@
+TEST
+TEST
+TEST
+TEST
+TEST
+TEST
+TEST
+DEBUG 2020-08-31 18:05:20,653 auth_joint.views 16067 139914929547008 TEST
+level:DEBUG time:2020-08-31 18:06:34,894 name:auth_joint.views process:16111 thread:140630943561472 message:TEST
+level:DEBUG time:2020-08-31 18:07:09,422 name:auth_joint.views message:TEST
+level:INFO time:2020-08-31 18:09:02,821 name:auth_joint.views message:TEST
+level:INFO time:2020-08-31 18:10:07,540 name:auth_joint.views message:{request.user}
+level:INFO time:2020-08-31 18:12:20,553 name:auth_joint.views message:AnonymousUser
+level:INFO time:2020-08-31 18:12:51,401 name:auth_joint.views message:admin
+level:INFO time:2020-08-31 18:13:14,870 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-08-31 18:14:40,714 name:auth_joint.views message:Ошибка авторизации None
+level:INFO time:2020-08-31 18:14:43,426 name:auth_joint.views message:Ошибка авторизации admin
+level:INFO time:2020-08-31 18:25:26,913 name:auth_joint.views message:Ошибка авторизации admin
+level:INFO time:2020-08-31 18:27:19,210 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-08-31 19:53:47,883 name:auth_joint.views message:Ошибка авторизации None
+level:INFO time:2020-08-31 19:53:49,880 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-08-31 20:08:17,573 name:auth_joint.views message:Ошибка авторизации None
+level:INFO time:2020-08-31 20:08:19,696 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-08 19:21:21,283 name:auth_joint.views message:Ошибка авторизации admin
+level:INFO time:2020-09-08 19:21:35,644 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-08 19:53:10,153 name:auth_joint.views message:Ошибка авторизации Sas
+level:INFO time:2020-09-08 19:56:27,657 name:auth_joint.views message:Ошибка авторизации Sas
+level:INFO time:2020-09-08 19:56:34,019 name:auth_joint.views message:Ошибка авторизации ashdjhg
+level:INFO time:2020-09-08 20:24:18,748 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-10 10:45:02,050 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-10 10:46:26,338 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-10 10:52:12,309 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-10 10:55:27,890 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-10 13:12:01,949 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-10 15:17:07,392 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-10 15:19:00,550 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-11 10:15:25,111 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-11 10:15:57,724 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-11 10:16:56,739 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-11 10:19:35,264 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-11 10:30:17,046 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-15 13:19:06,955 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-09-15 13:23:12,646 name:auth_joint.views message:Авторизовался:admin
