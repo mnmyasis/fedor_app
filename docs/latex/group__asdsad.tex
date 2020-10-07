@@ -1,0 +1,35 @@
+\hypertarget{group__asdsad}{}\doxysection{\mbox{[}admin\+\_\+joint\mbox{]}}
+\label{group__asdsad}\index{\mbox{[}admin\_joint\mbox{]}@{[admin\_joint]}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{group__asdsad_ga456fb568bf60a5aa43512ab7f422cd19}{user\+\_\+manipulation.\+create\+\_\+user}} (request\+\_\+post)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__asdsad_ga456fb568bf60a5aa43512ab7f422cd19}\label{group__asdsad_ga456fb568bf60a5aa43512ab7f422cd19}} 
+\index{\mbox{[}admin\_joint\mbox{]}@{[admin\_joint]}!create\_user@{create\_user}}
+\index{create\_user@{create\_user}!\mbox{[}admin\_joint\mbox{]}@{[admin\_joint]}}
+\doxysubsubsection{\texorpdfstring{create\_user()}{create\_user()}}
+{\footnotesize\ttfamily def user\+\_\+manipulation.\+create\+\_\+user (\begin{DoxyParamCaption}\item[{}]{request\+\_\+post }\end{DoxyParamCaption})}
+
+создает пользователя в БД\begin{DoxyVerb}Создание пользовтеля\end{DoxyVerb}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{12 \textcolor{keyword}{def }\mbox{\hyperlink{group__asdsad_ga456fb568bf60a5aa43512ab7f422cd19}{create\_user}}(request\_post):}
+\DoxyCodeLine{13     \textcolor{stringliteral}{"""Создание пользовтеля"""}}
+\DoxyCodeLine{14     user\_creation\_form = CustomCreationForm(request\_post)}
+\DoxyCodeLine{15     \textcolor{keywordflow}{if} user\_creation\_form.is\_valid():}
+\DoxyCodeLine{16         logger.debug(\textcolor{stringliteral}{'Форма регистрации прошла валидность'})}
+\DoxyCodeLine{17         user = user\_creation\_form.save()}
+\DoxyCodeLine{18         \textcolor{keywordflow}{return} user.id}
+\DoxyCodeLine{19     \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{20         logger.debug(\textcolor{stringliteral}{'Форма регистрации не прошла проверку на валидность'})}
+\DoxyCodeLine{21         \textcolor{keywordflow}{return} \textcolor{keyword}{False}}
+\DoxyCodeLine{22 }
+
+\end{DoxyCode}

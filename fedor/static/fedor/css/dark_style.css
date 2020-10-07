@@ -1,0 +1,127 @@
+:root{
+    --color-text:#fffde7 !important;
+}
+body{
+    background-color: #263238;
+}
+
+.tabs{
+    background-color: #37474f !important;
+}
+.tabs .tab a{
+    color:var(--color-text);
+}
+
+.tabs .tab a:hover {
+    background-color:#455a64 !important;
+    color:var(--color-text);
+}
+
+.tabs .tab a.active {
+    background-color:#455a64 !important;
+    color:var(--color-text);
+}
+
+.tabs .indicator {
+    background-color:#455a64 !important;
+}
+
+
+.card{
+    background-color:#263238;
+    color:var(--color-text);
+
+}
+
+.card-content {
+    color:var(--color-text);
+}
+
+.card-actions{
+
+}
+
+.dropdown-content li>span {
+  background-color: #37474f !important;
+  color:var(--color-text);
+}
+
+.dropdown-content li>span:hover {
+  background-color: #263238 !important;
+}
+
+.dropdown-content li>a {
+  color:var(--color-text);
+}
+
+.select-content li>span {
+  color:var(--color-text);
+}
+
+.select-dropdown{
+    color:var(--color-text);
+}
+
+.select-content li>a {
+  color:var(--color-text);
+}
+
+.input-field label{
+  color:var(--color-text);
+}
+
+.materialize-textarea {
+    color:var(--color-text);
+}
+
+.btn{
+    background-color: #455a64 !important;
+}
+
+h5, th, tr, p{
+    color:var(--color-text);
+}
+
+tr:hover{
+    background-color: #455a64 !important;
+}
+
+/* Боковое меню */
+#slide-out{
+    background-color: #455a64 !important;
+    color:var(--color-text);
+}
+
+#slide-out a{
+    color:var(--color-text);
+}
+
+.divider{
+    background-color: #37474f !important;
+}
+
+.sidenav-trigger{
+    color: #00bfa5 !important;
+}
+/* Конец бокового меню */
+
+/* Header */
+.teal{
+    background-color:#546e7a !important;
+}
+/* end Header */
+
+/* настройка формы селект */
+.eac-select{
+    background-color: #37474f !important;
+}
+
+.modal, .modal-footer{
+    background-color:#37474f !important;
+    color:var(--color-text)
+}
+
+.collection, .collection-header, .collection-item{
+    background-color:#37474f !important;
+    border-color: #263238 !important;
+}

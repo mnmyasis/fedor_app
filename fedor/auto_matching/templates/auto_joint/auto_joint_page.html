@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card-tabs">
+                        <ul class="tabs tabs-fixed-width">
+                            <li class="tab"><a href="#test4">Авто-мэтчинг</a></li>
+                            <li class="tab"><a href="#test5">Параметры запуска</a></li>
+                            <li class="tab"><a href="#test6" class="active">Мэтчинг по SKU</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- -->
+                <div id="test4" class="col s12">
+                    <div class="col s12 m6 f-mt">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Авто-мэтчинг</span>
+                                <p>Запуск мэтчинга SKU с помощью алгоритма</p>
+                            </div>
+                            <div class="card-action">
+                                <div id="joint-app">
+                                    <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                            v-on:click="send_data_on_joint()">Смэтчить
+                                        <i class="material-icons right">autorenew</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- -->
+                <div id="test5" class="col s12">
+                    <div class="input-field col s6 f-mt">
+                        <select class="sel">
+                            <option value="0" selected>Выберите справочник</option>
+                            <option value="1">Кровавый харчок</option>
+                            <option value="2">Торололо</option>
+                        </select>
+                        <label>Клиентский справочник</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                        <label for="textarea1">Акции</label>
+                    </div>
+                </div>
+                <!-- -->
+                <div id="test6" class="col s12">
+                    {% include 'auto_joint/client_table.html' %}
+                </div>
+                <!-- -->
+            </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script>
+
+    </script>
+    <script src="{% static 'auto_joint/js/search_form.js' %}"></script>
+    <script src="{% static 'auto_joint/js/joint_functions.js' %}"></script>
+{% endblock %}

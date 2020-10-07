@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<p>{{ target_user.last_login|date:"Y-m-d H:i" }}</p>
+				<p>{{ target_user.date_joined|date:"Y-m-d H:i" }}</p>
+				<form method="post", action="{% url 'admin_joint:update_user_profile' user_id=2 %}">
+					{% csrf_token %}
+					<div class="form-group">
+						<label>Login {{target_user.profile}}</label>
+						<input type="text" class="form-control" value="{{ target_user.username }}" name="username">
+					</div>
+					<div class="form-group">
+						<label>Имя</label>
+						<input type="text" class="form-control" value="{{ target_user.first_name }}" name="first_name">
+					</div>
+					<div class="form-group">
+						<label>Фамилия</label>
+						<input type="text" class="form-control" value="{{ target_user.last_name }}" name="last_name">
+					</div>
+					<div class="form-group">
+						<label>Почта</label>
+						<input type="text" class="form-control" value="{{ target_user.email }}" name="email">
+					</div>
+					<div class="form-group">
+						<label>Профиль доступа</label>
+						<select class="form-control" name="access_level">
+							{% for level in access_levels %}
+								{% if level.level == target_user.profile.access_level.level %}
+									<option selected="selected" value="{{ level.level }}">{{ level.level_name }}</option>
+								{% else %}
+									<option value="{{ level.level }}">{{ level.level_name }}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form-check">
+						{% if target_user.is_staff %}
+							<input class="form-check-input" type="checkbox" id="defaultCheck1" checked name="is_staff">
+						{% else %}
+							<input class="form-check-input" type="checkbox" id="defaultCheck1" name="is_staff">
+						{% endif %}
+						<label class="form-check-label" for="defaultCheck1">Доступ к админке</label>
+					</div>
+					<div class="form-check">
+						{% if target_user.is_active %}
+							<input class="form-check-input" type="checkbox" id="defaultCheck1" checked name="is_active">
+						{% else %}
+							<input class="form-check-input" type="checkbox" id="defaultCheck1" name="is_active">
+						{% endif %}
+						<label class="form-check-label" for="defaultCheck1">Статус учетки</label>
+					</div>
+					<div class="form-check">
+						{% if target_user.is_superuser %}
+							<input class="form-check-input" type="checkbox" id="defaultCheck1" checked name="is_superuser">
+						{% else %}
+							<input class="form-check-input" type="checkbox" id="defaultCheck1" name="is_superuser">
+						{% endif %}
+						<label class="form-check-label" for="defaultCheck1">Superuser</label>
+					</div>
+					<div class="row mt-md-3">
+						<div class="col-md-2">
+							<button type="submit" class="btn btn-primary">Изменить</button>
+						</div>
+						<div class="col-md-2 offset-md-4">
+							<button type="submit" class="btn btn-danger" form="user-card-del">Удалить</button>
+						</div>
+					</div>
+				</form>
+				<form method="post" action="{% url 'admin_joint:delete_user_profile' user_id=2 %}" id="user-card-del">{% csrf_token %}</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
