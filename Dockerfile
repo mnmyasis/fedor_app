@@ -17,4 +17,5 @@ RUN apt update \
 
 WORKDIR /home/dev/fedor_app
 
-CMD service postgresql start
+#CMD service postgresql start
+#CMD python3 fedor/manage.py runserver
