@@ -8,6 +8,7 @@ RUN apt update \
 	&& cd home \
 	&& mkdir fedor_app \
 	&& cd fedor_app \
+	&& git clone git@bitbucket.org:mnmyasis1/fedor.git
 
 WORKDIR ./fedor_app
 
