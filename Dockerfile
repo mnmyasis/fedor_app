@@ -7,7 +7,7 @@ RUN apt update \
 	&& apt install git -y \
 	&& apt-get install python3 -y \
 	&& apt-get install python3-pip -y && pip3 install --upgrade pip \
-	&& cd /home/dev/ && mkdir build && cd build \
+	&& cd /home/dev/ && cd build \
 	&& git clone git@bitbucket.org:mnmyasis1/fedor_app.git \
 	&& cd fedor_app \
 	&& git init \
