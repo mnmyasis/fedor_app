@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark_style.css' %}">
     <script src="{% static 'fw/vuejs/vue.js' %}"></script>
     <script src="{% static 'fw/axios/dist/axios.min.js' %}"></script>
-
+    {% block custom_css %}{% endblock %}
 </head>
 <body class="{{ request.COOKIES.body }}">
 {% include 'header.html' %}
@@ -22,6 +22,7 @@
 <script src="{% static 'fw/materialize/js/materialize.min.js' %}"></script>
 <script src="{% static 'fedor/js/main_menu.js' %}"></script>
 <script src="{% static 'fedor/js/show_error_window.js' %}"></script>
+<script src="{% static 'fedor/js/show_access_window.js' %}"></script>
 <script src="{% static 'fedor/js/show_preloader.js' %}"></script>
 {% block script %}{% endblock %}
 </html>

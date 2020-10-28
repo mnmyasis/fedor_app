@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.urls import reverse
 from .services.get_data_directory import *
-import logging
+import logging, json
 
 logger = logging.getLogger(__name__)
 
@@ -32,3 +32,21 @@ def get_sku(request):
     sku = get_sku_data(number_competitor)
     result = {'sku': sku}
     return JsonResponse(result)
+
+def get_eas(request):
+    """Получить записи из ЕАС"""
+    sku_id = request.GET.get('sku_id')
+    logger.debug(sku_id)
+    eas = get_eas_data(sku_id)
+    result = {'eas': eas}
+    return JsonResponse(result)
+
+def match_eas_sku(request):
+    """Смэтчить СКУ к ЕАС вручную"""
+    request = json.loads(request.body.decode('utf-8'))
+    sku_id = request['data']['sku_id']
+    eas_id = request['data']['eas_id']
+    logger.debug('sku_id: {} ----> eas_id: {}'.format(sku_id, eas_id))
+    return JsonResponse(True, safe=False)
+
+

@@ -78,7 +78,7 @@ body{
     background-color: #455a64 !important;
 }
 
-h5, th, tr, p{
+h5, h6, th, tr, p, li{
     color:var(--color-text);
 }
 
@@ -111,17 +111,25 @@ tr:hover{
 }
 /* end Header */
 
-/* настройка формы селект */
-.eac-select{
-    background-color: #37474f !important;
-}
 
+
+/* модальное окно */
 .modal, .modal-footer{
     background-color:#37474f !important;
     color:var(--color-text)
 }
 
+/* список */
 .collection, .collection-header, .collection-item{
     background-color:#37474f !important;
     border-color: #263238 !important;
+    cursor: pointer;
+}
+.collection-item:hover{
+    background-color: #455a64 !important;
+}
+
+/* настройка выбор записи */
+.eac-select{
+    background-color: #2b4952 !important;
 }

@@ -3,7 +3,7 @@ var search_form_app = new Vue({
     delimiters: ['{(', ')}'],
     el: '#search_form_app',
     data: {
-        message: 'Hello world',
+        message: '',
         client_data: [],
         error: null,
         activeIndex: 0,
@@ -13,10 +13,10 @@ var search_form_app = new Vue({
         updateMessage(e){
             /* Функция поиска по ЕАК */
             console.log(e.target.value)
-            axios.get('/auto/joint/client_directory/data/get/?format=json',{
+            axios.get('/auto/matching/client_directory/data/get/?format=json',{
                 params: {
-                   //'search_client_data' : e.target.value,
-                   //'number_competitor_id' : 1
+                   search_client_data : e.target.value,
+                   number_competitor_id : 1
                 }
             }).then(response => {
                 this.client_data = JSON.parse(response.data.client_data)
@@ -44,7 +44,7 @@ var search_form_app = new Vue({
             preloader_app.show_preloading = true
             axios.defaults.xsrfCookieName = 'csrftoken'
             axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
-            axios.post('/auto/joint/client_directory/data/post/', {
+            axios.post('/auto/matching/client_directory/data/post/', {
                 data: {
                     id_client_directory: this.activeIndex,
                     number_competitor_id: 1

@@ -28,6 +28,8 @@
                                             v-on:click="send_data_on_joint()">Смэтчить
                                         <i class="material-icons right">autorenew</i>
                                     </button>
+                                    {% include 'error_window.html'  %}
+                                    {% include 'access_window.html'  %}
                                 </div>
                             </div>
                         </div>
@@ -50,7 +52,7 @@
                 </div>
                 <!-- -->
                 <div id="test6" class="col s12">
-                    {% include 'auto_joint/client_table.html' %}
+                    {% include 'auto_matching/client_table.html' %}
                 </div>
                 <!-- -->
             </div>
@@ -58,9 +60,6 @@
 {% endblock %}
 
 {% block script %}
-    <script>
-
-    </script>
-    <script src="{% static 'auto_joint/js/search_form.js' %}"></script>
-    <script src="{% static 'auto_joint/js/joint_functions.js' %}"></script>
+    <script src="{% static 'auto_matching/js/search_form.js' %}"></script>
+    <script src="{% static 'auto_matching/js/joint_functions.js' %}"></script>
 {% endblock %}

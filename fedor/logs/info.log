@@ -41,3 +41,7 @@ level:INFO time:2020-09-11 10:19:35,264 name:auth_joint.views message:Автор
 level:INFO time:2020-09-11 10:30:17,046 name:auth_joint.views message:Авторизовался:admin
 level:INFO time:2020-09-15 13:19:06,955 name:auth_joint.views message:Авторизовался:admin
 level:INFO time:2020-09-15 13:23:12,646 name:auth_joint.views message:Авторизовался:admin
+level:INFO time:2020-10-28 12:17:05,018 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2020-10-28 12:17:10,771 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2020-10-28 12:17:19,914 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2020-10-28 12:17:25,012 name:auth_fedor.views message:Ошибка авторизации admin

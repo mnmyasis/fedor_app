@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'auth_fedor',
     'admin_panel',
     'auto_matching',
-    'manual_matching'
+    'manual_matching',
+    'directory',
+    'final_matching'
 ]
 
 MIDDLEWARE = [
@@ -85,17 +87,17 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fedor',
         'USER': 'django',
-        'PASSWORD': 'KJSDFHg3425',
+        'PASSWORD': '12345',
         'HOST': '127.0.0.1',
         'PORT': '5432'
     },
-    'EAS': {
+    'eas': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'temp12345',
         'HOST': '127.0.0.1',
         'PORT': '5432',
         'USER': 'django',
-        'PASSWORD': 'KJSDFHg3425'
+        'PASSWORD': '12345'
     },
 }
 

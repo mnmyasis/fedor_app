@@ -1,9 +1,9 @@
 import re, sys
-from auto_matching.models import *
+from directory.models import *
 
 def zalivchik():
 
-	file_path = '/home/mnmyasis/dev/joint/files/basedirectory3.txt'
+	file_path = '/home/mnmyasis/dev/fedor_app/files/basedirectory3.txt'
 	#file_path = 'basedirectory.txt'
 	file = open(file_path)
 	print('start')
@@ -68,7 +68,7 @@ def zalivchik():
 			print("error - {}".format(res))
 
 def zaliv_client_dict():
-	file_path = '/home/mnmyasis/dev/joint/files/asna2.txt'
+	file_path = '/home/mnmyasis/dev/fedor_app/files/asna2.txt'
 	#file_path = 'asna2.txt'
 	file = open(file_path)
 	print('start')
