@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'auto_matching',
     'manual_matching',
     'directory',
-    'final_matching'
 ]
 
 MIDDLEWARE = [
@@ -90,14 +89,6 @@ DATABASES = {
         'PASSWORD': '12345',
         'HOST': '127.0.0.1',
         'PORT': '5432'
-    },
-    'eas': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'temp12345',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-        'USER': 'django',
-        'PASSWORD': '12345'
     },
 }
 

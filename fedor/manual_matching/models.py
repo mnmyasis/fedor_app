@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from directory.models import ClientDirectory, BaseDirectory
 
 
 class ManualMatchingData(models.Model):
@@ -21,8 +22,8 @@ class ManualMatchingData(models.Model):
 
 
 class FinalMatching(models.Model):
-    id_sku_dict = models.BigIntegerField()
-    id_eas_dict = models.BigIntegerField()
+    sku_dict = models.ForeignKey(ClientDirectory, on_delete=models.CASCADE)
+    eas_dict = models.ForeignKey(BaseDirectory, on_delete=models.CASCADE)
     type_binding = models.IntegerField()
     name_binding = models.TextField(blank=True)
     old_type_binding = models.IntegerField(blank=True)
@@ -44,4 +45,4 @@ class FinalMatching(models.Model):
 
     class Meta:
         db_table = 'final_matching'
-        ordering = ['id_sku_dict']
+        ordering = ['sku_dict']

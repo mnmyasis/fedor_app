@@ -24,8 +24,8 @@ class BrandNotFound(MatchingWrite):
     def data_preparations(self, matching_line):
         print(matching_line)
         data = {
-            'id_sku_dict': matching_line['id_c'],
-            'id_eas_dict': 0,
+            'sku_dict': matching_line['id_c'],
+            'eas_dict': 0,
             'type_binding': 4,
             'name_binding': 'Алгоритм не нашел бренд',
             'user': None,
@@ -43,8 +43,8 @@ class MatchingOneToOne(MatchingWrite):
     def data_preparations(self, matching_line):
         print(matching_line)
         data = {
-            'id_sku_dict': matching_line['id_c'],
-            'id_eas_dict': matching_line['id'],
+            'sku_dict': matching_line['id_c'],
+            'eas_dict': matching_line['id'],
             'type_binding': 1,
             'name_binding': 'Алгоритм',
             'user': None,

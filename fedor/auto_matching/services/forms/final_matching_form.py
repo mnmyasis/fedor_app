@@ -12,10 +12,10 @@ class FinalMatchingForm(forms.ModelForm):
 
     def save(self):
         result, create = FinalMatching.objects.get_or_create(
-            id_sku_dict=self.cleaned_data['id_sku_dict'],
+            sku_dict=self.cleaned_data['sku_dict'],
             defaults={
-                'id_sku_dict': self.cleaned_data['id_sku_dict'],
-                'id_eas_dict': self.cleaned_data['id_eas_dict'],
+                'sku_dict': self.cleaned_data['sku_dict'],
+                'eas_dict': self.cleaned_data['eas_dict'],
                 'type_binding': self.cleaned_data['type_binding'],
                 'name_binding': self.cleaned_data['name_binding'],
                 'old_type_binding': self.cleaned_data['old_type_binding'],
