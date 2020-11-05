@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.urls import reverse
 from .services.get_data_directory import *
+from .services.get_data_matching import *
 import logging, json
 
 logger = logging.getLogger(__name__)
@@ -16,7 +17,7 @@ logger = logging.getLogger(__name__)
 ## @defgroup show_manual_matching_page Рендер страницы
 #  @ingroup manual_matching
 
-SHOW_MANUAL_MATCHING_PAGE_TEMPLATE = 'manual_matching/manual_matching_page.html'
+SHOW_MANUAL_MATCHING_PAGE_TEMPLATE = 'manual_matching/matching_page.html'
 
 
 ## @ingroup show_manual_matching_page
@@ -49,4 +50,10 @@ def match_eas_sku(request):
     logger.debug('sku_id: {} ----> eas_id: {}'.format(sku_id, eas_id))
     return JsonResponse(True, safe=False)
 
+def get_final_matching(request):
+    number_competitor = request.GET.get('number_competitor_id')
+    logger.debug(number_competitor)
+    data = matching_data(number_competitor)
+    result = {'matching': data}
+    return JsonResponse(result)
 

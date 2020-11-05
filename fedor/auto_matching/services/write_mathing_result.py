@@ -22,6 +22,7 @@ class BrandNotFound(MatchingWrite):
         self.write_db(matching_data)
 
     def data_preparations(self, matching_line):
+        print(matching_line)
         data = {
             'id_sku_dict': matching_line['id_c'],
             'id_eas_dict': 0,
@@ -40,6 +41,7 @@ class MatchingOneToOne(MatchingWrite):
         self.write_db(matching_data)
 
     def data_preparations(self, matching_line):
+        print(matching_line)
         data = {
             'id_sku_dict': matching_line['id_c'],
             'id_eas_dict': matching_line['id'],

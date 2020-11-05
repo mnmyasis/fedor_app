@@ -1,42 +1,32 @@
-{% extends 'index.html' %}
-{% load static %}
-{% block custom_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'manual_matching/css/manual_matching.css' %}">
-{% endblock %}
-{% block content %}
-    <div>
-        <h5 class="text-center">MANUAL MATCHING</h5>
-        <div class="row f-mt" id="manual_matching_app">
-            <div class="col s6">
-                <h6 class="text-center">SKU</h6>
-                <div class="matching-lists">
-                    <ul class="collection with-header">
-                        <li class="collection-item"
+<div>
+    <h5 class="text-center">MANUAL MATCHING</h5>
+    <div class="row f-mt" id="manual_matching_app">
+        <div class="col s6">
+            <h6 class="text-center">SKU</h6>
+            <div class="matching-lists">
+                <ul class="collection with-header">
+                    <li class="collection-item"
                         v-for="data in sku"
                         v-on:click="element_select(data.fields.id_sku_dict)"
                         v-bind:class="change_status(data.fields.id_sku_dict)"
                         v-html="data.fields.name_sku"></li>
-                    </ul>
-                </div>
+                </ul>
             </div>
-            <div class="col s6">
-                <h6 class="text-center">EAS</h6>
-                <div class="matching-lists">
-                    <ul class="collection with-header">
-                        <li class="collection-item"
+        </div>
+        <div class="col s6">
+            <h6 class="text-center">EAS</h6>
+            <div class="matching-lists">
+                <ul class="collection with-header">
+                    <li class="collection-item"
                         v-for="data in eas"
                         v-on:click="matching(data.fields.id_eas_dict)"
                         v-bind:class="change_status(data.fields.id_eas_dict)"
                         v-html="data.fields.name_eas"></li>
-                    </ul>
-                </div>
+                </ul>
             </div>
-            {% include 'error_window.html'  %}
-            {% include 'access_window.html'  %}
         </div>
+        {% include 'error_window.html'  %}
+        {% include 'access_window.html'  %}
     </div>
-{% endblock %}
+</div>
 
-{% block script %}
-    <script src="{% static 'manual_matching/js/manual_matching_app.js' %}"></script>
-{% endblock %}

@@ -1,8 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db.models import Max
-from final_matching.models import *
-from manual_matching.models import ManualMatchingData
+from manual_matching.models import *
 from directory.models import ClientDirectory
 
 

@@ -1,7 +1,3 @@
-Vue.component('test-j',{
-    template: '<h6>TEST</h6>'
-})
-
 var joint_app = new Vue({
     el: '#joint-app',
     delimiters: ['{(', ')}'],

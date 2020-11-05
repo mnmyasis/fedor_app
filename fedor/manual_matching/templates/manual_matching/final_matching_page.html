@@ -1,0 +1,23 @@
+<table id="final-matching-app">
+    <thead>
+    <tr>
+        <th>EAS</th>
+        <th>SKU</th>
+        <th>Binding name</th>
+        <th>Binding type</th>
+        <th>Binding name</th>
+        <th>Competitor</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr v-for="data in matching_data">
+        <td>{( data.fields.id_sku_dict )}</td>
+        <td>{( data.fields.id_eas_dict )}</td>
+        <td>$0.87</td>
+        <td>Alvin</td>
+        <td>Eclair</td>
+        <td>$0.87</td>
+    </tr>
+    </tbody>
+</table>

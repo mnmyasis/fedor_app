@@ -79,5 +79,9 @@ manual_matching_app = new Vue({
 
         })
 
+        var tabs = document.querySelector('.tabs');
+        var options = {};
+        M.Tabs.init(tabs, options);
+
     }
 })
