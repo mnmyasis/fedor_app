@@ -1,6 +1,7 @@
 from .forms.manual_form import *
 from .forms.final_matching_form import *
 
+
 class MatchingWrite(object):
     def write(self, matching_line):
         pass
@@ -11,10 +12,11 @@ class MatchingWrite(object):
     def write_db(self, matching_data):
         final_matching_form = FinalMatchingForm(matching_data)
         if final_matching_form.is_valid():
-            final_matching_form.save()
-            return True
+            res = final_matching_form.save()
+            return res
         else:
             return False
+
 
 class BrandNotFound(MatchingWrite):
     def write(self, matching_line):
@@ -22,12 +24,11 @@ class BrandNotFound(MatchingWrite):
         self.write_db(matching_data)
 
     def data_preparations(self, matching_line):
-        print(matching_line)
         data = {
             'sku_dict': matching_line['id_c'],
             'eas_dict': 0,
             'type_binding': 4,
-            'name_binding': 'Алгоритм не нашел бренд',
+            'name_binding': 'Не найдено соответствие в ЕАС',
             'user': None,
             'number_competitor': matching_line['number_competitor'],
             'old_type_binding': 0
@@ -38,15 +39,34 @@ class BrandNotFound(MatchingWrite):
 class MatchingOneToOne(MatchingWrite):
     def write(self, matching_line):
         matching_data = self.data_preparations(matching_line)
-        self.write_db(matching_data)
+        res = self.write_db(matching_data)
+        return res
 
     def data_preparations(self, matching_line):
-        print(matching_line)
         data = {
             'sku_dict': matching_line['id_c'],
             'eas_dict': matching_line['id'],
-            'type_binding': 1,
+            'type_binding': 8,
             'name_binding': 'Алгоритм',
+            'user': None,
+            'number_competitor': matching_line['number_competitor'],
+            'old_type_binding': 0
+        }
+        return data
+
+
+class MatchingManual(MatchingWrite):
+    def write(self, matching_line):
+        matching_data = self.data_preparations(matching_line)
+        res = self.write_db(matching_data)
+        return res
+
+    def data_preparations(self, matching_line):
+        data = {
+            'sku_dict': matching_line['id_sku'],
+            'eas_dict': matching_line['id_eas'],
+            'type_binding': 3,
+            'name_binding': 'Мэтчинг вручную',
             'user': None,
             'number_competitor': matching_line['number_competitor'],
             'old_type_binding': 0
@@ -57,12 +77,13 @@ class MatchingOneToOne(MatchingWrite):
 class MatchingManyToOne(MatchingWrite):
     def write(self, matching_line):
         matching_data = self.data_preparations(matching_line)
-        self.write_db(matching_data)
+        res = self.write_db(matching_data)
+        return res
 
     def data_preparations(self, matching_line):
         data = {
-            'id_sku_dict': matching_line['id_c'],  # id клиентского справочника
-            'id_eas_dict': matching_line['id'],  # id базового справочника
+            'sku_dict': matching_line['id_c'],  # id клиентского справочника
+            'eas_dict': matching_line['id'],  # id базового справочника
             'lvl': matching_line['num_leven'],
             'lvl2': matching_line['num_fv'],
             'perc_num': matching_line['num_prc'],
@@ -75,8 +96,8 @@ class MatchingManyToOne(MatchingWrite):
     def write_db(self, matching_data):
         manual_matching_form = ManualMatchingForm(matching_data)
         if manual_matching_form.is_valid():
-            manual_matching_form.save()
-            return True
+            res = manual_matching_form.save()
+            return res
         else:
             return False
 
@@ -95,6 +116,9 @@ class Matching(object):
         elif self.matching_state == 1:
             """Смэтчено один к одному"""
             self.current_state = MatchingOneToOne()
+        elif self.matching_state == 'manual':
+            """Смэтчено вручную"""
+            self.current_state = MatchingManual()
         else:
             """Смэтчено один к многим"""
             self.current_state = MatchingManyToOne()
@@ -105,7 +129,8 @@ class Matching(object):
         """Получение статуса"""
         self.get_state()
         """Запись в бд"""
-        self.current_state.write(matching_line)
+        res = self.current_state.write(matching_line)
+        return res
 
 
 if __name__ == '__main__':

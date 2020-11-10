@@ -2,3 +2,7 @@
     height: 500px;
     overflow: auto;
 }
+
+.matching-redactor{
+    width: 1500px !important;
+}

@@ -1,5 +1,5 @@
 <map id="Поиск по ClientDirectory" name="Поиск по ClientDirectory">
-<area shape="rect" id="node1" title=" " alt="" coords="153,20,340,45"/>
-<area shape="rect" id="node3" href="$group__service__search__client__directory__data.html" title="search_client_directory" alt="" coords="388,5,527,60"/>
-<area shape="rect" id="node2" href="$group__auto__joint__interface.html" title=" " alt="" coords="5,13,105,53"/>
+<area shape="rect" id="node1" title=" " alt="" coords="176,20,363,45"/>
+<area shape="rect" id="node3" href="$group__service__search__client__directory__data.html" title="search_client_directory" alt="" coords="411,5,549,60"/>
+<area shape="rect" id="node2" href="$group__auto__joint__interface.html" title=" " alt="" coords="5,13,128,53"/>
 </map>

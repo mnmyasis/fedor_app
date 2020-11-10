@@ -1,0 +1,28 @@
+<div id="final-matching-app">
+    <table class="responsive-table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>EAS</th>
+            <th>SKU</th>
+            <th>Binding name</th>
+            <th>Binding type</th>
+            <th>Competitor</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr v-for="data in matching_data">
+            <td><a class="waves-effect waves-light material-icons" href="#edit-matching-modal"
+                   v-on:click="show_redactor_matching(data)"
+            >border_color</a></td>
+            <td>{( data.sku_dict__name )}</td>
+            <td>{( data.eas_dict__tn_fv)}</td>
+            <td>{( data.name_binding)}</td>
+            <td>{( data.type_binding )}</td>
+            <td>$0.87</td>
+        </tr>
+        </tbody>
+    </table>
+    {% include 'manual_matching/edit.html' %}
+</div>

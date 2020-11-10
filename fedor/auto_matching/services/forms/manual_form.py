@@ -10,7 +10,3 @@ class ManualMatchingForm(forms.ModelForm):
         model = ManualMatchingData
         fields = '__all__'
 
-    #def matching_status_sku_edit(self, id_sku_dict):
-    #    sku = ClientDirectory.objects.get(id=id_sku_dict)
-    #    sku.matching_status = True
-    #    sku.save()

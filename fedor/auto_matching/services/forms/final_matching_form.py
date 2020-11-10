@@ -11,7 +11,7 @@ class FinalMatchingForm(forms.ModelForm):
         fields = '__all__'
 
     def save(self):
-        result, create = FinalMatching.objects.get_or_create(
+        result, create = FinalMatching.objects.update_or_create(
             sku_dict=self.cleaned_data['sku_dict'],
             defaults={
                 'sku_dict': self.cleaned_data['sku_dict'],
@@ -23,10 +23,5 @@ class FinalMatchingForm(forms.ModelForm):
                 'user': self.cleaned_data['user']
             }
         )
-        return result
+        return create
 
-    #def matching_status_edit(self, ids_dict):
-    #   manual_matching = ManualMatchingData.objects.filter(id_sku_dict=ids_dict['id_sku_dict']).update(matching_status_status=True)
-
-    #def sku_status_edit(self, id_sku_dict):
-    #    sku = ClientDirectory.objects.get(id=id_sku_dict).update(matching_status=True)

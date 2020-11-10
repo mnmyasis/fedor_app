@@ -1,0 +1,49 @@
+<!-- Modal Structure -->
+<div id="edit-matching-modal" class="modal modal-fixed-footer matching-redactor">
+    <div class="modal-content">
+        <h4>Редактор мэтчинга</h4>
+        <div class="input-field col s12">
+            <select class="binding-type" v-model="type_binding">
+                <option value="" disabled selected>Изменить статус мэтчинга</option>
+                <option value="1">Алгоритм</option>
+                <option value="manual">Ручная</option>
+                <option value="2">Мэтчинг по ШК - требуется проверка</option>
+                <option value="3">Мэтчинг по ШК - проверка не требуется</option>
+                <option value="4">Не найдено соотвествий в ЕАС</option>
+                <option value="5">Предложено добавить в ЕАС</option>
+                <option value="7">Смэтчено аптекой</option>
+                <option value="6">Прочее</option>
+            </select>
+            <label>Статус мэтчинга</label>
+        </div>
+
+        <table class="z-depth-1">
+            <thead>
+            <tr>
+                <th>EAS</th>
+                <th>SKU</th>
+                <th>Binding name</th>
+                <th>Binding type</th>
+                <th>Competitor</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>{( select_matching.sku_dict__name )}</td>
+                <td>{( select_matching.eas_dict__tn_fv )}}</td>
+                <td>{( select_matching.name_binding )}</td>
+                <td>{( select_matching.type_binding )}</td>
+                <td>1</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer">
+        <a class="waves-effect waves-light btn-small modal-close">Отмена</a>
+        <a class="waves-effect waves-light btn-small modal-close"
+           v-on:click="edit_matching_request(select_matching.sku_dict__pk)"
+        >Изменить</a>
+    </div>
+</div>

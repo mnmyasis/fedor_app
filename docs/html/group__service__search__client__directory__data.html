@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Joint_system: Сервис поиска по клиентскому справочнику</title>
+<title>fedor: Сервис поиска по клиентскому справочнику</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Joint_system
+   <div id="projectname">fedor
    &#160;<span id="projectnumber">0.1</span>
    </div>
    <div id="projectbrief">Стыковщик фарма</div>
@@ -64,7 +64,7 @@ $(function() {
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Сервис поиска по клиентскому справочнику<div class="ingroups"><a class="el" href="group__auto__joint.html">Модуль автоматической стыковки</a> &raquo; <a class="el" href="group__auto__joint__interface.html">Интерфейс auto_joint</a> &raquo; <a class="el" href="group__search__client.html">Поиск по ClientDirectory</a></div></div>  </div>
+<div class="title">Сервис поиска по клиентскому справочнику<div class="ingroups"><a class="el" href="group__auto__matching.html">Модуль автоматической стыковки</a> &raquo; <a class="el" href="group__auto__joint__interface.html">Интерфейс auto_matching</a> &raquo; <a class="el" href="group__search__client.html">Поиск по ClientDirectory</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -80,20 +80,20 @@ Collaboration diagram for Сервис поиска по клиентскому 
 </map>
 </div>
 <table class="memberdecls">
-<tr class="memitem:gaadbf95e3fa0290fab4a422d79fada0d8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__service__search__client__directory__data.html#gaadbf95e3fa0290fab4a422d79fada0d8">client_directory_manipulate.search_client_directory</a> (data, number_competitor_id)</td></tr>
-<tr class="separator:gaadbf95e3fa0290fab4a422d79fada0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeb1f7a45f3c99af5d8bc39c92cd40881"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__service__search__client__directory__data.html#gaeb1f7a45f3c99af5d8bc39c92cd40881">auto_matching.services.client_directory_manipulate.search_client_directory</a> (data, number_competitor_id)</td></tr>
+<tr class="separator:gaeb1f7a45f3c99af5d8bc39c92cd40881"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>search_client_directory </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="gaadbf95e3fa0290fab4a422d79fada0d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaadbf95e3fa0290fab4a422d79fada0d8">&#9670;&nbsp;</a></span>search_client_directory()</h2>
+<a id="gaeb1f7a45f3c99af5d8bc39c92cd40881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaeb1f7a45f3c99af5d8bc39c92cd40881">&#9670;&nbsp;</a></span>search_client_directory()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def client_directory_manipulate.search_client_directory </td>
+          <td class="memname">def auto_matching.services.client_directory_manipulate.search_client_directory </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>data</em>, </td>
@@ -119,17 +119,21 @@ Collaboration diagram for Сервис поиска по клиентскому 
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">def </span><a class="code" href="group__service__search__client__directory__data.html#gaadbf95e3fa0290fab4a422d79fada0d8">search_client_directory</a>(data, number_competitor_id):</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    client_data = ClientDirectory.objects.filter(name__icontains=data,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                                 joint_status=<span class="keyword">False</span>,</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                                                 number_competitor=number_competitor_id</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                                                 )</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> client_data</div>
+<div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">def </span><a class="code" href="group__service__search__client__directory__data.html#gaeb1f7a45f3c99af5d8bc39c92cd40881">search_client_directory</a>(data, number_competitor_id):</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    logger.debug(<span class="stringliteral">&#39;data: {}  number_competitor_id: {}&#39;</span>.format(data, number_competitor_id))</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    client_data = ClientDirectory.objects.filter(name__icontains=data,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                                                 matching_status=<span class="keyword">False</span>,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                                                 number_competitor=number_competitor_id</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                                                 )[:10]</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    logger.debug(client_data)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    data = serializers.serialize(<span class="stringliteral">&#39;json&#39;</span>, client_data)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> data</div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="agroup__service__search__client__directory__data_html_gaadbf95e3fa0290fab4a422d79fada0d8"><div class="ttname"><a href="group__service__search__client__directory__data.html#gaadbf95e3fa0290fab4a422d79fada0d8">client_directory_manipulate.search_client_directory</a></div><div class="ttdeci">def search_client_directory(data, number_competitor_id)</div><div class="ttdef"><b>Definition:</b> client_directory_manipulate.py:15</div></div>
+<div class="ttc" id="agroup__service__search__client__directory__data_html_gaeb1f7a45f3c99af5d8bc39c92cd40881"><div class="ttname"><a href="group__service__search__client__directory__data.html#gaeb1f7a45f3c99af5d8bc39c92cd40881">auto_matching.services.client_directory_manipulate.search_client_directory</a></div><div class="ttdeci">def search_client_directory(data, number_competitor_id)</div><div class="ttdef"><b>Definition:</b> client_directory_manipulate.py:17</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

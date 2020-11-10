@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['get_5fall_5faccess_5flevel_8',['get_all_access_level',['../group__get__access__level__all.html#ga8f5013ba8f2df00c2b3b726344b73cbf',1,'user_manipulation']]],
-  ['get_5ffilter_5ffields_9',['get_filter_fields',['../classjoint__system_1_1auto__joint_1_1models_1_1BaseDirectory.html#a81a663aef2bf916ff311dbb0095c267a',1,'joint_system::auto_joint::models::BaseDirectory']]],
-  ['get_5fuser_10',['get_user',['../group__get__user.html#gaecca5d041512d2c57237ae8db57d5f95',1,'user_manipulation']]]
+  ['finalmatching_22',['FinalMatching',['../classmanual__matching_1_1models_1_1FinalMatching.html',1,'manual_matching::models']]],
+  ['finalmatchingform_23',['FinalMatchingForm',['../classauto__matching_1_1services_1_1forms_1_1final__matching__form_1_1FinalMatchingForm.html',1,'auto_matching::services::forms::final_matching_form']]],
+  ['settings_24',['settings',['../namespacefedor_1_1settings.html',1,'fedor']]]
 ];

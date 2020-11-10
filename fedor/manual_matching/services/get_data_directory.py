@@ -9,15 +9,15 @@ logger = logging.getLogger(__name__)
 
 
 def get_sku_data(number_competitor):
-    logger.debug('выгружаются данные ску')
-    sku = ManualMatchingData.objects.filter(number_competitor = number_competitor).distinct('id_sku_dict')[:30]
+    logger.debug('выгружаются данные ску --- справочник {}'.format(number_competitor))
+    sku = ManualMatchingData.objects.filter(number_competitor=number_competitor, matching_status=False).distinct('sku_dict__pk')[:30]
     data = serializers.serialize('json', sku)
-    logger.debug('данные ску выгружены')
+    logger.debug('данные ску выгружены -- {}'.format(len(sku)))
     return data
 
 def get_eas_data(sku_id):
     logger.debug('выгружаются данные eas')
-    eas = ManualMatchingData.objects.filter(id_sku_dict=sku_id)
+    eas = ManualMatchingData.objects.filter(sku_dict__pk=sku_id)
     data = serializers.serialize('json', eas)
-    logger.debug('данные eas выгружены')
+    logger.debug('данные eas выгружены -- {}'.format(len(eas)))
     return data

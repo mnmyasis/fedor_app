@@ -4,8 +4,8 @@ from directory.models import ClientDirectory, BaseDirectory
 
 
 class ManualMatchingData(models.Model):
-    id_sku_dict = models.BigIntegerField(blank=True)
-    id_eas_dict = models.BigIntegerField(blank=True)
+    sku_dict = models.ForeignKey(ClientDirectory, on_delete=models.CASCADE)
+    eas_dict = models.ForeignKey(BaseDirectory, on_delete=models.CASCADE)
     name_eas = models.TextField(blank=True)
     name_sku = models.TextField(blank=True)
     lvl = models.FloatField(blank=True)
