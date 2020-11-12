@@ -1,6 +1,9 @@
 from directory.models import *
 from django.core import serializers
 from manual_matching.models import *
+import logging, json
+
+logger = logging.getLogger(__name__)
 
 
 class Filter:
@@ -17,22 +20,82 @@ class Filter:
     def business_logic(self, **fields):
         fm = self.get_filter_matching()
         result = fm.start(**fields)
-        data = serializers.serialize('json', result)
+        try:
+            data = serializers.serialize('json', result)
+        except AttributeError:
+            data = result
         return data
 
 
-class FilterManufacturer:
+class ManualFilter:
+
+    def get_filter_fields(self, fields):
+        filter_field = {  # Данные поля будут присутствовать всегда
+            'sku_dict__pk': fields['sku_id'],  # id SKU
+            'number_competitor': fields['number_competitor'],  # id SKU справочника
+        }
+
+        #  Смотрим какие поля пришли с форм поиска на фронте
+        if fields['barcode']:
+            filter_field['sku_dict__nnt'] = fields['barcode']  # Штриход
+        if fields['manufacturer']:
+            filter_field['eas_dict__manufacturer__icontains'] = fields['manufacturer']  # Производитель
+        if fields['tn_fv']:
+            filter_field['eas_dict__tn_fv__icontains'] = fields['tn_fv']  # Наименование номенклатуры
+        return filter_field
+
+    def get_manufacturer(self, **filter_field):
+        """выгрузка для выпадающего списка фильтра Производитель"""
+        manufacturer = ManualMatchingData.objects.filter(**filter_field).values('eas_dict__manufacturer') \
+            .distinct('eas_dict__manufacturer')
+        manufacturer = json.dumps(list(manufacturer))
+        return manufacturer
+
+    def get_tn_fv(self, **filter_field):
+        """выгрузка для выпадающего списка фильтра Номенклатура"""
+        tn_fv = ManualMatchingData.objects.filter(**filter_field).values('eas_dict__tn_fv').distinct('eas_dict__tn_fv')
+        tn_fv = json.dumps(list(tn_fv))
+        return tn_fv
+
+    def get_barcode(self, **filter_field):
+        """выгрузка для выпадающего списка фильтра Штрихкод"""
+        barcode = ManualMatchingData.objects.filter(**filter_field).values('sku_dict__nnt').distinct('sku_dict__nnt')
+        barcode = json.dumps(list(barcode))
+        return barcode
+
+    def get_eas(self, **filter_field):
+        """выгрузка для таблицы SKU"""
+        eas = ManualMatchingData.objects.filter(**filter_field).values('eas_dict', 'name_eas')
+        eas = json.dumps(list(eas))
+        return eas
 
     def start(self, **fields):
-        print(fields)
-        res = ManualMatchingData.objects.filter(
-            sku_dict__pk=fields['sku_id'],
-            number_competitor=fields['number_competitor'],
-            eas_dict__manufacturer=fields['manufacturer'],
-            eas_dict__tn_fv=fields['tn_fv']
+        logger.debug(fields)
+        filter_field = self.get_filter_fields(fields)  # Подгон полей для поиска по модели
+        eas = self.get_eas(**filter_field)  # Выгрузка данных для таблицы SKU
 
-        )
-        return res
+        if fields['manufacturer']:
+            manufacturer = self.get_manufacturer(**filter_field)  # Выгрузка для выпадающего списка в фильтре
+            # производитель
+        else:
+            manufacturer = None
+        if fields['tn_fv']:
+            tn_fv = self.get_tn_fv(**filter_field)  # Выгрузка для выпадающего списка в фильтре номенклатура
+        else:
+            tn_fv = None
+        if fields['barcode']:
+            barcode = self.get_barcode(**filter_field)  # Выгрузка для выпадающего списка в фильтре штрихкод
+        else:
+            barcode = None
+
+        logger.debug('###################################################')
+        logger.debug(barcode)
+        logger.debug(manufacturer)
+        logger.debug(filter_field)
+        logger.debug('###################################################')
+        result = {'eas': eas, "manufacturer": manufacturer, 'tn_fv': tn_fv, 'barcode': barcode}
+
+        return result
 
 
 if __name__ == '__main__':

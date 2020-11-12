@@ -1,6 +1,5 @@
-{% include 'manual_matching/filters.html' %}
 <div>
-    <h5 class="text-center">MANUAL MATCHING</h5>
+
     <div class="row f-mt" id="manual_matching_app">
         <div class="col s6">
             <h6 class="text-center">SKU</h6>
@@ -8,9 +7,9 @@
                 <ul class="collection with-header">
                     <li class="collection-item"
                         v-for="data in sku"
-                        v-on:click="element_select(data.fields.sku_dict)"
-                        v-bind:class="change_status(data.fields.sku_dict)"
-                        v-html="data.fields.name_sku"></li>
+                        v-on:click="element_select(data.sku_dict)"
+                        v-bind:class="change_status(data.sku_dict)"
+                        v-html="data.name_sku"></li>
                 </ul>
             </div>
         </div>
@@ -20,12 +19,13 @@
                 <ul class="collection with-header">
                     <li class="collection-item"
                         v-for="data in eas"
-                        v-on:click="matching(data.fields.eas_dict)"
-                        v-bind:class="change_status(data.fields.eas_dict)"
-                        v-html="data.fields.name_eas"></li>
+                        v-on:click="matching(data.eas_dict)"
+                        v-bind:class="change_status(data.eas_dict)"
+                        v-html="data.name_eas"></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+
 

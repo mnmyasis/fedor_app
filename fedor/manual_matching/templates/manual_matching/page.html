@@ -14,7 +14,10 @@
                 </ul>
             </div>
         </div>
-        <div id="manual-matching">{% include 'manual_matching/manual.html' %}</div>
+        <div id="manual-matching">
+            {% include 'manual_matching/filters.html' %}
+            {% include 'manual_matching/manual.html' %}
+        </div>
         <div id="final-matching">{% include 'manual_matching/final.html' %}</div>
         {% include 'error_window.html'  %}
         {% include 'access_window.html' %}

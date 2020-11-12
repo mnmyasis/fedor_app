@@ -35,3 +35,13 @@
     opacity: 95%;
 }
 
+.filter-result{
+    position: absolute;
+    display: none;
+    left: 0; bottom: 0;
+    padding: 10px;
+    width: 50%;
+    height: 100%;
+    z-index: 999;
+}
+

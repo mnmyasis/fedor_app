@@ -94,13 +94,14 @@ def filter_matching(request):
     sku_id = request.GET.get('sku_id')  # ID номенклатуры СКУ
     manufacturer = request.GET.get('manufacturer')  # Производитель
     tn_fv = request.GET.get('tn_fv')  # Строка номенклатуры ЕАС
+    barcode = request.GET.get('barcode')  # ШК НСКЗ
 
-    filter_match = Filter(FilterManufacturer())
-    data = filter_match.business_logic(
+    filter_match = Filter(ManualFilter())
+    result = filter_match.business_logic(
         sku_id=sku_id,
         number_competitor=number_competitor,
         manufacturer=manufacturer,
-        tn_fv=tn_fv
+        tn_fv=tn_fv,
+        barcode=barcode
     )
-    result = {'eas': data}
     return JsonResponse(result)

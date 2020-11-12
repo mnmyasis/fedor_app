@@ -70,6 +70,10 @@ body{
   color:var(--color-text);
 }
 
+.validate{
+    color:var(--color-text);
+}
+
 .materialize-textarea {
     color:var(--color-text);
 }
@@ -132,4 +136,10 @@ tr:hover{
 /* настройка выбор записи */
 .eas-select{
     background-color: #2b4952 !important;
+}
+.drop-menu{
+    display: block;
+    position: absolute;
+    background-color: #455a64;
+    z-index: 999;
 }
