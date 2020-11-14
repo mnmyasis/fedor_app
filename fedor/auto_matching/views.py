@@ -17,21 +17,21 @@ logger = logging.getLogger(__name__)
 ## @defgroup auto_matching Модуль автоматической стыковки
 # @brief Основной модуль, содержащий в себе модули авто-стыковки
 
-## @defgroup auto_joint_interface Интерфейс auto_matching
+## @defgroup auto_matching_interface Интерфейс auto_matching
 #  @ingroup auto_matching
 #  @param SHOW_AUTO_JOINT_PAGE_TEMPLATE - Глобальные переменная шаблона
 
-## @defgroup show_joint_page Рендер страницы
-#  @ingroup auto_joint_interface
+## @defgroup show_matching_page Рендер страницы
+#  @ingroup auto_matching_interface
 
 SHOW_AUTO_MATCHING_PAGE_TEMPLATE = 'auto_matching/auto_matching_page.html'
 
 
-## @ingroup show_joint_page
+## @ingroup show_matching_page
 # @{
 # @login_required(login_url='/auth/login/')
 @ensure_csrf_cookie
-def show_auto_joint_page(request):
+def auto_matching_page(request):
     """Рендер страницы авто-стыковки"""
     logger.info(request.session.get('style_interface'))
     return render(request, SHOW_AUTO_MATCHING_PAGE_TEMPLATE, {})
@@ -60,26 +60,17 @@ def search_client_directory_data(request):
 
 ##@}
 
-def joint_element(request):
-    """Выборочная стыковка"""
-    request = json.loads(request.body.decode('utf-8'))
-    logger.debug(request)
-    id_client_directory = request['data']['id_client_directory']
-    number_competitor_id = request['data']['number_competitor_id']
-    logger.debug('id_client_dict: {}'.format(id_client_directory))
-    return JsonResponse(True, safe=False)
-
 
 def algoritm_mathing(request):
     """Функция запуска алгоритма"""
     request = json.loads(request.body.decode('utf-8'))
     number_competitor_id = request['data']['number_competitor_id']
     """Получаем список записей СКУ"""
-    sku_data = test_get_sku(number_competitor_id)
+    sku_data = test_get_sku(number_competitor_id)  # Выгрузка из справочника directory/services/sku_querys
     """Запускаем алгоритм"""
     ts = Test()
     matching_result = ts.get_match_result(sku_data)
-    change_matching_status_sku(sku_data)
+    change_matching_status_sku(sku_data)  # Изменение поля matching_status directory/services/sku_querys
     match = Matching()
     [match.wr_match(matching_state=x['qnt'], matching_line=x) for x in matching_result['data']]
     return JsonResponse(True, safe=False)

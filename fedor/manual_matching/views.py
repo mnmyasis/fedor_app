@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import JsonResponse, Http404
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .services.get_data_directory import *
-from .services.get_data_matching import *
+from .services.get_manual_data import *
+from .services.get_final_data import *
 from .services.manual_matching_data import *
 from .services.filters import *
 import logging, json
@@ -24,7 +25,9 @@ SHOW_MANUAL_MATCHING_PAGE_TEMPLATE = 'manual_matching/page.html'
 
 ## @ingroup show_manual_matching_page
 # @{
+@login_required
 def show_manual_matching_page(request):
+    logger.debug(request.user.pk)
     return render(request, SHOW_MANUAL_MATCHING_PAGE_TEMPLATE)
 
 
@@ -32,9 +35,11 @@ def show_manual_matching_page(request):
 
 def get_sku(request):
     """Получить записи из SKU"""
+    logger.debug(request.user.pk)
+    user_id = request.user.pk
     number_competitor = request.GET.get('number_competitor_id')
     logger.debug(number_competitor)
-    sku = get_sku_data(number_competitor)
+    sku = get_sku_data(number_competitor=number_competitor, user_id=user_id)
     result = {'sku': sku}
     return JsonResponse(result)
 
@@ -50,6 +55,7 @@ def get_eas(request):
 
 def match_eas_sku(request):
     """Смэтчить СКУ к ЕАС вручную"""
+    user_id = request.user.pk
     request = json.loads(request.body.decode('utf-8'))
     sku_id = request['data']['sku_id']
     eas_id = request['data']['eas_id']
@@ -57,8 +63,9 @@ def match_eas_sku(request):
     match = matching_sku_eas(sku_id, eas_id)
     if match:
         number_competitor = request['data']['number_competitor_id']
-        sku = get_sku_data(number_competitor)
+        sku = get_sku_data(number_competitor=number_competitor, user_id=user_id)
         result = {'sku': sku}
+        logger.debug('смэтчено')
         return JsonResponse(result)
     else:
         return JsonResponse(False, safe=False, status=500)

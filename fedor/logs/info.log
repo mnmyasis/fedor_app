@@ -45,3 +45,85 @@ level:INFO time:2020-10-28 12:17:05,018 name:auth_fedor.views message:Ошибк
 level:INFO time:2020-10-28 12:17:10,771 name:auth_fedor.views message:Ошибка авторизации admin
 level:INFO time:2020-10-28 12:17:19,914 name:auth_fedor.views message:Ошибка авторизации admin
 level:INFO time:2020-10-28 12:17:25,012 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2020-11-14 11:35:59,439 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2020-11-14 11:38:15,454 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 11:44:26,763 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 16:32:56,954 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 16:33:19,063 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 16:51:11,823 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 16:55:31,374 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 16:55:31,374 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 16:55:57,397 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 16:55:57,398 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 16:56:45,200 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2020-11-14 16:56:59,052 name:auth_fedor.views message:Ошибка авторизации 
+level:INFO time:2020-11-14 16:57:03,958 name:auth_fedor.views message:Ошибка авторизации 
+level:INFO time:2020-11-14 16:57:21,875 name:auth_fedor.views message:Ошибка авторизации 
+level:INFO time:2020-11-14 17:00:36,873 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2020-11-14 17:00:48,219 name:auth_fedor.views message:Ошибка авторизации 
+level:INFO time:2020-11-14 17:07:15,850 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:07:15,850 name:auth_fedor.views message:next_url = /auth/login/
+level:INFO time:2020-11-14 17:07:24,644 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:07:24,644 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:07:40,754 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:07:40,754 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:11:02,736 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:11:02,736 name:auth_fedor.views message:pre = http://127.0.0.1:8000/auth/login/?next=/matching/manual-matching/page/
+level:DEBUG time:2020-11-14 17:11:02,736 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:11:58,013 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:11:58,013 name:auth_fedor.views message:pre = http://127.0.0.1:8000/auth/login/?next=/matching/manual-matching/page/
+level:DEBUG time:2020-11-14 17:11:58,014 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:13:24,670 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:13:24,670 name:auth_fedor.views message:pre = http://127.0.0.1:8000/auth/login/?next=/matching/manual-matching/page/
+level:DEBUG time:2020-11-14 17:13:24,670 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:17:10,585 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:17:10,586 name:auth_fedor.views message:pre = http://127.0.0.1:8000/auth/login/?next=/matching/manual-matching/page/
+level:DEBUG time:2020-11-14 17:17:10,586 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:18:53,069 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:18:53,069 name:auth_fedor.views message:pre = http://127.0.0.1:8000/auth/login/?next=/matching/manual-matching/page/
+level:DEBUG time:2020-11-14 17:18:53,069 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:19:38,147 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:19:38,147 name:auth_fedor.views message:pre = http://127.0.0.1:8000/auth/login/?next=/matching/manual-matching/page/
+level:DEBUG time:2020-11-14 17:19:38,147 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:26:18,792 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:26:18,792 name:auth_fedor.views message:pre = http://127.0.0.1:8000/auth/login/?next=/matching/manual-matching/page/
+level:INFO time:2020-11-14 17:27:11,900 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2020-11-14 17:27:34,020 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:27:34,020 name:auth_fedor.views message:pre = http://127.0.0.1:8000/auth/login/?next=/matching/manual-matching/page/
+level:DEBUG time:2020-11-14 17:27:34,020 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:28:16,440 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:28:16,440 name:auth_fedor.views message:pre = None
+level:DEBUG time:2020-11-14 17:28:16,440 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:29:00,449 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:29:00,449 name:auth_fedor.views message:pre = None
+level:DEBUG time:2020-11-14 17:29:00,449 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:29:30,162 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:29:30,162 name:auth_fedor.views message:pre = <QueryDict: {'http://127.0.0.1:8000/auth/login/?next': ['/matching/manual-matching/page/']}>
+level:DEBUG time:2020-11-14 17:29:30,162 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:44:04,276 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:44:04,276 name:auth_fedor.views message:pre = <QueryDict: {'http://127.0.0.1:8000/auth/login/?next': ['/matching/manual-matching/page/']}>
+level:DEBUG time:2020-11-14 17:44:04,276 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:44:51,593 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 17:48:05,196 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 17:49:33,941 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 17:51:28,117 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 17:52:09,849 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:52:09,849 name:auth_fedor.views message:pre = []
+level:DEBUG time:2020-11-14 17:52:09,849 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:56:59,720 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 17:56:59,721 name:auth_fedor.views message:pre = ['/matching/manual-matching/page/']
+level:DEBUG time:2020-11-14 17:56:59,721 name:auth_fedor.views message:next_url = None
+level:INFO time:2020-11-14 17:58:25,811 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 18:00:34,572 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 18:00:51,051 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 18:02:34,939 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 18:03:16,435 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-14 18:04:38,921 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 18:04:38,922 name:auth_fedor.views message:/auth/login/on/
+level:INFO time:2020-11-14 18:06:49,846 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 18:06:49,846 name:auth_fedor.views message:<bound method HttpRequest.get_full_path of <WSGIRequest: POST '/auth/login/on/?next=/matching/manual-matching/page/'>>
+level:INFO time:2020-11-14 18:09:30,486 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 18:09:30,486 name:auth_fedor.views message:/auth/login/on/
+level:INFO time:2020-11-14 18:11:19,023 name:auth_fedor.views message:Авторизовался:admin
+level:DEBUG time:2020-11-14 18:11:19,023 name:auth_fedor.views message:/auth/login/on/
+level:INFO time:2020-11-14 18:12:05,163 name:auth_fedor.views message:Авторизовался:admin

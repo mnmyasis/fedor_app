@@ -5,6 +5,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def matching_sku_eas(sku_id, eas_id):
     matching = Matching()
     match_line = {
@@ -22,6 +23,7 @@ def matching_sku_eas(sku_id, eas_id):
         logger.debug('Что-то пошло не так, форма обновила запись')
         return False
 
+
 def edit_status(sku_id, number_competitor, type_binding):
     types_binding = [
         {'status': 1, 'binding_name': 'Мэтчинг по ШК - требуется проверка'},
@@ -34,11 +36,9 @@ def edit_status(sku_id, number_competitor, type_binding):
     ]
     for type_bind in types_binding:
         if type_bind['status'] == type_binding:
-           FinalMatching.objects.filter(
+            FinalMatching.objects.filter(
                 sku_dict__pk=sku_id,
                 number_competitor=number_competitor).update(
-                    type_binding=type_binding,
-                    name_binding=type_bind['binding_name']
-                )
-
-
+                type_binding=type_binding,
+                name_binding=type_bind['binding_name']
+            )

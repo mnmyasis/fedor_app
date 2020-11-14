@@ -4,7 +4,10 @@
 		<a href="#" class="brand-logo">Fedor</a>
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
 			<li></li>
-			<li><p v-bind="test"></p></li>
+			<li><p>{{ request.user }}</p></li>
+			<li>
+				<a href="{% url 'auth_fedor:user_logout' %}"><i class="material-icons">exit_to_app</i></a>
+			</li>
 		</ul>
 	</div>
 </nav>

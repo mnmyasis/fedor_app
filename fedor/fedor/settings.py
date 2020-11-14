@@ -126,11 +126,14 @@ USE_L10N = True
 USE_TZ = True
 
 """Настройки сессии"""
-SESSION_COOKIE_AGE = 30  # Время жизни
+SESSION_COOKIE_AGE = 30000  # Время жизни в секундах
 SESSION_SAVE_EVERY_REQUEST = True  # Время жизни обновляется при любом запросе.
 
 """Настройки логов вынесены в отдельный файл log_setting.py"""
 LOGGING = get_log_settings()
+
+"""Если пользователь не авторизован, то перенаправляет его на URL"""
+LOGIN_URL = '/auth/login/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
