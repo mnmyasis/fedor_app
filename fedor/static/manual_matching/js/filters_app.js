@@ -33,7 +33,7 @@ function filter_request(filter_value){
 
 filters_app = new Vue({
     delimiters: ['{(', ')}'],
-    el: '#filters-app', //работает в файле filters.html
+    el: '#filters-app', //работает в файле manual_filters.html
     data: {
         tn_fv: '', // Для фильтр формы номенклатуры
         manufacturer: '', // Для фильтр формы производитель

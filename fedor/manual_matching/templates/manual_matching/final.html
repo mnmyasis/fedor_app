@@ -12,15 +12,15 @@
         </thead>
 
         <tbody>
-        <tr v-for="data in matching_data">
+        <tr v-for="final_data in matching_data">
             <td><a class="waves-effect waves-light material-icons" href="#edit-matching-modal"
-                   v-on:click="show_redactor_matching(data)"
+                   v-on:click="show_redactor_matching(final_data)"
             >border_color</a></td>
-            <td>{( data.sku_dict__name )}</td>
-            <td>{( data.eas_dict__tn_fv)}</td>
-            <td>{( data.name_binding)}</td>
-            <td>{( data.type_binding )}</td>
-            <td>$0.87</td>
+            <td>{( final_data.sku_dict__name )}</td>
+            <td>{( final_data.eas_dict__tn_fv)}</td>
+            <td>{( final_data.name_binding)}</td>
+            <td>{( final_data.type_binding )}</td>
+            <td>{( final_data.number_competitor )}</td>
         </tr>
         </tbody>
     </table>

@@ -8,5 +8,6 @@ urlpatterns = [
     path('manual-matching/match/', match_eas_sku, name='match_eas_sku'),  # Ручной Мэтчинг
     path('final-matching/page/get/', get_final_matching, name='get_final_matching'),  # Выгрузка данных финальной таблицы
     path('final-matching/edit-match/', edit_match, name='edit_match'),  # Изменение статуса мэтчинга финальной таблицы
-    path('filters-matching/', filter_matching, name='edit_match'),  # Фильтры
+    path('filters-matching/', filter_matching, name='filter_matching'),  # Фильтры ручного мэтчинга
+    path('filters-statuses/', filter_statuses, name='filter_statuses'),  # Фильтры по статусам
 ]

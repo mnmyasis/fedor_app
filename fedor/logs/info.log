@@ -127,3 +127,4 @@ level:DEBUG time:2020-11-14 18:09:30,486 name:auth_fedor.views message:/auth/log
 level:INFO time:2020-11-14 18:11:19,023 name:auth_fedor.views message:Авторизовался:admin
 level:DEBUG time:2020-11-14 18:11:19,023 name:auth_fedor.views message:/auth/login/on/
 level:INFO time:2020-11-14 18:12:05,163 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-15 11:29:32,835 name:auth_fedor.views message:Авторизовался:admin

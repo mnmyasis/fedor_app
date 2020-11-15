@@ -1,19 +1,47 @@
+class FinalMatchingRequest extends PatternRequest{ //Выгрузка данных в таблицу
+    constructor(competitor){
+        super();
+        this.competitor = competitor
+    }
+
+    get_params() {
+        return {
+            'number_competitor_id' : this.competitor
+        }
+    }
+
+    response_access(response) {
+        final_matching_app.matching_data = JSON.parse(response.data.matching)
+    }
+
+}
+
+class EditStatusMatchingRequest extends PatternRequest{ //Редактор статуса мэтчинга
+    constructor(sku_id, competitor, type_bindig){
+        super();
+        this.competitor = competitor
+        this.sku_id = sku_id
+        this.type_binding = type_bindig
+    }
+
+    get_params() {
+        return {
+            'sku_id': this.sku_id,
+            'type_binding': this.type_binding,
+            'number_competitor_id': this.competitor
+        }
+    }
+
+    response_access(response) {
+        get_matching_lines() //Обновление данных в таблице после редактирования
+    }
+}
+
 function get_matching_lines(){
     /* Стартовая выгрузка данных мэтчинга */
-    preloader_app.show_preloading = true
-    axios.get('/matching/final-matching/page/get/?format=json',{
-        params: {
-            'number_competitor_id' : 1
-        }
-    }).then(response => {
-        final_matching_app.matching_data = JSON.parse(response.data.matching)
-    }).catch(error => {
-        modal_error_app.error = error //Сообщение обошибке
-        error_message()//запуск модального окна
-    }).then(function(){
-        preloader_app.show_preloading = false
-
-    })
+    final_matching_request = new FinalMatchingRequest(1)
+    request = new Request(final_matching_request)
+    request.business_logic('/matching/final-matching/page/get/?format=json', 'get')
 }
 
 function matching_redactor(){
@@ -31,8 +59,8 @@ final_matching_app = new Vue({
     delimiters: ['{(', ')}'],
     el: '#final-matching-app',
     data: {
+        edit_matching_url: '/matching/final-matching/edit-match/',
         matching_data: null, //Данные мэтчинга для главной таблицы
-        error: null,
         select_matching: { //Выбранная запись для редактирования
             sku_dict__pk: null,
             sku_dict__name: null,
@@ -43,6 +71,7 @@ final_matching_app = new Vue({
         type_binding: '',//Статус мэтчинга в форме редактирования
         selected: '',
         number_competitor: 1,
+
     },
     methods: {
         /* Событие по клику, запуск редактора мэтчинга */
@@ -57,33 +86,13 @@ final_matching_app = new Vue({
                 error_message()//запуск модального окна
                 return false;
             }
-
-
-            this.error = null
-            preloader_app.show_preloading = true
-            axios.defaults.xsrfCookieName = 'csrftoken'
-            axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
-            axios.post('/matching/final-matching/edit-match/', {
-                data:{
-                    sku_id: sku_id,
-                    type_binding: this.type_binding,
-                    number_competitor_id: this.number_competitor
-                }
-            }).then(function (response){
-                this.matching_data= get_matching_lines()
-            }).catch(error => {
-                this.error = error
-                modal_error_app.error = this.error //Сообщение об ошибке
-                error_message()//запуск модального окна
-            })
-
-            preloader_app.show_preloading = false
+            edit_status_request = new EditStatusMatchingRequest(sku_id, this.number_competitor, this.type_binding)
+            request = new Request(edit_status_request)
+            request.business_logic(this.edit_matching_url,'post')
         }
     },
     mounted(){
         /* Стартовая выгрузка данных мэтчинга */
         get_matching_lines()
-
-
     }
 })

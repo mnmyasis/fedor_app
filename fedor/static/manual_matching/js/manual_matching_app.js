@@ -1,7 +1,11 @@
 class SkuRequest extends PatternRequest{
-    get_params(number_competitor = 1){
+    constructor(competitor){
+        super();
+        this.competitor = competitor
+    }
+    get_params(){
         return {
-            'number_competitor_id' : number_competitor,
+            'number_competitor_id' : this.competitor,
         }
     }
 
@@ -12,10 +16,16 @@ class SkuRequest extends PatternRequest{
 }
 
 class EasRequest extends PatternRequest{
+    constructor(sku_id, competitor) {
+        super();
+        this.competitor = competitor
+        this.sku_id = sku_id
+    }
+
     get_params() {
         return {
-            'number_competitor_id' : manual_matching_app.number_competitor,
-            'sku_id' : manual_matching_app.active_sku
+            'number_competitor_id' : this.competitor ,
+            'sku_id' :  this.sku_id
         }
     }
     response_access(response) {
@@ -26,17 +36,30 @@ class EasRequest extends PatternRequest{
 }
 
 class MatchingRequest extends PatternRequest{
+    constructor(eas_id, sku_id, competitor) {
+        super();
+        this.eas_id = eas_id
+        this.sku_id = sku_id
+        this.competitor = competitor
+    }
     get_params(){
         return {
-            'eas_id': manual_matching_app.active_eas,
-            'sku_id': manual_matching_app.active_sku,
-            'number_competitor_id' : manual_matching_app.number_competitor,
+            'eas_id': this.eas_id ,
+            'sku_id': this.sku_id,
+            'number_competitor_id' : this.competitor,
         }
     }
 
     response_access(response) {
         manual_matching_app.sku = JSON.parse(response.data.sku)
+        load_sku_list() //Подгрузить данные
     }
+}
+
+function load_sku_list(){
+    sku_request = new SkuRequest(1)
+    request = new Request(sku_request)
+    request.business_logic('/matching/manual-matching/page/get/sku/?format=json', 'get')
 }
 
 manual_matching_app = new Vue({
@@ -47,14 +70,13 @@ manual_matching_app = new Vue({
         eas: null,
         number_competitor: 1,
         active_sku: 0,
-        active_eas: 0,
     },
     methods: {
 
         /* Ручной мэтчинг СКУ к ЕАС */
         matching(id_eas){
-            this.active_eas = id_eas
-            matching_request = new MatchingRequest()
+            id_sku = this.active_sku
+            matching_request = new MatchingRequest(id_eas, id_sku, this.number_competitor)
             request_match = new Request(matching_request)
             request_match.business_logic('/matching/manual-matching/match/', 'post')
             this.eas = null
@@ -64,7 +86,7 @@ manual_matching_app = new Vue({
         element_select(id_sku){
             /* Активное состояние элемента */
             this.active_sku = id_sku
-            eas_request = new EasRequest()
+            eas_request = new EasRequest(id_sku, this.number_competitor)
             request1 = new Request(eas_request)
             request1.business_logic('/matching/manual-matching/page/get/eas/?format=json', 'get')
         },
@@ -82,8 +104,6 @@ manual_matching_app = new Vue({
         var options = {};
         M.Tabs.init(tabs, options);
 
-        sku_request = new SkuRequest()
-        request = new Request(sku_request)
-        request.business_logic('/matching/manual-matching/page/get/sku/?format=json', 'get')
+        load_sku_list()
     },
 })

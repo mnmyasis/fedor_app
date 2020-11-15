@@ -9,16 +9,19 @@
         <div class="col s12">
             <div class="card-tabs">
                 <ul class="tabs tabs-fixed-width">
-                    <li class="tab"><a href="#manual-matching" class="active">Ручной мэтчинг</a></li>
-                    <li class="tab"><a href="#final-matching">Мэтчинг</a></li>
+                    <li class="tab"><a href="#manual-matching" >Ручной мэтчинг</a></li>
+                    <li class="tab"><a href="#final-matching" class="active">Мэтчинг</a></li>
                 </ul>
             </div>
         </div>
         <div id="manual-matching">
-            {% include 'manual_matching/filters.html' %}
+            {% include 'manual_matching/manual_filters.html' %}
             {% include 'manual_matching/manual.html' %}
         </div>
-        <div id="final-matching">{% include 'manual_matching/final.html' %}</div>
+        <div id="final-matching">
+            {% include 'manual_matching/final_filters.html' %}
+            {% include 'manual_matching/final.html' %}
+        </div>
         {% include 'error_window.html'  %}
         {% include 'access_window.html' %}
     </div>
@@ -29,4 +32,6 @@
 <script src="{% static 'manual_matching/js/manual_matching_app.js' %}"></script>
 <script src="{% static 'manual_matching/js/final_matching_app.js' %}"></script>
 <script src="{% static 'manual_matching/js/filters_app.js' %}"></script>
+<script src="{% static 'manual_matching/js/final_filters_app.js' %}"></script>
+
 {% endblock %}

@@ -20,7 +20,7 @@ class Request{
         preloader_app.show_preloading = false
     }
 
-    business_logic(url, request_type){
+    business_logic(url, request_type, competitor=null){
         this.start_preloader()
         request = this.get_request()
         if(request_type == 'get'){

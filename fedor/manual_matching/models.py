@@ -45,4 +45,3 @@ class FinalMatching(models.Model):
 
     class Meta:
         db_table = 'final_matching'
-        ordering = ['sku_dict']

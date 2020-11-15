@@ -2,7 +2,6 @@ from directory.models import *
 from manual_matching.models import *
 from django.core import serializers
 import logging, re, time, json
-
 logger = logging.getLogger(__name__)
 
 
@@ -12,10 +11,11 @@ def binding_decorator(model):
         def wrap_binding(*args, **kwargs):
             count_data = model.objects.filter(number_competitor=kwargs['number_competitor'],
                                               user=kwargs['user_id']).distinct('sku_dict').count()  # Кол-во записей привязанных к пользователю
+            logger.debug('Id пользователя - {}    Записей - {}'.format(kwargs['user_id'], count_data))
             if count_data < 10:  # Если записей у пользователя меньше 10, привязывается еще 50шт.
                 model.objects.filter(pk__in=
-                                     model.objects.filter(number_competitor=kwargs['number_competitor']).distinct(
-                                         'pk').values('pk')[:50]
+                                     model.objects.filter(number_competitor=kwargs['number_competitor'], user=None).distinct(
+                                         'sku_dict').values('pk')[:50]
                                      ).update(user=kwargs['user_id'])  # Привязка данных к юзеру
             return func(*args, **kwargs)
 
