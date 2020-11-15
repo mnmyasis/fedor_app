@@ -67,7 +67,7 @@ class MatchingManual(MatchingWrite):
             'eas_dict': matching_line['id_eas'],
             'type_binding': 3,
             'name_binding': 'Мэтчинг вручную',
-            'user': None,
+            'user': matching_line['user'],
             'number_competitor': matching_line['number_competitor'],
             'old_type_binding': 0
         }

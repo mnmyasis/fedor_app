@@ -68,6 +68,8 @@ manual_matching_app = new Vue({
     data: {
         sku: null,
         eas: null,
+        eas_load_url: '/matching/manual-matching/page/get/eas/?format=json',
+        sku_eas_match_url: '/matching/manual-matching/match/',
         number_competitor: 1,
         active_sku: 0,
     },
@@ -78,7 +80,7 @@ manual_matching_app = new Vue({
             id_sku = this.active_sku
             matching_request = new MatchingRequest(id_eas, id_sku, this.number_competitor)
             request_match = new Request(matching_request)
-            request_match.business_logic('/matching/manual-matching/match/', 'post')
+            request_match.business_logic(this.sku_eas_match_url, 'post')
             this.eas = null
         },
 
@@ -88,7 +90,7 @@ manual_matching_app = new Vue({
             this.active_sku = id_sku
             eas_request = new EasRequest(id_sku, this.number_competitor)
             request1 = new Request(eas_request)
-            request1.business_logic('/matching/manual-matching/page/get/eas/?format=json', 'get')
+            request1.business_logic(this.eas_load_url, 'get')
         },
 
         /* Выделение цветом выбранного элемента css класс eac-select*/

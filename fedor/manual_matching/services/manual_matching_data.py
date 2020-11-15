@@ -6,13 +6,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def matching_sku_eas(sku_id, eas_id, number_competitor):
+def matching_sku_eas(sku_id, eas_id, number_competitor, user_id):
     logger.debug("Match sku_id - {} eas_id - {} competitor - {}".format(sku_id, eas_id, number_competitor))
     matching = Matching()
     match_line = {
         'id_sku': sku_id,
         'id_eas': eas_id,
-        'number_competitor': number_competitor
+        'number_competitor': number_competitor,
+        'user': user_id
     }
     res = matching.wr_match(matching_state='manual', matching_line=match_line)
     logger.debug('###############################')

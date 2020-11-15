@@ -14,7 +14,6 @@ class FilterRequest extends PatternRequest{
         filters_app.filter_lines.manufacturer = JSON.parse(response.data.manufacturer) //Выгрузка для выпадающего списка фильтров
         filters_app.filter_lines.barcode = JSON.parse(response.data.barcode)
         filters_app.filter_lines.tn_fv = JSON.parse(response.data.tn_fv)
-        console.log(filters_app.filter_lines)
     }
 
 }
@@ -52,7 +51,21 @@ filters_app = new Vue({
         request: new Request(new FilterRequest())
     },
     methods:{
-
+        /* Сброс фильтров */
+        reset_filter(){
+            this.drop_menu_status.manufacturer = false
+            this.drop_menu_status.tn_fv = false
+            this.drop_menu_status.barcode = false
+            this.filter_lines.tn_fv = null
+            this.filter_lines.manufacturer = null
+            this.filter_lines.barcode = null
+            this.tn_fv = ''
+            this.manufacturer = ''
+            this.barcode = ''
+            eas_request = new EasRequest(manual_matching_app.active_sku, manual_matching_app.number_competitor)
+            request1 = new Request(eas_request)
+            request1.business_logic(manual_matching_app.eas_load_url, 'get')
+        },
         /* Запрос при записи данных в фильтрах */
         filter_manufacturer(){
             this.drop_menu_status.manufacturer= filter_request(this.manufacturer)//Фильтр производителя ЕАС
@@ -81,4 +94,7 @@ filters_app = new Vue({
             this.request.business_logic(this.url, 'get') //обновляет список таблицы ЕАС на интерфейсе
         }
     },
+    mounted(){
+
+    }
 })

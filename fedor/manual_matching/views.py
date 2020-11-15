@@ -65,7 +65,7 @@ def match_eas_sku(request):
     eas_id = request['data']['eas_id']
     number_competitor = request['data']['number_competitor_id']
     logger.debug('sku_id: {} ----> eas_id: {}'.format(sku_id, eas_id))
-    match = matching_sku_eas(sku_id, eas_id, number_competitor)  # Мэтчинг в final_matching id записей
+    match = matching_sku_eas(sku_id, eas_id, number_competitor, user_id)  # Мэтчинг в final_matching id записей
     if match:  # Если запись прошла без ошибок, подгружаются еще данные
         sku = get_sku_data(number_competitor=number_competitor, user_id=user_id)
         result = {'sku': sku}
@@ -125,8 +125,8 @@ def filter_matching(request):
 @login_required
 def filter_statuses(request):
     number_competitor = request.GET.get('number_competitor_id')
-    statuses = request.GET.get('statuses')
+    statuses = json.loads(request.GET.get('statuses'))
+    user_id = request.user.pk
     statuses_filter = Filter(FilterStatuses())
-    result = statuses_filter.business_logic(number_competitor=number_competitor, statuses=statuses)
-    result = {}
+    result = statuses_filter.business_logic(number_competitor=number_competitor, statuses=statuses, user_id=user_id)
     return JsonResponse(result)

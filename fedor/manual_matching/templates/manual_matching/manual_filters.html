@@ -1,8 +1,24 @@
 <div id="filters-app">
     <div class="row">
+        <!-- START ФИЛЬТР ПО НСКЗ -->
+        <div class="col s4">
+            <div class="input-field col s4">
+                <select>
+                    <option value="1">Штрихкод</option>
+                    <option value="2">Наименование</option>
+                </select>
+                <label>SKU</label>
+            </div>
+            <div class="input-field col s5">
+                <input placeholder="" id="sku-filter" type="text" class="validate"
+                       v-model="sku_filter_line" @input="filter_sku">
+                <label for="sku-filter">Поиск НСКЗ</label>
+            </div>
+        </div>
+        <!-- END ФИЛЬТР ПО НСКЗ -->
         <!-- START ФИЛЬТР ПО ШТРИХКОДУ -->
-        <div class="col s2">
-            <div class="input-field">
+        <div class="col s2 offset-s2">
+            <div class="input-field col s12">
                 <input placeholder="По полю ШК НСКЗ" id="barcode" type="text" class="validate"
                        v-model="barcode" @input="filter_barcode">
                 <label for="barcode">Штрих код</label>
@@ -20,8 +36,8 @@
         <!-- END ФИЛЬТР ПО ШТРИХКОДУ -->
 
         <!-- START ФИЛЬТР ПО НОМЕНКЛАТУРЕ -->
-        <div class="col s3">
-            <div class="input-field">
+        <div class="col s2">
+            <div class="input-field col s12">
                 <input placeholder="По части строки номенклатуры" id="tn_fv" type="text" class="validate"
                        v-model="tn_fv" @input="filter_tn_fv">
                 <label for="tn_fv">Номенклатура</label>
@@ -39,8 +55,8 @@
         <!-- END ФИЛЬТР ПО НОМЕНКЛАТУРЕ -->
 
         <!-- START ФИЛЬТР ПО ПРОИЗВОДИТЕЛЮ -->
-        <div class="col s3">
-            <div class="input-field">
+        <div class="col s2">
+            <div class="input-field col s12">
                 <input placeholder="По полю Производитель" id="manufacturer" type="text" class="validate"
                        v-model="manufacturer" @input="filter_manufacturer">
                 <label for="manufacturer">Производитель</label>
@@ -57,4 +73,29 @@
         </div>
         <!-- END ФИЛЬТР ПО ПРОИЗВОДИТЕЛЮ -->
     </div>
+    <div class="row">
+        <div class="col s2 offset-s11">
+            <a class="waves-effect waves-light btn-small"
+               v-on:click="reset_filter">
+                Сброс</a>
+        </div>
+    </div>
+    <!-- START ФИЛЬТР ПО НСКЗ -->
+   <!-- <div class="row">
+        <div class="col s4">
+            <div class="input-field col s4">
+                <select>
+                    <option value="1">Штрихкод</option>
+                    <option value="2">Наименование</option>
+                </select>
+                <label>SKU</label>
+            </div>
+            <div class="input-field col s8">
+                <input placeholder="" id="sku-filter" type="text" class="validate"
+                       v-model="sku_filter_line" @input="filter_sku">
+                <label for="sku-filter">Поиск НСКЗ</label>
+            </div>
+        </div>
+    </div>-->
+    <!-- END ФИЛЬТР ПО НСКЗ -->
 </div>

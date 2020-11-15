@@ -6,7 +6,7 @@ class StatusesFilterRequest extends PatternRequest{
     }
     get_params() {
         return {
-            'statuses_id': this.statuses,
+            'statuses': JSON.stringify(this.statuses),
             'number_competitor_id': this.competitor
         }
     }
@@ -20,7 +20,7 @@ final_filters_app = new Vue({
     delimiters: ['{(', ')}'],
     el: '#final-filters-app', //работает в файле final_filters.html
     data: {
-        url:'',
+        url:'/matching/filters-statuses/',
         statuses: [],
     },
     methods:{
@@ -32,7 +32,9 @@ final_filters_app = new Vue({
         },
         clear_filter(){
             this.statuses = []
-            document.querySelector(".select-dropdown").value='Мэтчинг Статус'
+            filter_status_form = document.querySelector(".filters-statuses-form")
+            filter_status_form.querySelector(".select-dropdown").value='Мэтчинг Статус'
+            get_matching_lines() // /manual_matching/final_matching_apps.js выгрузка без фильтров
 
         }
     },
