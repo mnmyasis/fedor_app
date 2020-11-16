@@ -1,5 +1,6 @@
 from .filters import Filter
 from manual_matching.models import *
+from directory.models import *
 import logging, json
 
 logger = logging.getLogger(__name__)

@@ -7,7 +7,8 @@ from .services.get_manual_data import get_sku_data, get_eas_data
 from .services.get_final_data import final_get_sku, final_matching_lines
 from .services.manual_matching_data import matching_sku_eas, edit_status
 from .services.filters import Filter, ManualFilter
-from .services.filter_statuses import FilterStatuses
+from .services.filters_final import FilterStatuses
+from directory.services.sku_querys import search_by_tn_fv
 import logging, json
 
 logger = logging.getLogger(__name__)
@@ -72,7 +73,7 @@ def match_eas_sku(request):
         logger.debug('смэтчено')
         return JsonResponse(result)
     else:
-        return JsonResponse(False, safe=False, status=500)
+        return JsonResponse(True, safe=False)  # Запись успешно обновлена
 
 
 @login_required
@@ -129,4 +130,13 @@ def filter_statuses(request):
     user_id = request.user.pk
     statuses_filter = Filter(FilterStatuses())
     result = statuses_filter.business_logic(number_competitor=number_competitor, statuses=statuses, user_id=user_id)
+    return JsonResponse(result)
+
+
+@login_required
+def re_match_filter(request):
+    tn_fv = request.GET.get('tn_fv')
+    manufacturer = request.GET.get('manufacturer')
+    res = search_by_tn_fv(tn_fv=tn_fv, manufacturer=manufacturer)
+    result = {'eas': res}
     return JsonResponse(result)

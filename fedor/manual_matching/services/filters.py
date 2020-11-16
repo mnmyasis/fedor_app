@@ -87,12 +87,6 @@ class ManualFilter:
             barcode = self.get_barcode(**filter_field)  # Выгрузка для выпадающего списка в фильтре штрихкод
         else:
             barcode = None
-
-        logger.debug('###################################################')
-        logger.debug(barcode)
-        logger.debug(manufacturer)
-        logger.debug(filter_field)
-        logger.debug('###################################################')
         result = {'eas': eas, "manufacturer": manufacturer, 'tn_fv': tn_fv, 'barcode': barcode}
 
         return result

@@ -103,8 +103,7 @@ manual_matching_app = new Vue({
     },
     mounted(){
         var tabs = document.querySelector('.tabs');
-        var options = {};
-        M.Tabs.init(tabs, options);
+        M.Tabs.init(tabs);
 
         load_sku_list()
     },

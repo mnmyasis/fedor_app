@@ -10,4 +10,6 @@ urlpatterns = [
     path('final-matching/edit-match/', edit_match, name='edit_match'),  # Изменение статуса мэтчинга финальной таблицы
     path('filters-matching/', filter_matching, name='filter_matching'),  # Фильтры ручного мэтчинга
     path('filters-statuses/', filter_statuses, name='filter_statuses'),  # Фильтры по статусам
+    path('filters-by-tn_fv/', re_match_filter, name='re_match_filter'),  # Фильтр в модальном окне ремэтч
+
 ]

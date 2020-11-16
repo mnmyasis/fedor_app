@@ -16,6 +16,7 @@ class StatusesFilterRequest extends PatternRequest{
     }
 }
 
+
 final_filters_app = new Vue({
     delimiters: ['{(', ')}'],
     el: '#final-filters-app', //работает в файле final_filters.html

@@ -48,6 +48,7 @@ filters_app = new Vue({
             'tn_fv': false, //наименование номенклатуры ЕАС
             'barcode': false //Штрихкод СКУ
         },
+        sku_filter_line: '',
         request: new Request(new FilterRequest())
     },
     methods:{
@@ -75,6 +76,9 @@ filters_app = new Vue({
         },
         filter_barcode(){
             this.drop_menu_status.barcode= filter_request(this.barcode) //Фильтр Штрих код СКУ
+        },
+        filter_sku(line){
+
         },
 
         /* Клик по записи в выпадающем списке filter_line и type_menu получаем из filters.html */
