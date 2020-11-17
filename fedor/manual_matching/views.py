@@ -6,7 +6,7 @@ from django.urls import reverse
 from .services.get_manual_data import get_sku_data, get_eas_data
 from .services.get_final_data import final_get_sku, final_matching_lines
 from .services.manual_matching_data import matching_sku_eas, edit_status
-from .services.filters import Filter, ManualFilter
+from .services.filters import Filter, ManualFilter, SKUFilter
 from .services.filters_final import FilterStatuses
 from directory.services.sku_querys import search_by_tn_fv
 import logging, json
@@ -106,6 +106,7 @@ def edit_match(request):
 
 @login_required
 def filter_matching(request):
+    """Фильтры ручного мэтчинга по таблице ЕАС"""
     number_competitor = request.GET.get('number_competitor_id')  # Справочник СКУ
     sku_id = request.GET.get('sku_id')  # ID номенклатуры СКУ
     manufacturer = request.GET.get('manufacturer')  # Производитель
@@ -124,7 +125,28 @@ def filter_matching(request):
 
 
 @login_required
+def filter_for_sku_list(request):
+    """Фильтры ручного мэтчинга SKU"""
+    type_filter = int(request.GET.get('type_filter'))
+    line = request.GET.get('search_line')
+    number_competitor = request.GET.get('number_competitor_id')
+
+    user_id = request.user.pk
+    search_line = {'user': user_id, 'number_competitor': number_competitor}
+    if type_filter == 1:
+        search_line['sku_dict__nnt'] = line
+    elif type_filter == 2:
+        search_line['name_sku__icontains'] = line
+    else:
+        return JsonResponse(False, safe=False)
+    sku_filter = Filter(SKUFilter())
+    res = sku_filter.business_logic(**search_line)
+    return JsonResponse(res)
+
+
+@login_required
 def filter_statuses(request):
+    """Фильтр по статусу мэтчинга"""
     number_competitor = request.GET.get('number_competitor_id')
     statuses = json.loads(request.GET.get('statuses'))
     user_id = request.user.pk
@@ -135,6 +157,7 @@ def filter_statuses(request):
 
 @login_required
 def re_match_filter(request):
+    """Фильтрация по ЕАС tn_fv AND manufacturer"""
     tn_fv = request.GET.get('tn_fv')
     manufacturer = request.GET.get('manufacturer')
     res = search_by_tn_fv(tn_fv=tn_fv, manufacturer=manufacturer)

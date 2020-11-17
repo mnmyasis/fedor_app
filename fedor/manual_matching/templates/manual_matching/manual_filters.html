@@ -3,7 +3,9 @@
         <!-- START ФИЛЬТР ПО НСКЗ -->
         <div class="col s4">
             <div class="input-field col s4">
-                <select>
+                <select id="sku-filter-form"
+                        v-model="type_sku_filter">
+                    <option value="" disabled selected>Выберите поле</option>
                     <option value="1">Штрихкод</option>
                     <option value="2">Наименование</option>
                 </select>
@@ -16,6 +18,7 @@
             </div>
         </div>
         <!-- END ФИЛЬТР ПО НСКЗ -->
+
         <!-- START ФИЛЬТР ПО ШТРИХКОДУ -->
         <div class="col s2 offset-s2">
             <div class="input-field col s12">
@@ -74,8 +77,8 @@
         <!-- END ФИЛЬТР ПО ПРОИЗВОДИТЕЛЮ -->
     </div>
     <div class="row">
-        <div class="col s2 offset-s11">
-            <a class="waves-effect waves-light btn-small"
+        <div class="col s2 offset-s10">
+            <a class="waves-effect waves-light btn-small float-right"
                v-on:click="reset_filter">
                 Сброс</a>
         </div>

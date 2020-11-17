@@ -9,6 +9,7 @@ urlpatterns = [
     path('final-matching/page/get/', get_final_matching, name='get_final_matching'),  # Выгрузка данных финальной таблицы
     path('final-matching/edit-match/', edit_match, name='edit_match'),  # Изменение статуса мэтчинга финальной таблицы
     path('filters-matching/', filter_matching, name='filter_matching'),  # Фильтры ручного мэтчинга
+    path('filters-matching/sku/', filter_for_sku_list, name='filter_for_sku_list'),  # Фильтр по СКУ
     path('filters-statuses/', filter_statuses, name='filter_statuses'),  # Фильтры по статусам
     path('filters-by-tn_fv/', re_match_filter, name='re_match_filter'),  # Фильтр в модальном окне ремэтч
 

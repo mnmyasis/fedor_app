@@ -9,3 +9,7 @@
 .rematching-redactor{
     height: 1500px !important;
 }
+
+.float-right{
+    float: right;
+}

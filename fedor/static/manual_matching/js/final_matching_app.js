@@ -33,7 +33,9 @@ class EditStatusMatchingRequest extends PatternRequest{ //Редактор ст�
     }
 
     response_access(response) {
-        get_matching_lines() //Обновление данных в таблице после редактирования
+        var res = JSON.parse(response.data.matching)
+        final_matching_app.select_matching.type_binding = res[0].type_binding
+        final_matching_app.select_matching.name_binding = res[0].name_binding
     }
 }
 
@@ -70,10 +72,6 @@ class RematchingRequest extends PatternRequest{
             'sku_id': this.sku_id,
             'number_competitor_id' : this.competitor,
         }
-    }
-
-    response_access(response) {
-        //get_matching_lines() //Подгрузить данные
     }
 }
 
@@ -138,6 +136,13 @@ final_matching_app = new Vue({
                 error_message()//запуск модального окна
                 return false;
             }
+            for(let i=0;i < this.matching_data.length;i++){ //Изменение записи в таблице
+                if(this.matching_data[i].sku_dict__pk == sku_id){
+                    this.matching_data[i].type_binding = this.select_matching.type_binding
+                    this.matching_data[i].type_binding = this.select_matching.name_binding
+
+                }
+            }
             edit_status_request = new EditStatusMatchingRequest(sku_id, this.number_competitor, this.type_binding)
             request = new Request(edit_status_request)
             request.business_logic(this.edit_matching_url,'post')
@@ -157,7 +162,7 @@ final_matching_app = new Vue({
             req = new Request(rematch_req)
             req.business_logic(this.rematch_url, 'post')
 
-            for(let i=0;i < this.matching_data.length;i++){
+            for(let i=0;i < this.matching_data.length;i++){ //Изменение записи в таблице
                 this.matching_data[i]
                 if(this.matching_data[i].sku_dict__pk == sku_id){
                     this.matching_data[i].eas_dict__tn_fv = tn_fv

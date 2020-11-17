@@ -18,16 +18,44 @@ class FilterRequest extends PatternRequest{
 
 }
 
-function filter_request(filter_value){
-    /* Если в форме фильтра нет данных, скрываем выпадающее меню */
-    /* Как только в форме фильтра появляется значение, показываем */
-    if(filter_value.length == 0){
-        menu_status = false
-    }else{
-        menu_status = true
+class SkuFilterRequest extends PatternRequest{
+    constructor(search_line, type_filter) {
+        super();
+        this.search_line = search_line; //Строка из формы поиска
+        this.type_filter = type_filter; //Select форма с выбором штрихкод\наименование
     }
-    filters_app.request.business_logic(filters_app.url, 'get') //Обновляем информацию в таблице EAS
-    return menu_status
+
+    get_params() {
+        return {
+            'search_line': this.search_line,
+            'type_filter': this.type_filter,
+            'number_competitor_id': manual_matching_app.number_competitor,
+        };
+    }
+
+    response_access(response) {
+        console.log(response.data)
+        manual_matching_app.sku = JSON.parse(response.data.sku)
+    }
+}
+
+function filter_request(filter_value){
+    if(manual_matching_app.active_sku){ //Актвная запись в таблице ску
+        /* Если в форме фильтра нет данных, скрываем выпадающее меню */
+        /* Как только в форме фильтра появляется значение, показываем */
+        if(filter_value.length == 0){
+            menu_status = false
+        }else{
+            menu_status = true
+        }
+        filters_app.request.business_logic(filters_app.url, 'get') //Обновляем информацию в таблице EAS
+        return menu_status
+    }else{
+        modal_error_app.error = 'Не выбрана запись SKU'
+        error_message()
+        return false;
+    }
+
 }
 
 filters_app = new Vue({
@@ -38,6 +66,7 @@ filters_app = new Vue({
         manufacturer: '', // Для фильтр формы производитель
         barcode: '', // Для фильтр формы штрих код
         url: '/matching/filters-matching/?format=json',
+        sku_filter_url: '/matching/filters-matching/sku/?format=json',
         filter_lines: { // Результат для выпадающего списка, нужен для filters.html
             'manufacturer' : null,
             'tn_fv': null,
@@ -49,6 +78,7 @@ filters_app = new Vue({
             'barcode': false //Штрихкод СКУ
         },
         sku_filter_line: '',
+        type_sku_filter: '',
         request: new Request(new FilterRequest())
     },
     methods:{
@@ -63,9 +93,9 @@ filters_app = new Vue({
             this.tn_fv = ''
             this.manufacturer = ''
             this.barcode = ''
-            eas_request = new EasRequest(manual_matching_app.active_sku, manual_matching_app.number_competitor)
-            request1 = new Request(eas_request)
-            request1.business_logic(manual_matching_app.eas_load_url, 'get')
+            const eas_request = new EasRequest(manual_matching_app.active_sku, manual_matching_app.number_competitor);
+            this.request.set_request(eas_request)
+            this.request.business_logic(manual_matching_app.eas_load_url, 'get')
         },
         /* Запрос при записи данных в фильтрах */
         filter_manufacturer(){
@@ -77,7 +107,15 @@ filters_app = new Vue({
         filter_barcode(){
             this.drop_menu_status.barcode= filter_request(this.barcode) //Фильтр Штрих код СКУ
         },
-        filter_sku(line){
+        filter_sku(){
+            if(this.type_sku_filter){
+                let sku_filter = new SkuFilterRequest(this.sku_filter_line, this.type_sku_filter)
+                this.request.set_request(sku_filter)
+                this.request.business_logic(this.sku_filter_url, 'get')
+            }else{
+                modal_error_app.error = 'Не выбрано поле фильтра'
+                error_message()
+            }
 
         },
 
@@ -99,6 +137,7 @@ filters_app = new Vue({
         }
     },
     mounted(){
-
+        var elems = document.querySelectorAll('sku-filter-form');
+        var instances = M.FormSelect.init(elems);
     }
 })
