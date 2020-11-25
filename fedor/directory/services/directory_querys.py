@@ -1,4 +1,4 @@
-from directory.models import ClientDirectory, BaseDirectory
+from directory.models import ClientDirectory, BaseDirectory, NumberCompetitor
 import json
 
 
@@ -23,3 +23,9 @@ def search_by_tn_fv(**fields):
     res = BaseDirectory.objects.filter(**filter_fields)[:50].values('pk', 'tn_fv', 'manufacturer')
     res = json.dumps(list(res))
     return res
+
+
+def get_number_competitor_list():
+    number_competitors = NumberCompetitor.objects.all().values('pk', 'name')
+    number_competitors = json.dumps(list(number_competitors))
+    return number_competitors

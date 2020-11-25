@@ -8,7 +8,7 @@ from .services.get_final_data import final_get_sku, final_matching_lines
 from .services.manual_matching_data import matching_sku_eas, edit_status
 from .services.filters import Filter, ManualFilter, SKUFilter
 from .services.filters_final import FilterStatuses
-from directory.services.sku_querys import search_by_tn_fv
+from directory.services.directory_querys import search_by_tn_fv
 import logging, json
 
 logger = logging.getLogger(__name__)

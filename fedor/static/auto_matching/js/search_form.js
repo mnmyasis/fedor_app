@@ -63,10 +63,6 @@ var search_form_app = new Vue({
         var tabs = document.querySelector('.tabs');
         var options = {};
         M.Tabs.init(tabs, options);
-
-        var select_from = document.querySelector('.sel');
-        var options = {};
-        M.FormSelect.init(select_from, options);
     }
 })
 

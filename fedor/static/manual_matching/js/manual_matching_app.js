@@ -57,8 +57,8 @@ class MatchingRequest extends PatternRequest{
 }
 
 function load_sku_list(){
-    sku_request = new SkuRequest(1)
-    request = new Request(sku_request)
+    let sku_request = new SkuRequest(get_number_competitor())
+    let request = new Request(sku_request)
     request.business_logic('/matching/manual-matching/page/get/sku/?format=json', 'get')
 }
 
@@ -70,7 +70,7 @@ manual_matching_app = new Vue({
         eas: null,
         eas_load_url: '/matching/manual-matching/page/get/eas/?format=json',
         sku_eas_match_url: '/matching/manual-matching/match/',
-        number_competitor: 1,
+        //number_competitor: number_competitor_app.select_number_competitor,
         active_sku: 0,
     },
     methods: {
@@ -78,7 +78,7 @@ manual_matching_app = new Vue({
         /* Ручной мэтчинг СКУ к ЕАС */
         matching(id_eas){
             id_sku = this.active_sku
-            matching_request = new MatchingRequest(id_eas, id_sku, this.number_competitor)
+            matching_request = new MatchingRequest(id_eas, id_sku, get_number_competitor())
             request_match = new Request(matching_request)
             request_match.business_logic(this.sku_eas_match_url, 'post')
             this.eas = null
@@ -87,8 +87,9 @@ manual_matching_app = new Vue({
         /* Функция выбора элемента и выгрузки данных из ЕАС*/
         element_select(id_sku){
             /* Активное состояние элемента */
+            console.log(id_sku)
             this.active_sku = id_sku
-            eas_request = new EasRequest(id_sku, this.number_competitor)
+            eas_request = new EasRequest(id_sku, get_number_competitor())
             request1 = new Request(eas_request)
             request1.business_logic(this.eas_load_url, 'get')
         },
@@ -102,8 +103,11 @@ manual_matching_app = new Vue({
         },
     },
     mounted(){
-        var tabs = document.querySelector('.tabs');
+        let tabs = document.querySelector('.tabs');
         M.Tabs.init(tabs);
+
+        let tabs_menu = document.querySelector('.tabs-menu');
+        M.Tabs.init(tabs_menu);
 
         load_sku_list()
     },

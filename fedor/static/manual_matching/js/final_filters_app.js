@@ -27,7 +27,7 @@ final_filters_app = new Vue({
     methods:{
         statuses_filter(){
             console.log(this.statuses)
-            statuses_filter_request = new StatusesFilterRequest(this.statuses, final_matching_app.number_competitor)
+            statuses_filter_request = new StatusesFilterRequest(this.statuses, get_number_competitor())
             request = new Request(statuses_filter_request)
             request.business_logic(this.url, 'get')
         },

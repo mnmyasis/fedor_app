@@ -2,7 +2,7 @@ class FilterRequest extends PatternRequest{
     get_params() {
         return {
             'tn_fv': filters_app.tn_fv,
-            'number_competitor_id': manual_matching_app.number_competitor,
+            'number_competitor_id': get_number_competitor(),
             'sku_id': manual_matching_app.active_sku,
             'barcode': filters_app.barcode,
             'manufacturer': filters_app.manufacturer
@@ -23,13 +23,14 @@ class SkuFilterRequest extends PatternRequest{
         super();
         this.search_line = search_line; //Строка из формы поиска
         this.type_filter = type_filter; //Select форма с выбором штрихкод\наименование
+        this.competitor = get_number_competitor()
     }
 
     get_params() {
         return {
             'search_line': this.search_line,
             'type_filter': this.type_filter,
-            'number_competitor_id': manual_matching_app.number_competitor,
+            'number_competitor_id': this.competitor,
         };
     }
 
@@ -84,16 +85,18 @@ filters_app = new Vue({
     methods:{
         /* Сброс фильтров */
         reset_filter(){
-            this.drop_menu_status.manufacturer = false
+            this.drop_menu_status.manufacturer = false // Статус показывать\не показывать
             this.drop_menu_status.tn_fv = false
             this.drop_menu_status.barcode = false
-            this.filter_lines.tn_fv = null
+            this.filter_lines.tn_fv = null // Значение в выпадающего списка
             this.filter_lines.manufacturer = null
             this.filter_lines.barcode = null
-            this.tn_fv = ''
+            this.tn_fv = ''  // Значение в форме
             this.manufacturer = ''
             this.barcode = ''
-            const eas_request = new EasRequest(manual_matching_app.active_sku, manual_matching_app.number_competitor);
+
+            // Выгрузка без фильтров
+            const eas_request = new EasRequest(manual_matching_app.active_sku, get_number_competitor());
             this.request.set_request(eas_request)
             this.request.business_logic(manual_matching_app.eas_load_url, 'get')
         },
@@ -137,7 +140,7 @@ filters_app = new Vue({
         }
     },
     mounted(){
-        var elems = document.querySelectorAll('sku-filter-form');
-        var instances = M.FormSelect.init(elems);
+        let elems = document.querySelectorAll('sku-filter-form');
+        let instances = M.FormSelect.init(elems);
     }
 })

@@ -8,8 +8,8 @@
                     <div class="card-tabs">
                         <ul class="tabs tabs-fixed-width">
                             <li class="tab"><a href="#test4">Авто-мэтчинг</a></li>
-                            <li class="tab"><a href="#test5">Параметры запуска</a></li>
-                            <li class="tab"><a href="#test6" class="active">Мэтчинг по SKU</a></li>
+                            <li class="tab"><a href="#test5" class="active">Параметры запуска</a></li>
+                            <li class="tab"><a href="#test6">Мэтчинг по SKU</a></li>
                         </ul>
                     </div>
                 </div>
@@ -35,17 +35,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- -->
-                <div id="test5" class="col s12">
-                    <div class="input-field col s6 f-mt">
-                        <select class="sel">
-                            <option value="0" selected>Выберите справочник</option>
-                            <option value="1">Кровавый харчок</option>
-                            <option value="2">Торололо</option>
-                        </select>
-                        <label>Клиентский справочник</label>
-                    </div>
-                    <div class="input-field col s6">
+                <!---->
+                <div id="test5" class="col s12  f-mt">
+                    {% include 'number_competitor.html' %}
+                    <div class="input-field col s6 offset-s3">
                         <textarea id="textarea1" class="materialize-textarea"></textarea>
                         <label for="textarea1">Акции</label>
                     </div>

@@ -14,8 +14,8 @@ class ManualMatchingData(models.Model):
     matching_status = models.BooleanField(default=False)
     number_competitor = models.IntegerField(default=1)
     user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
-    date_update = models.DateTimeField(auto_now_add=True)
-    date = models.DateTimeField(auto_now=True)
+    create_date= models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'manual_matching_data'
@@ -29,7 +29,8 @@ class FinalMatching(models.Model):
     old_type_binding = models.IntegerField(blank=True)
     user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
     number_competitor = models.IntegerField()
-    date = models.DateTimeField(auto_now=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
     '''
     type_binding:
         1 - алгоритм

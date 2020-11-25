@@ -33,7 +33,7 @@ class EditStatusMatchingRequest extends PatternRequest{ //Редактор ст�
     }
 
     response_access(response) {
-        var res = JSON.parse(response.data.matching)
+        let res = JSON.parse(response.data.matching)
         final_matching_app.select_matching.type_binding = res[0].type_binding
         final_matching_app.select_matching.name_binding = res[0].name_binding
     }
@@ -77,27 +77,27 @@ class RematchingRequest extends PatternRequest{
 
 function get_matching_lines(){
     /* Стартовая выгрузка данных мэтчинга */
-    final_matching_request = new FinalMatchingRequest(1)
-    request = new Request(final_matching_request)
+    let final_matching_request = new FinalMatchingRequest(get_number_competitor())
+    let request = new Request(final_matching_request)
     request.business_logic('/matching/final-matching/page/get/?format=json', 'get')
 }
 
 /* Запускается по события клика по кнопке */
 function matching_redactor(){
     /* инициализация редактора мэтчинга */
-    var modal_edit_match = document.getElementById('edit-matching-modal');
-    var instance_modal_edit_match = M.Modal.init(modal_edit_match);
+    let modal_edit_match = document.getElementById('edit-matching-modal');
+    let instance_modal_edit_match = M.Modal.init(modal_edit_match);
     instance_modal_edit_match.open()
     /* инициализация select form в редакторе мэтчинга */
-    var select_from = document.querySelector('.binding-type');
-    var options = {};
+    let select_from = document.querySelector('.binding-type');
+    let options = {};
     M.FormSelect.init(select_from, options);
 }
 
 function re_matching_redactor(){
     /* инициализация редактора ре-мэтчинга */
-    var modal_re_matching= document.getElementById('re-matching');
-    var instance_modal_re_matching = M.Modal.init(modal_re_matching);
+    let modal_re_matching= document.getElementById('re-matching');
+    let instance_modal_re_matching = M.Modal.init(modal_re_matching);
     instance_modal_re_matching.open()
 }
 
@@ -117,7 +117,7 @@ final_matching_app = new Vue({
         },
         type_binding: '',//Статус мэтчинга в форме редактирования
         selected: '',
-        number_competitor: 1,
+        //number_competitor: 1,
         tn_fv: '',
         manufacturer: '',
         eas: ''
@@ -143,7 +143,7 @@ final_matching_app = new Vue({
 
                 }
             }
-            edit_status_request = new EditStatusMatchingRequest(sku_id, this.number_competitor, this.type_binding)
+            edit_status_request = new EditStatusMatchingRequest(sku_id, get_number_competitor(), this.type_binding)
             request = new Request(edit_status_request)
             request.business_logic(this.edit_matching_url,'post')
         },
@@ -151,15 +151,15 @@ final_matching_app = new Vue({
             re_matching_redactor()
         },
         filter_tn_fv(){
-            req = new Request(new FilterTNFVRequest(this.tn_fv, this.manufacturer))
+            let req = new Request(new FilterTNFVRequest(this.tn_fv, this.manufacturer))
             req.business_logic('/matching/filters-by-tn_fv/?format=json', 'get')
         },
         /* Перепривязка СКУ к другому элементу ЕАС */
         rematch_request(eas_id, tn_fv){
             this.eas_dict__tn_fv = this.tn_fv
-            sku_id = this.select_matching.sku_dict__pk
-            rematch_req = new RematchingRequest(eas_id,sku_id,this.number_competitor)
-            req = new Request(rematch_req)
+            let sku_id = this.select_matching.sku_dict__pk
+            let rematch_req = new RematchingRequest(eas_id,sku_id, get_number_competitor())
+            let req = new Request(rematch_req)
             req.business_logic(this.rematch_url, 'post')
 
             for(let i=0;i < this.matching_data.length;i++){ //Изменение записи в таблице
@@ -168,9 +168,9 @@ final_matching_app = new Vue({
                     this.matching_data[i].eas_dict__tn_fv = tn_fv
                 }
             }
-            var modal_re_matching= document.getElementById('re-matching');
-            var instance = M.Modal.getInstance(modal_re_matching);
-            instance.destroy();
+            let modal_re_matching= document.getElementById('re-matching');
+            let instance = M.Modal.getInstance(modal_re_matching);
+            instance.close();
 
         }
     },

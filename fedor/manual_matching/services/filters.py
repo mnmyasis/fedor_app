@@ -95,7 +95,7 @@ class ManualFilter:
 class SKUFilter:
 
     def start(self, **fields):
-        sku = ManualMatchingData.objects.filter(**fields).distinct('sku_dict__pk').values('sku_dict__pk', 'name_sku')
+        sku = ManualMatchingData.objects.filter(**fields).distinct('sku_dict__pk').values('sku_dict', 'name_sku')
         sku = json.dumps(list(sku))
         result = {'sku': sku}
         return result

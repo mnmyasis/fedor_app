@@ -24,8 +24,8 @@ def matching_sku_eas(sku_id, eas_id, number_competitor, user_id):
         ManualMatchingData.objects.filter(sku_dict__pk=sku_id, number_competitor=number_competitor).delete()
         return True
     else:
-        logger.debug('Что-то пошло не так, форма обновила запись')
-        return False
+        logger.debug('СКУ успешно ремэтчинулось ску:{} еас:{}'.format(sku_id, eas_id))
+        return True
 
 
 def edit_status(sku_id, number_competitor, type_binding):

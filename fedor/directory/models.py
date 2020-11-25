@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class EAS(models.Model):
+class EAS(models.Model):  # Не используется
     product_base_name = models.CharField(max_length=500)
     trade_name_id = models.BigIntegerField()
     trade_name = models.CharField(max_length=500)
@@ -10,12 +10,23 @@ class EAS(models.Model):
     class Meta:
         db_table = 'eas'
 
+
+class NumberCompetitor(models.Model):
+    """СКУ справочники"""
+    name = models.TextField(default='test')
+
+    class Meta:
+        db_table = 'number_competitor'
+
+
 class ClientDirectory(models.Model):
-    """Клиентский справочник"""
+    """СКУ справочник"""
     nnt = models.IntegerField()
     name = models.TextField()
     matching_status = models.BooleanField(default=False)
-    number_competitor = models.IntegerField()
+    number_competitor = models.ForeignKey(NumberCompetitor, on_delete=models.CASCADE)
+    create_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'client_directory'
@@ -23,7 +34,7 @@ class ClientDirectory(models.Model):
 
 
 class BaseDirectory(models.Model):
-    """Базовый справочник"""
+    """ЕАС справочник"""
 
     umbrella_brand = models.TextField(blank=True)
     source = models.TextField(blank=True)
@@ -51,8 +62,3 @@ class BaseDirectory(models.Model):
 
     class Meta:
         db_table = 'base_directory'
-
-    def get_filter_fields(self):
-        """Получить имена полей базового справочника"""
-        fields = [x.name for x in self._meta.get_fields()]
-        return fields
