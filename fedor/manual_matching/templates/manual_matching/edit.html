@@ -36,9 +36,7 @@
                 <td>{( select_matching.name_binding )}</td>
                 <td>{( select_matching.type_binding )}</td>
                 <td>{( select_matching.number_competitor )}</td>
-                <td><a class="waves-effect waves-light material-icons" href="#edit-matching-modal"
-                       v-on:click="redactor_rematching()"
-                >border_color</a></td>
+                <td><a class="waves-effect waves-light material-icons modal-trigger" href="#re-matching">border_color</a></td>
             </tr>
             </tbody>
         </table>
@@ -84,7 +82,7 @@
                 <h6 class="text-center">EAS</h6>
                 <div class="matching-lists">
                     <ul class="collection with-header">
-                        <li class="collection-item"
+                        <li class="collection-item modal-close"
                             v-for="data in eas"
                             v-on:click="rematch_request(data.pk, data.tn_fv)">{( data.tn_fv )} {( data.manufacturer  )}</li>
                     </ul>

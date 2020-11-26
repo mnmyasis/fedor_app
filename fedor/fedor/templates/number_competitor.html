@@ -1,6 +1,6 @@
 <div id="number-competitor-app">
     <div class="input-field col s3">
-        <select class="sel-competitor" v-model="select_number_competitor" @change="refresh_load_data">
+        <select class="sel-competitor" v-model="$number_competitor" @change="refresh_load_data">
             <option value="0" disabled selected>Выберите справочник</option>
             <option v-for="data in number_competitors"
                     :value="data.pk"

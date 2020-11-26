@@ -136,3 +136,4 @@ level:INFO time:2020-11-17 19:25:21,778 name:auth_fedor.views message:Автор
 level:INFO time:2020-11-17 19:26:31,314 name:auth_fedor.views message:Авторизовался:admin
 level:INFO time:2020-11-23 18:29:32,628 name:auth_fedor.views message:Авторизовался:admin
 level:INFO time:2020-11-25 17:05:29,345 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2020-11-26 13:53:12,012 name:auth_fedor.views message:Авторизовался:admin

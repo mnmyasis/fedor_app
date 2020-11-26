@@ -52,15 +52,26 @@ class MatchingRequest extends PatternRequest{
 
     response_access(response) {
         manual_matching_app.sku = JSON.parse(response.data.sku)
-        load_sku_list() //Подгрузить данные
     }
 }
 
-function load_sku_list(){
+/*function load_sku_list(){
     let sku_request = new SkuRequest(get_number_competitor())
     let request = new Request(sku_request)
     request.business_logic('/matching/manual-matching/page/get/sku/?format=json', 'get')
+}*/
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+
+Vue.prototype.$manual_sku_list = [];
+
+Vue.prototype.$load_sku_list = function (){
+    let request_params = {'number_competitor_id' : this.$number_competitor}
+    let url = '/matching/manual-matching/page/get/sku/?format=json'
+    axios.get(url, {params: request_params}).then(response => manual_matching_app.sku = (JSON.parse(response.data.sku)));
 }
+
+
 
 manual_matching_app = new Vue({
     delimiters: ['{(', ')}'],
@@ -78,9 +89,10 @@ manual_matching_app = new Vue({
         /* Ручной мэтчинг СКУ к ЕАС */
         matching(id_eas){
             id_sku = this.active_sku
-            matching_request = new MatchingRequest(id_eas, id_sku, get_number_competitor())
+            matching_request = new MatchingRequest(id_eas, id_sku, this.$number_competitor())
             request_match = new Request(matching_request)
             request_match.business_logic(this.sku_eas_match_url, 'post')
+            this.$load_sku_list() //Подгрузить данные
             this.eas = null
         },
 
@@ -89,13 +101,13 @@ manual_matching_app = new Vue({
             /* Активное состояние элемента */
             console.log(id_sku)
             this.active_sku = id_sku
-            eas_request = new EasRequest(id_sku, get_number_competitor())
+            eas_request = new EasRequest(id_sku, this.$number_competitor)
             request1 = new Request(eas_request)
             request1.business_logic(this.eas_load_url, 'get')
         },
 
         /* Выделение цветом выбранного элемента css класс eac-select*/
-        change_status: function(id_sku){
+        change_status(id_sku){
             /* Вешаем активный класс на элемент */
             return{
             'eas-select' : this.active_sku === id_sku
@@ -105,10 +117,7 @@ manual_matching_app = new Vue({
     mounted(){
         let tabs = document.querySelector('.tabs');
         M.Tabs.init(tabs);
-
-        let tabs_menu = document.querySelector('.tabs-menu');
-        M.Tabs.init(tabs_menu);
-
-        load_sku_list()
+        /* Выгрузка ску номенклатуры */
+        this.$load_sku_list();
     },
 })

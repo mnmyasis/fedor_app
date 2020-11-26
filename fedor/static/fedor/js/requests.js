@@ -20,14 +20,16 @@ class Request{
     }
 
     business_logic(url, request_type, competitor=null){
+        let result
         this.start_preloader()
         let request = this.get_request()
         if(request_type == 'get'){
-            request.send_get_request(url)
+            result = request.send_get_request(url)
         }else if(request_type == 'post'){
-            request.send_post_request(url)
+            result = request.send_post_request(url)
         }
         this.close_preloader()
+        return result
     }
 
 }

@@ -1,16 +1,6 @@
-class CompetitorRequest extends PatternRequest{
+Vue.prototype.$number_competitor = 1
 
-    response_access(response) {
-        number_competitor_app.number_competitors = JSON.parse(response.data.number_competitors)
-        console.log(JSON.parse(response.data.number_competitors))
-    }
-}
-
-function get_number_competitor(){
-    return number_competitor_app.select_number_competitor
-}
-
-let number_competitor_app = new Vue({
+number_competitor_app = new Vue({
     delimiters: ['{(', ')}'],
     el: '#number-competitor-app',
     data: {
@@ -21,16 +11,15 @@ let number_competitor_app = new Vue({
     methods:{
         refresh_load_data(){
             if(typeof(final_matching_app) != 'undefined'){
-                get_matching_lines()
+                this.$get_matching_lines()
             }
             if(typeof(manual_matching_app) != 'undefined'){
-                load_sku_list()
+                this.$load_sku_list()
             }
         }
     },
     mounted(){
-        let competitor_request = new Request(new CompetitorRequest())
-        competitor_request.business_logic(this.url, 'get')
+        axios.get(this.url).then(response => this.number_competitors = (JSON.parse(response.data.number_competitors)));
     },
     updated(){
         let select_competitor = document.querySelector('.sel-competitor');
