@@ -119,8 +119,9 @@ filters_app = new Vue({
                         .then(function (response) {
                             manual_matching_app.sku = JSON.parse(response.data.sku)
                         }).catch(function (error) {
-                        console.log(error)
-                    });
+                            modal_error_app.error = error
+                            error_message()
+                        });
                 }else{
                     modal_error_app.error = 'Не выбрано поле фильтра'
                     error_message()

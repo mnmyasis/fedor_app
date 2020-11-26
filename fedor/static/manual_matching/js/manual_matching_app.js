@@ -5,7 +5,12 @@ axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 Vue.prototype.$load_sku_list = function (){
     let request_params = {'number_competitor_id' : this.$number_competitor}
     let url = '/matching/manual-matching/page/get/sku/?format=json'
-    axios.get(url, {params: request_params}).then(response => manual_matching_app.sku = (JSON.parse(response.data.sku)));
+    axios.get(url, {params: request_params}).then(function (response){
+        manual_matching_app.sku = (JSON.parse(response.data.sku))
+    }).catch(function (error){
+        modal_error_app.error = error
+        error_message()
+    })
 }
 
 Vue.prototype.$load_eas_list = function (id_sku, url){
@@ -17,8 +22,9 @@ Vue.prototype.$load_eas_list = function (id_sku, url){
         .then(function (response){
             manual_matching_app.eas = JSON.parse(response.data.eas)
         }).catch(function (error){
-        console.log(error)
-    });
+            modal_error_app.error = error
+            error_message()
+        });
 }
 
 manual_matching_app = new Vue({
@@ -45,8 +51,9 @@ manual_matching_app = new Vue({
                 .then(function (response){
                     manual_matching_app.sku = (JSON.parse(response.data.sku))
                 }).catch(function (error){
-                    console.log(error)
-            });
+                    modal_error_app.error = error
+                    error_message()
+                });
 
             this.$load_sku_list() //Подгрузить данные
             this.eas = null

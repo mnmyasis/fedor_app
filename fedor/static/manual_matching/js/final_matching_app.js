@@ -2,7 +2,12 @@ Vue.prototype.$get_matching_lines = function(){
     let request_params = {'number_competitor_id' : this.$number_competitor}
     let url = '/matching/final-matching/page/get/?format=json'
     axios.get(url, {params: request_params})
-        .then(response => final_matching_app.matching_data = (JSON.parse(response.data.matching)));
+        .then(function (response){
+            final_matching_app.matching_data = JSON.parse(response.data.matching)
+        }).catch(function (error){
+            modal_error_app.error = error
+            error_message()
+        });
 }
 
 final_matching_app = new Vue({
@@ -54,8 +59,9 @@ final_matching_app = new Vue({
                         }
                     }
                 }).catch(function (error){
-                console.log(error)
-            });
+                    modal_error_app.error = error
+                    error_message()
+                });
 
 
         },
@@ -71,8 +77,9 @@ final_matching_app = new Vue({
             axios.post(this.rematch_url, {data: request_params})
                 .then(function (response){
                 }).catch(function (error){
-                console.log(error)
-            });
+                    modal_error_app.error = error
+                    error_message()
+                });
 
 
             for(let i=0;i < this.matching_data.length;i++){ //Изменение записи в таблице
@@ -94,7 +101,12 @@ final_matching_app = new Vue({
                 'manufacturer': this.manufacturer
             }
             axios.get(this.filter_for_eas, {params: request_params})
-                .then(response => this.eas = JSON.parse(response.data.eas) );
+                .then(function (response){
+                    final_matching_app.eas = JSON.parse(response.data.eas)
+                }).catch(function (error){
+                    modal_error_app.error = error
+                    error_message()
+                });
         }
     },
     watch:{

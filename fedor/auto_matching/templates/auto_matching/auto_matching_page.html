@@ -4,49 +4,91 @@
 
 <div class="container">
             <div class="row">
-                <div class="col s12">
-                    <div class="card-tabs">
-                        <ul class="tabs tabs-fixed-width">
-                            <li class="tab"><a href="#test4">Авто-мэтчинг</a></li>
-                            <li class="tab"><a href="#test5" class="active">Параметры запуска</a></li>
-                            <li class="tab"><a href="#test6">Мэтчинг по SKU</a></li>
+                <!-- <div class="col s12">
+                     <div class="card-tabs">
+                         <ul class="tabs tabs-fixed-width">
+                             <li class="tab"><a href="#auto-matching">Авто-мэтчинг</a></li>
+                             <li class="tab"><a href="#params-auto-matching" class="active">Параметры запуска</a></li>
+                             <li class="tab"><a href="#test6">Мэтчинг по SKU</a></li>
                         </ul>
                     </div>
-                </div>
+                </div>-->
 
                 <!-- -->
-                <div id="test4" class="col s12">
-                    <div class="col s12 m6 f-mt">
+                <div id="auto-matching" class="col s12">
+                    <div class="col s4 f-mt">
                         <div class="card">
                             <div class="card-content">
                                 <span class="card-title">Авто-мэтчинг</span>
                                 <p>Запуск мэтчинга SKU с помощью алгоритма</p>
                             </div>
                             <div class="card-action">
-                                <div id="joint-app">
+                                <div id="auto_matching_app">
                                     <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
                                             v-on:click="send_data_on_joint()">Смэтчить
                                         <i class="material-icons right">autorenew</i>
                                     </button>
-                                    {% include 'error_window.html'  %}
-                                    {% include 'access_window.html'  %}
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col s4 f-mt">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Параметры</span>
+                                <p>
+                                    <label>
+                                        <input type="checkbox" />
+                                        <span>По акции</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input type="checkbox" />
+                                        <span>Дверять ШК</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                        <input type="checkbox" />
+                                        <span>СКУ</span>
+                                    </label>
+                                </p>
+                            </div>
+                            <div class="card-action">
+                                <div class="input-field">
+                                    <select>
+                                        <option value="" disabled selected>Choose your option</option>
+                                        <option value="1">Option 1</option>
+                                        <option value="2">Option 2</option>
+                                        <option value="3">Option 3</option>
+                                    </select>
+                                    <label>По дате добавления СКУ</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s4 f-mt">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Справочники</span>
+                                {% include 'number_competitor.html' %}
+                            </div>
+                            <div class="card-action">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!---->
-                <div id="test5" class="col s12  f-mt">
+                <!--
+                <div id="params-auto-matching" class="col s12  f-mt">
                     {% include 'number_competitor.html' %}
                     <div class="input-field col s6 offset-s3">
                         <textarea id="textarea1" class="materialize-textarea"></textarea>
                         <label for="textarea1">Акции</label>
                     </div>
-                </div>
+                </div>-->
                 <!-- -->
-                <div id="test6" class="col s12">
-                    {% include 'auto_matching/client_table.html' %}
-                </div>
+
                 <!-- -->
             </div>
 </div>
@@ -54,5 +96,5 @@
 
 {% block script %}
     <script src="{% static 'auto_matching/js/search_form.js' %}"></script>
-    <script src="{% static 'auto_matching/js/joint_functions.js' %}"></script>
+    <script src="{% static 'auto_matching/js/auto_matching.js' %}"></script>
 {% endblock %}

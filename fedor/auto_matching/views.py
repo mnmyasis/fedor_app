@@ -10,7 +10,7 @@ from .services.zalivv import *
 from .services.client_directory_manipulate import *
 from .services.algoritm import *
 from .services.write_mathing_result import *
-from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list
+from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list, test_get_sku
 
 logger = logging.getLogger(__name__)
 

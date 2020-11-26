@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'fw/materialize/css/materialize.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/menu.css' %}">
     <script src="{% static 'fw/vuejs/vue.js' %}"></script>
     <script src="{% static 'fw/axios/dist/axios.min.js' %}"></script>
     {% block custom_css %}{% endblock %}
@@ -18,9 +19,10 @@
 {% include 'preloader.html' %}
 {% include 'main_menu.html' %}
 {% block content %}{% endblock %}
+{% include 'error_window.html'  %}
+{% include 'access_window.html'  %}
 </body>
 <script src="{% static 'fw/materialize/js/materialize.min.js' %}"></script>
-<script src="{% static 'fedor/js/requests.js' %}"></script>
 <script src="{% static 'fedor/js/main_menu.js' %}"></script>
 <script src="{% static 'fedor/js/show_error_window.js' %}"></script>
 <script src="{% static 'fedor/js/show_access_window.js' %}"></script>

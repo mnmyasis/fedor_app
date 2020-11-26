@@ -6,7 +6,9 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        {% include 'number_competitor.html' %}
+        <div class="col s2 f-ml">
+            {% include 'number_competitor.html' %}
+        </div>
         <div class="col s12">
             <div class="card-tabs">
                 <ul class="tabs tabs-fixed-width">
@@ -23,8 +25,6 @@
             {% include 'manual_matching/final_filters.html' %}
             {% include 'manual_matching/final.html' %}
         </div>
-        {% include 'error_window.html'  %}
-        {% include 'access_window.html' %}
     </div>
 </div>
 {% endblock %}
