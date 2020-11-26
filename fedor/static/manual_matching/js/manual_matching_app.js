@@ -1,69 +1,6 @@
-class SkuRequest extends PatternRequest{
-    constructor(competitor){
-        super();
-        this.competitor = competitor
-    }
-    get_params(){
-        return {
-            'number_competitor_id' : this.competitor,
-        }
-    }
-
-    response_access(response) {
-        manual_matching_app.sku = JSON.parse(response.data.sku)
-    }
-
-}
-
-class EasRequest extends PatternRequest{
-    constructor(sku_id, competitor) {
-        super();
-        this.competitor = competitor
-        this.sku_id = sku_id
-    }
-
-    get_params() {
-        return {
-            'number_competitor_id' : this.competitor ,
-            'sku_id' :  this.sku_id
-        }
-    }
-    response_access(response) {
-        manual_matching_app.eas = JSON.parse(response.data.eas)
-    }
-
-
-}
-
-class MatchingRequest extends PatternRequest{
-    constructor(eas_id, sku_id, competitor) {
-        super();
-        this.eas_id = eas_id
-        this.sku_id = sku_id
-        this.competitor = competitor
-    }
-    get_params(){
-        return {
-            'eas_id': this.eas_id ,
-            'sku_id': this.sku_id,
-            'number_competitor_id' : this.competitor,
-        }
-    }
-
-    response_access(response) {
-        manual_matching_app.sku = JSON.parse(response.data.sku)
-    }
-}
-
-/*function load_sku_list(){
-    let sku_request = new SkuRequest(get_number_competitor())
-    let request = new Request(sku_request)
-    request.business_logic('/matching/manual-matching/page/get/sku/?format=json', 'get')
-}*/
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 
-Vue.prototype.$manual_sku_list = [];
 
 Vue.prototype.$load_sku_list = function (){
     let request_params = {'number_competitor_id' : this.$number_competitor}
@@ -71,7 +8,18 @@ Vue.prototype.$load_sku_list = function (){
     axios.get(url, {params: request_params}).then(response => manual_matching_app.sku = (JSON.parse(response.data.sku)));
 }
 
-
+Vue.prototype.$load_eas_list = function (id_sku, url){
+    let request_params = {
+        'number_competitor_id' : this.$number_competitor,
+        'sku_id': id_sku
+    }
+    axios.get(url, {params: request_params})
+        .then(function (response){
+            manual_matching_app.eas = JSON.parse(response.data.eas)
+        }).catch(function (error){
+        console.log(error)
+    });
+}
 
 manual_matching_app = new Vue({
     delimiters: ['{(', ')}'],
@@ -81,29 +29,36 @@ manual_matching_app = new Vue({
         eas: null,
         eas_load_url: '/matching/manual-matching/page/get/eas/?format=json',
         sku_eas_match_url: '/matching/manual-matching/match/',
-        //number_competitor: number_competitor_app.select_number_competitor,
         active_sku: 0,
     },
     methods: {
 
-        /* Ручной мэтчинг СКУ к ЕАС */
+        /* Запись ручной мэтчинг СКУ к ЕАС */
         matching(id_eas){
-            id_sku = this.active_sku
-            matching_request = new MatchingRequest(id_eas, id_sku, this.$number_competitor())
-            request_match = new Request(matching_request)
-            request_match.business_logic(this.sku_eas_match_url, 'post')
+            let id_sku = this.active_sku
+            let request_params = {
+                'number_competitor_id' : this.$number_competitor,
+                'eas_id': id_eas,
+                'sku_id': id_sku
+            }
+            axios.post(this.sku_eas_match_url, {data: request_params})
+                .then(function (response){
+                    manual_matching_app.sku = (JSON.parse(response.data.sku))
+                }).catch(function (error){
+                    console.log(error)
+            });
+
             this.$load_sku_list() //Подгрузить данные
             this.eas = null
         },
 
-        /* Функция выбора элемента и выгрузки данных из ЕАС*/
-        element_select(id_sku){
+        /* Выгрзука вариантов мэтчинга */
+        load_eas_variants_for_sku(id_sku){
             /* Активное состояние элемента */
             console.log(id_sku)
-            this.active_sku = id_sku
-            eas_request = new EasRequest(id_sku, this.$number_competitor)
-            request1 = new Request(eas_request)
-            request1.business_logic(this.eas_load_url, 'get')
+            this.active_sku = id_sku // Для какой номенклатуры выгружаются варианты мэтчинга
+            this.$load_eas_list(id_sku, this.eas_load_url)
+
         },
 
         /* Выделение цветом выбранного элемента css класс eac-select*/

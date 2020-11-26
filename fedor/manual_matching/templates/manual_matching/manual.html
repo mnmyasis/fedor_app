@@ -6,7 +6,7 @@
                 <ul class="collection with-header">
                     <li class="collection-item"
                         v-for="data in sku"
-                        v-on:click="element_select(data.sku_dict)"
+                        v-on:click="load_eas_variants_for_sku(data.sku_dict)"
                         v-bind:class="change_status(data.sku_dict)"
                         v-html="data.name_sku"></li>
                 </ul>

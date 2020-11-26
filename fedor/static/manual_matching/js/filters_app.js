@@ -1,64 +1,3 @@
-class FilterRequest extends PatternRequest{
-    get_params() {
-        return {
-            'tn_fv': filters_app.tn_fv,
-            'number_competitor_id': get_number_competitor(),
-            'sku_id': manual_matching_app.active_sku,
-            'barcode': filters_app.barcode,
-            'manufacturer': filters_app.manufacturer
-        }
-    }
-
-    response_access(response) {
-        manual_matching_app.eas = JSON.parse(response.data.eas) // Выгрузка для списка EAS файлы manual.html и manual_matching_app.js
-        filters_app.filter_lines.manufacturer = JSON.parse(response.data.manufacturer) //Выгрузка для выпадающего списка фильтров
-        filters_app.filter_lines.barcode = JSON.parse(response.data.barcode)
-        filters_app.filter_lines.tn_fv = JSON.parse(response.data.tn_fv)
-    }
-
-}
-
-class SkuFilterRequest extends PatternRequest{
-    constructor(search_line, type_filter) {
-        super();
-        this.search_line = search_line; //Строка из формы поиска
-        this.type_filter = type_filter; //Select форма с выбором штрихкод\наименование
-        this.competitor = get_number_competitor()
-    }
-
-    get_params() {
-        return {
-            'search_line': this.search_line,
-            'type_filter': this.type_filter,
-            'number_competitor_id': this.competitor,
-        };
-    }
-
-    response_access(response) {
-        console.log(response.data)
-        manual_matching_app.sku = JSON.parse(response.data.sku)
-    }
-}
-
-function filter_request(filter_value){
-    if(manual_matching_app.active_sku){ //Актвная запись в таблице ску
-        /* Если в форме фильтра нет данных, скрываем выпадающее меню */
-        /* Как только в форме фильтра появляется значение, показываем */
-        if(filter_value.length == 0){
-            menu_status = false
-        }else{
-            menu_status = true
-        }
-        filters_app.request.business_logic(filters_app.url, 'get') //Обновляем информацию в таблице EAS
-        return menu_status
-    }else{
-        modal_error_app.error = 'Не выбрана запись SKU'
-        error_message()
-        return false;
-    }
-
-}
-
 filters_app = new Vue({
     delimiters: ['{(', ')}'],
     el: '#filters-app', //работает в файле manual_filters.html
@@ -68,7 +7,7 @@ filters_app = new Vue({
         barcode: '', // Для фильтр формы штрих код
         url: '/matching/filters-matching/?format=json',
         sku_filter_url: '/matching/filters-matching/sku/?format=json',
-        filter_lines: { // Результат для выпадающего списка, нужен для filters.html
+        filter_lines: { // Выпадающий список при поиске по фильтру
             'manufacturer' : null,
             'tn_fv': null,
             'barcode': null
@@ -80,7 +19,7 @@ filters_app = new Vue({
         },
         sku_filter_line: '',
         type_sku_filter: '',
-        request: new Request(new FilterRequest())
+        stop_watch_for_click: false,
     },
     methods:{
         /* Сброс фильтров */
@@ -96,51 +35,103 @@ filters_app = new Vue({
             this.barcode = ''
 
             // Выгрузка без фильтров
-            const eas_request = new EasRequest(manual_matching_app.active_sku, get_number_competitor());
-            this.request.set_request(eas_request)
-            this.request.business_logic(manual_matching_app.eas_load_url, 'get')
-        },
-        /* Запрос при записи данных в фильтрах */
-        filter_manufacturer(){
-            this.drop_menu_status.manufacturer= filter_request(this.manufacturer)//Фильтр производителя ЕАС
-        },
-        filter_tn_fv(){
-            this.drop_menu_status.tn_fv= filter_request(this.tn_fv) //Фильтр наименования номенклатуры ЕАС
-        },
-        filter_barcode(){
-            this.drop_menu_status.barcode= filter_request(this.barcode) //Фильтр Штрих код СКУ
-        },
-        filter_sku(){
-            if(this.type_sku_filter){
-                let sku_filter = new SkuFilterRequest(this.sku_filter_line, this.type_sku_filter)
-                this.request.set_request(sku_filter)
-                this.request.business_logic(this.sku_filter_url, 'get')
-            }else{
-                modal_error_app.error = 'Не выбрано поле фильтра'
-                error_message()
-            }
-
+            this.$load_eas_list(manual_matching_app.active_sku, manual_matching_app.sku_eas_match_url)
         },
 
         /* Клик по записи в выпадающем списке filter_line и type_menu получаем из filters.html */
         change_drop_menu_status(filter_line, type_menu){
+            this.stop_watch_for_click = true // запрещает показывать выпадающее меню.
             if(type_menu == 1){ //barcode
                 this.barcode = filter_line //Заполнение формы выбранной записью из выпадающего списка
-                this.drop_menu_status.barcode = false //Скрытие списка
             }
             if(type_menu == 2){ //tn_fv
                 this.tn_fv = filter_line
-                this.drop_menu_status.tn_fv = false
             }
             if(type_menu == 3){ //manufacturer
                 this.manufacturer = filter_line
-                this.drop_menu_status.manufacturer = false
             }
-            this.request.business_logic(this.url, 'get') //обновляет список таблицы ЕАС на интерфейсе
+        }
+    },
+
+    computed: {
+        filter_for_eas_variant:
+            function () {
+                if(manual_matching_app.active_sku) {
+                    console.log('computed ' + this.tn_fv + ' ' + this.manufacturer + ' ' + this.barcode)
+                    let request_params = {
+                        'number_competitor_id': this.$number_competitor,
+                        'tn_fv': this.tn_fv,
+                        'sku_id': manual_matching_app.active_sku,
+                        'barcode': this.barcode,
+                        'manufacturer': this.manufacturer
+                    }
+                    axios.get(this.url, {params: request_params})
+                        .then(function (response) {
+                            manual_matching_app.eas = JSON.parse(response.data.eas)
+                            filters_app.filter_lines.manufacturer = JSON.parse(response.data.manufacturer)
+                            filters_app.filter_lines.barcode = JSON.parse(response.data.barcode)
+                            filters_app.filter_lines.tn_fv = JSON.parse(response.data.tn_fv)
+                        }).catch(function (error) {
+                        console.log(error)
+                    });
+                }else if(this.manufacturer.length > 0 || this.tn_fv.length > 0 || this.barcode.length > 0){
+                    modal_error_app.error = 'Не выбрана запись SKU'
+                    error_message()
+                    return false;
+                }
+        },
+    },
+    watch: {
+        filter_for_eas_variant: function (){},
+        manufacturer: function () {
+            if(this.manufacturer.length == 0 || this.stop_watch_for_click) { //Если был клик по выпадающему меню, то меню скрывается
+                this.drop_menu_status.manufacturer = false
+                this.stop_watch_for_click = false // Разрешает показывать всплывающее меню
+            }else{
+                this.drop_menu_status.manufacturer = true
+            }
+        },
+        tn_fv: function (){
+            if(this.tn_fv.length == 0 || this.stop_watch_for_click) {
+                this.drop_menu_status.tn_fv = false
+                this.stop_watch_for_click = false
+            }else{
+                this.drop_menu_status.tn_fv = true
+            }
+        },
+        barcode: function (){
+            if(this.barcode.length == 0 || this.stop_watch_for_click) {
+                this.drop_menu_status.barcode = false
+                this.stop_watch_for_click = false
+            }else{
+                this.drop_menu_status.barcode = true
+            }
+        },
+        sku_filter_line: function (){
+            if(this.sku_filter_line.length > 0){ //Если в форме есть значение
+                if(this.type_sku_filter){ // Если выбран фильтр, иначе ошибка
+                    let request_params = {
+                        'number_competitor_id': this.$number_competitor,
+                        'search_line': this.sku_filter_line,
+                        'type_filter': this.type_sku_filter,
+                    }
+                    axios.get(this.sku_filter_url, {params: request_params})
+                        .then(function (response) {
+                            manual_matching_app.sku = JSON.parse(response.data.sku)
+                        }).catch(function (error) {
+                        console.log(error)
+                    });
+                }else{
+                    modal_error_app.error = 'Не выбрано поле фильтра'
+                    error_message()
+                }
+            }else{
+                this.$load_sku_list() // Выгрузка номенклатуры без фильтрации
+            }
         }
     },
     mounted(){
-        let elems = document.querySelectorAll('sku-filter-form');
-        let instances = M.FormSelect.init(elems);
+        let sku_filter_form = document.getElementById('sku-filter-form');
+        let instances = M.FormSelect.init(sku_filter_form);
     }
 })

@@ -13,7 +13,7 @@
             </div>
             <div class="input-field col s5">
                 <input placeholder="" id="sku-filter" type="text" class="validate"
-                       v-model="sku_filter_line" @input="filter_sku">
+                       v-model="sku_filter_line">
                 <label for="sku-filter">Поиск НСКЗ</label>
             </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="col s2 offset-s2">
             <div class="input-field col s12">
                 <input placeholder="По полю ШК НСКЗ" id="barcode" type="text" class="validate"
-                       v-model="barcode" @input="filter_barcode">
+                       v-model="barcode">
                 <label for="barcode">Штрих код</label>
                 <div class="drop-menu"
                      v-if="drop_menu_status.barcode">
@@ -42,7 +42,7 @@
         <div class="col s2">
             <div class="input-field col s12">
                 <input placeholder="По части строки номенклатуры" id="tn_fv" type="text" class="validate"
-                       v-model="tn_fv" @input="filter_tn_fv">
+                       v-model="tn_fv">
                 <label for="tn_fv">Номенклатура</label>
                 <div class="drop-menu"
                      v-if="drop_menu_status.tn_fv">
@@ -61,7 +61,7 @@
         <div class="col s2">
             <div class="input-field col s12">
                 <input placeholder="По полю Производитель" id="manufacturer" type="text" class="validate"
-                       v-model="manufacturer" @input="filter_manufacturer">
+                       v-model="manufacturer">
                 <label for="manufacturer">Производитель</label>
                 <div class="drop-menu"
                      v-if="drop_menu_status.manufacturer">

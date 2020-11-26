@@ -59,14 +59,6 @@ final_matching_app = new Vue({
 
 
         },
-        filter_tn_fv(){
-            let request_params = {
-                'tn_fv': this.tn_fv,
-                'manufacturer': this.manufacturer
-            }
-            axios.get(this.filter_for_eas, {params: request_params})
-                .then(response => this.eas = JSON.parse(response.data.eas) );
-        },
         /* Перепривязка СКУ к другому элементу ЕАС */
         rematch_request(eas_id, tn_fv){
             let sku_id = this.select_matching.sku_dict__pk
@@ -94,6 +86,19 @@ final_matching_app = new Vue({
             instance.close();
 
         }
+    },
+    computed: {
+        search_for_eas_filter(){ // Поиск по ЕАС в модальном окне перепривязки мэтчинга
+            let request_params = {
+                'tn_fv': this.tn_fv,
+                'manufacturer': this.manufacturer
+            }
+            axios.get(this.filter_for_eas, {params: request_params})
+                .then(response => this.eas = JSON.parse(response.data.eas) );
+        }
+    },
+    watch:{
+        search_for_eas_filter: function (){}
     },
     mounted(){
         /* Стартовая выгрузка данных мэтчинга */
