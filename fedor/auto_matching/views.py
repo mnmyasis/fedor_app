@@ -65,12 +65,16 @@ def algoritm_mathing(request):
     """Функция запуска алгоритма"""
     request = json.loads(request.body.decode('utf-8'))
     number_competitor_id = request['data']['number_competitor_id']
+    action = request['data']['action']  # Акция
+    barcode_match = request['data']['barcode_match']  # Доверять ШК
+    new_sku = request['data']['new_sku']  # Новая ску номенклатура
     """Получаем список записей СКУ"""
     sku_data = test_get_sku(number_competitor_id)  # Выгрузка из справочника directory/services/sku_querys
     """Запускаем алгоритм"""
     ts = Test()
     matching_result = ts.get_match_result(sku_data)
     change_matching_status_sku(sku_data)  # Изменение поля matching_status directory/services/sku_querys
+    """Запись результата работы алгоритма"""
     match = Matching()
     [match.wr_match(matching_state=x['qnt'], matching_line=x) for x in matching_result['data']]
     return JsonResponse(True, safe=False)

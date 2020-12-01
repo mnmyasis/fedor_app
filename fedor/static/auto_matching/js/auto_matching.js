@@ -1,18 +1,31 @@
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN'
 
-joint_app = new Vue({
+auto_matching_app = new Vue({
     el: '#auto_matching_app',
     delimiters: ['{(', ')}'],
     data: {
-        url_auto_matching: '/auto/matching/algoritm/'
+        url_new_sku: '/directory/new-sku/',
+        url_auto_matching: '/auto/matching/algoritm/',
+        action: false, // Акция
+        barcode_match: false, // Доверие ШК
+        new_sku_status: false,
+        new_sku: '', // Новая номенклатура
+        new_sku_dates:  '' // Даты добавления номенклатуры
     },
     methods: {
         send_data_on_joint(){
+            console.log(this.action)
+            console.log(this.barcode_match)
+            console.log(this.new_sku)
+
             preloader_app.show_preloading = true
             axios.post(this.url_auto_matching, {
                 data: {
-                    number_competitor_id: this.$number_competitor
+                    number_competitor_id: this.$number_competitor,
+                    action: this.action,
+                    barcode_match: this.barcode_match,
+                    new_sku: this.new_sku
                 },
             }).then(function (response){
                 access_message()
@@ -26,6 +39,13 @@ joint_app = new Vue({
         }
     },
     mounted(){
+        let request_params = {
+            'number_competitor_id' : this.$number_competitor,
+        }
+        axios.get(this.url_new_sku, {params: request_params})
+            .then(response => auto_matching_app.new_sku_dates = JSON.parse(response.data.date_create_new_sku));
+    },
+    updated(){
         let form_sel = document.querySelector('select');
         M.FormSelect.init(form_sel);
     }

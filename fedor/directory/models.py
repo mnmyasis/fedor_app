@@ -25,7 +25,7 @@ class ClientDirectory(models.Model):
     name = models.TextField()
     matching_status = models.BooleanField(default=False)
     number_competitor = models.ForeignKey(NumberCompetitor, on_delete=models.CASCADE)
-    create_date = models.DateTimeField(auto_now_add=True)
+    create_date = models.DateField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 
     class Meta:

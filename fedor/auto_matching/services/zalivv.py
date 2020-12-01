@@ -82,7 +82,7 @@ def zaliv_client_dict():
 			ClientDirectory.objects.create(
 				nnt=nnt,
 				name=name,
-				number_competitor=1
+				number_competitor=NumberCompetitor.objects.get(pk=1)
 			)
 		# print(res)
 

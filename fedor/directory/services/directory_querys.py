@@ -1,5 +1,7 @@
 from directory.models import ClientDirectory, BaseDirectory, NumberCompetitor
 import json
+from django.core import serializers
+from datetime import datetime
 
 
 def test_get_sku(number_competitor):
@@ -29,3 +31,16 @@ def get_number_competitor_list():
     number_competitors = NumberCompetitor.objects.all().values('pk', 'name')
     number_competitors = json.dumps(list(number_competitors))
     return number_competitors
+
+
+def __my_date_converter(_date):
+    """Смена типа date в string"""
+    _date = datetime.strftime(_date, '%Y-%m-%d')
+    return _date
+
+
+def load_date_new_sku(number_competitor):
+    date_create_new_sku = ClientDirectory.objects.filter(number_competitor=number_competitor, matching_status=False) \
+        .order_by('create_date').distinct('create_date').values('create_date')
+    res = json.dumps(list(date_create_new_sku), default=__my_date_converter)
+    return res
