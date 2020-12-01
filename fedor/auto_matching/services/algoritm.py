@@ -45,7 +45,7 @@ class Matching():
             ss['nnt'].append(line.nnt)
             ss['name'].append(line.name)
             ss['id'].append(line.pk)
-            ss['number_competitor'].append(line.number_competitor)
+            ss['number_competitor'].append(line.number_competitor.pk)
         # asna = (pd.DataFrame(clients_dict.values(),columns=cols))#.head(n=10)
         # asna = (pd.DataFrame(ss, columns=cols).head(n=10)
         asna = pd.DataFrame(ss, columns=cols)

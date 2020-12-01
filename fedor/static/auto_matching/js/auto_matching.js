@@ -48,17 +48,18 @@ auto_matching_app = new Vue({
     },
     watch:{
         new_sku_status: function (){
-            let request_params = {
-                'number_competitor_id' : number_competitor_app.selected_competitor,
+            if(this.new_sku_status == true){
+                let request_params = {
+                    'number_competitor_id' : number_competitor_app.selected_competitor,
+                }
+                axios.get(this.url_new_sku, {params: request_params})
+                    .then(function (response){
+                        auto_matching_app.new_sku_dates = JSON.parse(response.data.date_create_new_sku)
+
+                    });
+            }else{
+                this.new_sku = ''
             }
-            axios.get(this.url_new_sku, {params: request_params})
-                .then(function (response){
-                    auto_matching_app.new_sku_dates = JSON.parse(response.data.date_create_new_sku)
-
-                });
         },
-        new_sku_dates: function (){
-
-        }
     }
 })

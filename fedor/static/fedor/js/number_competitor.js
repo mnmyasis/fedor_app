@@ -8,7 +8,6 @@ number_competitor_app = new Vue({
     },
     methods:{
         refresh_load_data(){
-
             if(typeof(final_matching_app) != 'undefined'){
                 this.$get_matching_lines()
             }

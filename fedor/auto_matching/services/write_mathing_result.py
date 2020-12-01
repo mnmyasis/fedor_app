@@ -1,5 +1,8 @@
 from .forms.manual_form import *
 from .forms.final_matching_form import *
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class MatchingWrite(object):
@@ -94,11 +97,14 @@ class MatchingManyToOne(MatchingWrite):
         return data
 
     def write_db(self, matching_data):
+        logger.debug(matching_data)
         manual_matching_form = ManualMatchingForm(matching_data)
         if manual_matching_form.is_valid():
+            logger.debug('Смэтчено один к многим')
             res = manual_matching_form.save()
             return res
         else:
+            logger.debug('Смэтчено один к многим не прошел валидность')
             return False
 
 

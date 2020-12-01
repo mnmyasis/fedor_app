@@ -35,7 +35,7 @@ filters_app = new Vue({
             this.barcode = ''
 
             // Выгрузка без фильтров
-            this.$load_eas_list(manual_matching_app.active_sku, manual_matching_app.sku_eas_match_url)
+            this.$load_eas_list(manual_matching_app.active_sku, manual_matching_app.eas_load_url)
         },
 
         /* Клик по записи в выпадающем списке filter_line и type_menu получаем из filters.html */
