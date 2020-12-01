@@ -68,6 +68,7 @@ def algoritm_mathing(request):
     action = request['data']['action']  # Акция
     barcode_match = request['data']['barcode_match']  # Доверять ШК
     new_sku = request['data']['new_sku']  # Новая ску номенклатура
+    logger.debug('competitor: {}'.format(number_competitor_id))
     """Получаем список записей СКУ"""
     sku_data = test_get_sku(number_competitor_id)  # Выгрузка из справочника directory/services/sku_querys
     """Запускаем алгоритм"""

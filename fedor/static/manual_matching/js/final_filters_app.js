@@ -22,7 +22,7 @@ final_filters_app = new Vue({
         statuses: function (){
             if(this.statuses.length > 0){
                 let request_params = {
-                    'number_competitor_id': this.$number_competitor,
+                    'number_competitor_id': number_competitor_app.selected_competitor,
                     'statuses': JSON.stringify(this.statuses)
                 }
                 axios.get(this.url, {params: request_params})

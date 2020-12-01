@@ -59,7 +59,7 @@ filters_app = new Vue({
                 if(manual_matching_app.active_sku) {
                     console.log('computed ' + this.tn_fv + ' ' + this.manufacturer + ' ' + this.barcode)
                     let request_params = {
-                        'number_competitor_id': this.$number_competitor,
+                        'number_competitor_id': number_competitor_app.selected_competitor,
                         'tn_fv': this.tn_fv,
                         'sku_id': manual_matching_app.active_sku,
                         'barcode': this.barcode,
@@ -111,7 +111,7 @@ filters_app = new Vue({
             if(this.sku_filter_line.length > 0){ //Если в форме есть значение
                 if(this.type_sku_filter){ // Если выбран фильтр, иначе ошибка
                     let request_params = {
-                        'number_competitor_id': this.$number_competitor,
+                        'number_competitor_id': number_competitor_app.selected_competitor,
                         'search_line': this.sku_filter_line,
                         'type_filter': this.type_sku_filter,
                     }

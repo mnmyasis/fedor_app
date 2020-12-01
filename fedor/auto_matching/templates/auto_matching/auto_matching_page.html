@@ -1,7 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
-
 <div class="container">
             <div class="row">
                 <div id="auto_matching_app" class="col s8">
@@ -14,7 +13,7 @@
                             <div class="card-action">
                                 <div id="">
                                     <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                            v-on:click="send_data_on_joint()">Смэтчить
+                                            v-on:click="start_matching">Смэтчить
                                         <i class="material-icons right">autorenew</i>
                                     </button>
                                 </div>
@@ -46,7 +45,7 @@
                             </div>
                             <div class="card-action">
                                 <div class="input-field" v-show="new_sku_status">
-                                    <select v-model="new_sku">
+                                    <select v-model="new_sku" class="select-new-sku">
                                         <option value="" disabled selected>Choose your option</option>
                                         <option v-for="date in new_sku_dates"
                                                 >{( date.create_date )}</option>

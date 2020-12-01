@@ -1,5 +1,5 @@
 Vue.prototype.$get_matching_lines = function(){
-    let request_params = {'number_competitor_id' : this.$number_competitor}
+    let request_params = {'number_competitor_id' : number_competitor_app.selected_competitor}
     let url = '/matching/final-matching/page/get/?format=json'
     axios.get(url, {params: request_params})
         .then(function (response){
@@ -44,7 +44,7 @@ final_matching_app = new Vue({
                 return false;
             }
             let request_params = {
-                'number_competitor_id' : this.$number_competitor,
+                'number_competitor_id' : number_competitor_app.selected_competitor,
                 'sku_id': sku_id,
                 'type_binding': this.type_binding
             }
@@ -70,7 +70,7 @@ final_matching_app = new Vue({
             let sku_id = this.select_matching.sku_dict__pk
 
             let request_params = {
-                'number_competitor_id' : this.$number_competitor,
+                'number_competitor_id' : number_competitor_app.selected_competitor,
                 'eas_id': eas_id,
                 'sku_id': sku_id
             }

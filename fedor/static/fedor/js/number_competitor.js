@@ -1,20 +1,22 @@
-Vue.prototype.$number_competitor = 1
-
 number_competitor_app = new Vue({
     delimiters: ['{(', ')}'],
     el: '#number-competitor-app',
     data: {
         url: '/directory/number-competitor-list/?format=json',
         number_competitors : [], // Список клиентских справочников
-        select_number_competitor: 1, // Выбранный клиентский справочник
+        selected_competitor: 1
     },
     methods:{
         refresh_load_data(){
+
             if(typeof(final_matching_app) != 'undefined'){
                 this.$get_matching_lines()
             }
             if(typeof(manual_matching_app) != 'undefined'){
                 this.$load_sku_list()
+            }
+            if(typeof(auto_matching_app) != 'undefined'){
+                auto_matching_app.new_sku_status = false
             }
         }
     },
