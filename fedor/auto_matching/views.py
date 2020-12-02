@@ -87,3 +87,9 @@ def inject_base_directory(request):
 
 def inject_client_directory(request):
     zaliv_client_dict()
+
+
+def injects_group_change(request):
+    group_change()
+    
+

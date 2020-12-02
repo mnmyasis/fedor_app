@@ -1,14 +1,12 @@
 from django.db import models
 
 
-class EAS(models.Model):  # Не используется
-    product_base_name = models.CharField(max_length=500)
-    trade_name_id = models.BigIntegerField()
-    trade_name = models.CharField(max_length=500)
-    ean = models.FloatField()
+class GroupChangeTable(models.Model):
+    change = models.TextField(blank=True)
+    search = models.TextField()
 
     class Meta:
-        db_table = 'eas'
+        db_table = 'group_change_table'
 
 
 class NumberCompetitor(models.Model):

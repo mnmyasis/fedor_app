@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from .services.directory_querys import get_number_competitor_list, load_date_new_sku
+from .services.group_change import change_line
 
 
 # Create your views here.
@@ -23,3 +24,9 @@ def get_new_sku(request):
         'date_create_new_sku': date_create_new_sku
     }
     return JsonResponse(require)
+
+
+def group_change(request):
+    number_competitor = request.GET.get('number_competitor_id')
+    change_line(number_competitor)
+    return JsonResponse(True)

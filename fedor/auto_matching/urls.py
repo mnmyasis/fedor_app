@@ -6,5 +6,6 @@ urlpatterns = [
     path('matching/algoritm/', algoritm_mathing, name='algoritm_mathing'),
     path('matching/client_directory/data/get/', search_client_directory_data, name='search_client_directory_data'),
     path('matching/base_directory/inject/', inject_base_directory),
-    path('matching/client_directory/inject/', inject_client_directory)
+    path('matching/client_directory/inject/', inject_client_directory),
+    path('matching/group_change/inject/', injects_group_change),
 ]
