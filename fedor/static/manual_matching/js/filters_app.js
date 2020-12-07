@@ -57,7 +57,7 @@ filters_app = new Vue({
         filter_for_eas_variant:
             function () {
                 if(manual_matching_app.active_sku) {
-                    console.log('computed ' + this.tn_fv + ' ' + this.manufacturer + ' ' + this.barcode)
+                    //console.log('computed ' + this.tn_fv + ' ' + this.manufacturer + ' ' + this.barcode)
                     let request_params = {
                         'number_competitor_id': number_competitor_app.selected_competitor,
                         'tn_fv': this.tn_fv,

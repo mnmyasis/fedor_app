@@ -1,0 +1,36 @@
+<div id="edit-group-changes-modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Редактирование массовые подмены</h4>
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <div class="input-field">
+                        <input placeholder="Поиск подмен" type="text" class="validate" id="change"
+                               v-model="group_change_input">
+                        <label for="change">Заменить</label>
+                    </div>
+                </th>
+                <th>
+                    <div class="input-field">
+                        <input placeholder="Поиск подмен" type="text" class="validate" id="search"
+                               v-model="group_search_input">
+                        <label for="search">Найти</label>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr v-for="change in edit_group_change_list">
+                <td>{( change.change )}</td>
+                <td>{( change.search )}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="btn waves-effect waves-light">Добавить</a>
+        <a href="#!" class="modal-close btn waves-effect waves-light ">Закрыть</a>
+    </div>
+</div>

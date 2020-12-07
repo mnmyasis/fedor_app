@@ -2,119 +2,125 @@
 {% load static %}
 {% block content %}
 <div class="container">
-            <div class="row">
-                <div id="auto_matching_app" class="col s8">
-                    <div class="col s6 f-mt">
-                        <div class="card">
-                            <div class="card-content">
-                                <span class="card-title">Авто-мэтчинг</span>
-                                <p>Запуск мэтчинга SKU с помощью алгоритма</p>
-                            </div>
-                            <div class="card-action">
-                                <div>
-                                    <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                            v-on:click="start_matching">Смэтчить
-                                        <i class="material-icons right">autorenew</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+    <div class="row">
+        <div id="group_changes_app">
+            <div class="col s6 f-mt">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Массовые подмены</span>
+                        <p>Изменение записей в НСКЗ</p>
                     </div>
-                    <div class="col s6 f-mt">
-                        <div class="card">
-                            <div class="card-content">
-                                <span class="card-title">Параметры</span>
-                                <p>
-                                    <label>
-                                        <input type="checkbox" v-model="action"/>
-                                        <span>По акции</span>
-                                    </label>
-                                </p>
-                                <p>
-                                    <label>
-                                        <input type="checkbox" v-model="barcode_match"/>
-                                        <span>Доверять ШК</span>
-                                    </label>
-                                </p>
-                                <p>
-                                    <label>
-                                        <input type="checkbox" v-model="new_sku_status"/>
-                                        <span>СКУ</span>
-                                    </label>
-                                </p>
-                            </div>
-                            <div class="card-action">
-                                <div class="input-field" v-show="new_sku_status">
-                                    <select v-model="new_sku" class="select-new-sku">
-                                        <option value="" disabled selected>Choose your option</option>
-                                        <option v-for="date in new_sku_dates"
-                                                >{( date.create_date )}</option>
-                                    </select>
-                                    <label>По дате добавления СКУ</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s4 f-mt">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">Справочники</span>
-                            {% include 'number_competitor.html' %}
-                        </div>
-                        <div class="card-action">
+                    <div class="card-action">
+                        <div>
+                            <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                    v-on:click="group_change_start">Изменить
+                                <i class="material-icons right">border_color</i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div id="group_changes_app">
-                    <div class="col s6 f-mt">
-                        <div class="card">
-                            <div class="card-content">
-                                <span class="card-title">Массовые подмены</span>
-                                <p>Изменение записей в НСКЗ</p>
-                            </div>
-                            <div class="card-action">
-                                <div>
-                                    <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                            v-on:click="group_change_start">Изменить
-                                        <i class="material-icons right">border_color</i>
-                                    </button>
-                                </div>
+            <div class="col s6 f-mt">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Исключения массовых подмен</span>
+                        <div class="input-field">
+                            <input placeholder="Поиск подмен" type="text" class="validate" id="search-group-changes"
+                                   v-model="group_changes_input">
+                            <label for="search-group-changes">Поиск</label>
+                            <div class="drop-menu"
+                                 v-if="group_change_status">
+                                <ul class="collection with-header">
+                                    <li class="collection-item"
+                                        v-for="data in changes_list"
+                                        v-html="data.search"
+                                        v-on:click="exclude_group_changes(data.pk, data.search)"></li>
+                                </ul>
                             </div>
                         </div>
+                        <p v-for="exclude in exclude_list">Исключить подмены: {( exclude.change )}</p>
                     </div>
-                    <div class="col s6 f-mt">
-                        <div class="card">
-                            <div class="card-content">
-                                <span class="card-title">Исключения массовых подмен</span>
-                                <p v-for="exclude in exclude_list">Исключить подмены: {( exclude.change )}</p>
-                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                        v-on:click="group_change_reset">Сброс
-                                    <i class="material-icons right">clear</i>
-                                </button>
-                            </div>
-                            <div class="card-action">
-                                    <div class="input-field">
-                                        <input placeholder="Поиск подмен" type="text" class="validate"
-                                               v-model="group_changes_input">
-                                        <label for="">Поиск</label>
-                                        <div class="drop-menu"
-                                             v-if="group_change_status">
-                                            <ul class="collection with-header">
-                                                <li class="collection-item"
-                                                    v-for="data in changes_list"
-                                                    v-html="data.search"
-                                                    v-on:click="exclude_group_changes(data.pk, data.search)"></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                            </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                v-on:click="group_change_reset">Сброс
+                            <i class="material-icons right">clear</i>
+                        </button>
+                        <a class="btn waves-effect waves-light f-mt f-mb modal-trigger" href="#edit-group-changes-modal"
+                                v-on:click="group_change_reset">Редактирование
+                            <i class="material-icons right">clear</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% include 'auto_matching/edit_group_changes.html' %}
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row">
+        <div id="auto_matching_app" class="col s8">
+            <div class="col s6 f-mt">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Авто-мэтчинг</span>
+                        <p>Запуск мэтчинга SKU с помощью алгоритма</p>
+                    </div>
+                    <div class="card-action">
+                        <div>
+                            <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                    v-on:click="start_matching">Смэтчить
+                                <i class="material-icons right">autorenew</i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col s6 f-mt">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Параметры</span>
+                        <p>
+                            <label>
+                                <input type="checkbox" v-model="action"/>
+                                <span>По акции</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input type="checkbox" v-model="barcode_match"/>
+                                <span>Доверять ШК</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input type="checkbox" v-model="new_sku_status"/>
+                                <span>СКУ</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <div class="input-field" v-show="new_sku_status">
+                            <select v-model="new_sku" class="select-new-sku">
+                                <option value="" disabled selected>Choose your option</option>
+                                <option v-for="date in new_sku_dates"
+                                >{( date.create_date )}</option>
+                            </select>
+                            <label>По дате добавления СКУ</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s4 f-mt">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Справочники</span>
+                    {% include 'number_competitor.html' %}
+                </div>
+                <div class="card-action">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

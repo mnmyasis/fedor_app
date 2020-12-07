@@ -86,10 +86,6 @@ h5, h6, th, tr, p, li{
     color:var(--color-text);
 }
 
-tr:hover{
-    background-color: #455a64 !important;
-}
-
 /* Боковое меню */
 #slide-out{
     background-color: #455a64 !important;

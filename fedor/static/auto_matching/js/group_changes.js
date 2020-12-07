@@ -2,12 +2,17 @@ group_changes_app = new Vue({
     el: '#group_changes_app',
     delimiters: ['{(', ')}'],
     data: {
+        url_group_changes_filter: '/directory/group_changes/filter/',
+        url_edit_group_change_list: '/directory/group_changes/edit-list/',
         url_group_changes_list: '/directory/group_changes/list/',
         url_group_changes_start: '/directory/group_changes/',
         group_changes_input: '',
         group_change_status: false,
         changes_list: [],
-        exclude_list: []
+        exclude_list: [],
+        edit_group_change_list: [],
+        group_change_input: '',
+        group_search_input: '',
     },
     methods: {
         exclude_group_changes(change_id, change_name){
@@ -16,7 +21,6 @@ group_changes_app = new Vue({
                 id: change_id,
                 change: change_name
             })
-            console.log(this.exclude_list)
         },
         group_change_start(){
             preloader_app.show_preloading = true
@@ -36,22 +40,55 @@ group_changes_app = new Vue({
         },
         group_change_reset(){
             this.exclude_list = []
+            this.group_changes_input = ''
+            this.group_change_status = false
+        },
+        edit_group_change_load(){
+            axios.get(this.url_edit_group_change_list)
+                .then(function (response) {
+                    group_changes_app.edit_group_change_list = JSON.parse(response.data.group_changes_list)
+                }).catch(function (error) {
+                modal_error_app.error = error
+                error_message()
+            });
+        }
+    },
+    mounted(){
+        let modal_edit_group_changes = document.getElementById('edit-group-changes-modal');
+        let instance_modal_group_changes = M.Modal.init(modal_edit_group_changes);
+        this.edit_group_change_load()
+    },
+    computed:{
+        filter_edit_changes: function (){
+            let request_params = {
+                'group_change_input': this.group_change_input,
+                'group_search_input': this.group_search_input,
+            }
+            axios.get(this.url_group_changes_filter, {params: request_params})
+                .then(function (response) {
+                    group_changes_app.changes_list = JSON.parse(response.data.group_changes_list)
+                }).catch(function (error) {
+                modal_error_app.error = error
+                error_message()
+            });
         }
     },
     watch:{
         group_changes_input: function (){
-            let request_params = {
-                'group_changes_input': this.group_changes_input,
+            if(this.group_changes_input.length > 0 || this.group_change_status){
+                let request_params = {
+                    'group_changes_input': this.group_changes_input,
+                }
+                axios.get(this.url_group_changes_list, {params: request_params})
+                    .then(function (response) {
+                        group_changes_app.changes_list = JSON.parse(response.data.group_changes_list)
+
+                    }).catch(function (error) {
+                        modal_error_app.error = error
+                        error_message()
+                    });
+                this.group_change_status = true
             }
-            axios.get(this.url_group_changes_list, {params: request_params})
-                .then(function (response) {
-                    group_changes_app.changes_list = JSON.parse(response.data.group_changes_list)
-                    console.log(group_changes_app.changes_list)
-                }).catch(function (error) {
-                    modal_error_app.error = error
-                    error_message()
-                });
-            this.group_change_status = true
-        }
+        },
     }
 })

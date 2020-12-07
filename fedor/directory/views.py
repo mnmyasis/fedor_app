@@ -3,7 +3,7 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import render
 from .services.directory_querys import get_number_competitor_list, load_date_new_sku
-from .services.group_change import change_line, get_group_changes
+from .services.group_change import change_line, get_group_changes, get_group_changes_list
 
 
 # Create your views here.
@@ -43,3 +43,14 @@ def group_changes_list(request):
     }
     return JsonResponse(require)
 
+
+def group_changes_edit_list(request):
+    res = get_group_changes_list()
+    require = {
+        'group_changes_list': res
+    }
+    return JsonResponse(require)
+
+
+def group_changes_filter(request):
+    pass
