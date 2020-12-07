@@ -105,8 +105,8 @@
                                             <ul class="collection with-header">
                                                 <li class="collection-item"
                                                     v-for="data in changes_list"
-                                                    v-html="data.change"
-                                                    v-on:click="exclude_group_changes(data.pk, data.change)"></li>
+                                                    v-html="data.search"
+                                                    v-on:click="exclude_group_changes(data.pk, data.search)"></li>
                                             </ul>
                                         </div>
                                     </div>

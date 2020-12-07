@@ -3,6 +3,7 @@ group_changes_app = new Vue({
     delimiters: ['{(', ')}'],
     data: {
         url_group_changes_list: '/directory/group_changes/list/',
+        url_group_changes_start: '/directory/group_changes/',
         group_changes_input: '',
         group_change_status: false,
         changes_list: [],
@@ -18,7 +19,20 @@ group_changes_app = new Vue({
             console.log(this.exclude_list)
         },
         group_change_start(){
-
+            preloader_app.show_preloading = true
+            let request_params = {
+                'number_competitor_id': number_competitor_app.selected_competitor,
+                'exclude_list': JSON.stringify(this.exclude_list),
+            }
+            axios.get(this.url_group_changes_start, {params: request_params})
+                .then(function (response) {
+                    access_message()
+                }).catch(function (error) {
+                    modal_error_app.error = error
+                    error_message()
+                }).then(function(){
+                    preloader_app.show_preloading = false
+                });
         },
         group_change_reset(){
             this.exclude_list = []

@@ -2,8 +2,8 @@ from django.db import models
 
 
 class GroupChangeTable(models.Model):
-    change = models.TextField(blank=True)
-    search = models.TextField()
+    change = models.TextField(blank=True)  # На что нужно заменить
+    search = models.TextField()  # Что нужно заменить
 
     class Meta:
         db_table = 'group_change_table'

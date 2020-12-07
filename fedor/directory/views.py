@@ -1,3 +1,5 @@
+import json
+
 from django.http import JsonResponse
 from django.shortcuts import render
 from .services.directory_querys import get_number_competitor_list, load_date_new_sku
@@ -28,8 +30,9 @@ def get_new_sku(request):
 
 def group_change(request):
     number_competitor = request.GET.get('number_competitor_id')
-    change_line(number_competitor)
-    return JsonResponse(True)
+    exclude_list = json.loads(request.GET.get('exclude_list'))
+    change_line(number_competitor, exclude_list)
+    return JsonResponse(True, safe=False)
 
 
 def group_changes_list(request):
