@@ -19,7 +19,18 @@ def __replace_line(line, change_lines):
                 if counter_equality == 0: string = x  # Запись id первого совпадения
                 if counter_equality <= len(ch_line.search): counter_equality += 1  # Переход на след букву строки подмен
                 if counter_equality == len(ch_line.search):  # Счетчик совпавших букв подмены равен длинне строки
-                    if line.name[string - 1] == ' ':  # Есть ли пробел перед подстрокой ску
+                    if len(line.name) == x + 1:  # Конец строки ску
+                        if ' ' == line.name[string-1]:  # Есть ли пробел перед подстрокой ску
+                            change = True
+                        else:
+                            change = False
+                    else:
+                        if ' ' == line.name[string-1] and ' ' == line.name[x + 1]: # Есть ли пробел перед/после подстрокой ску
+                            change = True
+                        else:
+                            change = False
+                    if change:  # Есть ли пробел перед подстрокой ску
+
                         """:string от начала строки до первого совпадения, подмена, x+1:len(line.name) всё после подмены"""
                         new_name = line.name[:string] + ch_line.change + line.name[x + 1: len(line.name)]
                         break
@@ -30,7 +41,7 @@ def __replace_line(line, change_lines):
                 string = ''
                 counter_equality = 0
     # line.save()
-    print('old: {}  ---->  new: {}'.format(old_name, new_name))
+    print('old: {}---->new: {}'.format(old_name, new_name))
     return True
 
 

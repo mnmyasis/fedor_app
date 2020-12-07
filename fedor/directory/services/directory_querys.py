@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 def test_get_sku(number_competitor):
-    result = ClientDirectory.objects.filter(number_competitor=number_competitor, matching_status=False)[:30]
+    result = ClientDirectory.objects.filter(number_competitor=number_competitor, matching_status=False)[:2000]
     return result
 
 
