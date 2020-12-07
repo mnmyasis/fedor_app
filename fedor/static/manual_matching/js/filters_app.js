@@ -72,8 +72,9 @@ filters_app = new Vue({
                             filters_app.filter_lines.barcode = JSON.parse(response.data.barcode)
                             filters_app.filter_lines.tn_fv = JSON.parse(response.data.tn_fv)
                         }).catch(function (error) {
-                        console.log(error)
-                    });
+                            modal_error_app.error = error
+                            error_message()
+                        });
                 }else if(this.manufacturer.length > 0 || this.tn_fv.length > 0 || this.barcode.length > 0){
                     modal_error_app.error = 'Не выбрана запись SKU'
                     error_message()

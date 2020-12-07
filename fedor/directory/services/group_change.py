@@ -1,5 +1,6 @@
 from datetime import datetime
 from directory.models import ClientDirectory, GroupChangeTable
+import json
 
 
 def __replace_line(line, change_lines):
@@ -23,5 +24,8 @@ def change_line(number_competitor):
     print('Потрачено времени - {}'.format(result_time))
 
 
-
+def get_group_changes(group_changes_input):
+    changes_list = GroupChangeTable.objects.filter(change__icontains=group_changes_input)[:10].values('pk', 'change')
+    changes_list = json.dumps(list(changes_list))
+    return changes_list
 

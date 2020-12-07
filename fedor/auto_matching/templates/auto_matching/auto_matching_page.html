@@ -11,7 +11,7 @@
                                 <p>Запуск мэтчинга SKU с помощью алгоритма</p>
                             </div>
                             <div class="card-action">
-                                <div id="">
+                                <div>
                                     <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
                                             v-on:click="start_matching">Смэтчить
                                         <i class="material-icons right">autorenew</i>
@@ -67,9 +67,58 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div id="group_changes_app">
+                    <div class="col s6 f-mt">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Массовые подмены</span>
+                                <p>Изменение записей в НСКЗ</p>
+                            </div>
+                            <div class="card-action">
+                                <div>
+                                    <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                            v-on:click="group_change_start">Изменить
+                                        <i class="material-icons right">border_color</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s6 f-mt">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Исключения массовых подмен</span>
+                                <p v-for="exclude in exclude_list">Исключить подмены: {( exclude.change )}</p>
+                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                        v-on:click="group_change_reset">Сброс
+                                    <i class="material-icons right">clear</i>
+                                </button>
+                            </div>
+                            <div class="card-action">
+                                    <div class="input-field">
+                                        <input placeholder="Поиск подмен" type="text" class="validate"
+                                               v-model="group_changes_input">
+                                        <label for="">Поиск</label>
+                                        <div class="drop-menu"
+                                             v-if="group_change_status">
+                                            <ul class="collection with-header">
+                                                <li class="collection-item"
+                                                    v-for="data in changes_list"
+                                                    v-html="data.change"
+                                                    v-on:click="exclude_group_changes(data.pk, data.change)"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 </div>
 {% endblock %}
 
 {% block script %}
     <script src="{% static 'auto_matching/js/auto_matching.js' %}"></script>
+    <script src="{% static 'auto_matching/js/group_changes.js' %}"></script>
 {% endblock %}
