@@ -56,6 +56,7 @@ group_changes_app = new Vue({
     mounted(){
         let modal_edit_group_changes = document.getElementById('edit-group-changes-modal');
         let instance_modal_group_changes = M.Modal.init(modal_edit_group_changes);
+        M.Modal.init(document.getElementById('edit-group-change-line-modal'));
         this.edit_group_change_load()
     },
     computed:{
@@ -66,7 +67,7 @@ group_changes_app = new Vue({
             }
             axios.get(this.url_group_changes_filter, {params: request_params})
                 .then(function (response) {
-                    group_changes_app.changes_list = JSON.parse(response.data.group_changes_list)
+                    group_changes_app.edit_group_change_list = JSON.parse(response.data.group_changes_list)
                 }).catch(function (error) {
                 modal_error_app.error = error
                 error_message()
@@ -74,6 +75,7 @@ group_changes_app = new Vue({
         }
     },
     watch:{
+        filter_edit_changes: function (){},
         group_changes_input: function (){
             if(this.group_changes_input.length > 0 || this.group_change_status){
                 let request_params = {

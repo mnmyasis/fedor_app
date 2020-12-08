@@ -65,3 +65,14 @@ def get_group_changes_list():
     changes_list = GroupChangeTable.objects.all().values('pk', 'search', 'change')
     changes_list = json.dumps(list(changes_list))
     return changes_list
+
+
+def filter_group_changes(**fields):
+    filter_fields = {}
+    if fields['change']:
+        filter_fields['change__icontains'] = fields['change']
+    if fields['search']:
+        filter_fields['search__icontains'] = fields['search']
+    gr_changes = GroupChangeTable.objects.filter(**filter_fields).values('pk', 'search', 'change')
+    gr_changes = json.dumps(list(gr_changes))
+    return gr_changes

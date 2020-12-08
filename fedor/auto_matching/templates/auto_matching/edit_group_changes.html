@@ -4,6 +4,7 @@
         <table>
             <thead>
             <tr>
+                <th></th>
                 <th>
                     <div class="input-field">
                         <input placeholder="Поиск подмен" type="text" class="validate" id="change"
@@ -22,15 +23,42 @@
             </thead>
 
             <tbody>
-            <tr v-for="change in edit_group_change_list">
-                <td>{( change.change )}</td>
-                <td>{( change.search )}</td>
+            <tr v-for="ch in edit_group_change_list">
+                <td>
+                    <a class="waves-effect waves-light material-icons modal-trigger" href="#edit-group-change-line-modal"
+                    >border_color</a>
+                </td>
+                <td>{( ch.change )}</td>
+                <td>{( ch.search )}</td>
             </tr>
             </tbody>
         </table>
     </div>
     <div class="modal-footer">
         <a href="#!" class="btn waves-effect waves-light">Добавить</a>
+        <a href="#!" class="modal-close btn waves-effect waves-light ">Закрыть</a>
+    </div>
+</div>
+
+<div id="edit-group-change-line-modal" class="modal">
+    <div class="modal-content">
+        <h4>Редактировать подмену</h4>
+        <div class="row">
+            <div class="col s6">
+                <div class="input-field">
+                    <input placeholder="Поиск подмен" type="text" class="validate" id="change-edit">
+                    <label for="change-edit">Заменить</label>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="input-field">
+                    <input placeholder="Поиск подмен" type="text" class="validate" id="search-edit">
+                    <label for="search-edit">Найти</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
         <a href="#!" class="modal-close btn waves-effect waves-light ">Закрыть</a>
     </div>
 </div>
