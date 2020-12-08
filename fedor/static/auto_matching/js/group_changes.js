@@ -2,6 +2,7 @@ group_changes_app = new Vue({
     el: '#group_changes_app',
     delimiters: ['{(', ')}'],
     data: {
+        url_add_group_change: '/directory/group_changes/add/', // Добавление новых подмен в БД
         url_group_changes_update: '/directory/group_changes/update/', // Изменение в бд подмен
         url_group_changes_filter: '/directory/group_changes/filter/', // Фильтрация подмен в модальном окне
         url_edit_group_change_list: '/directory/group_changes/edit-list/', // Список подмен в модальном окне
@@ -16,7 +17,9 @@ group_changes_app = new Vue({
         group_search_input: '', // Фильтр в модальном окне подмен
         update_change: '', // редактирование подмены
         update_search: '', // редактирование подмены
-        selected_group_change_pk: ''
+        selected_group_change_pk: '',
+        add_change: '',
+        add_search: ''
     },
     methods: {
         exclude_group_changes(change_id, change_name){ // Клик по элементу выпадающего списка подмен для исключения
@@ -79,6 +82,27 @@ group_changes_app = new Vue({
                 }
             }
         },
+        add_group_change(){ // Добавление новых подмен в БД
+            if(this.add_change && this.add_search){
+                let request_params = {
+                    'change': this.add_change,
+                    'search': this.add_search
+                }
+                axios.post(this.url_add_group_change, {data: request_params})
+                    .then(function (response){
+                        if(response.data.error){
+                            modal_error_app.error_message(response.data.error_message)
+                        }else{
+                            modal_access_app.access_message(response.data.access)
+                            M.Modal.init(document.getElementById('add-group-change-modal')).close(); // Закрытие модального окна
+                        }
+                    }).catch(function (error){
+                        modal_error_app.error_message(error)
+                    });
+            }else{
+                modal_error_app.error_message("Необходимо заполнить обе формы.")
+            }
+        },
         select_group_change(change){ // Выбранная запись в таблице для редактирования
             this.selected_group_change_pk = change.pk // id для обновления записи в бд
             this.update_change = change.change // заполнение формы
@@ -88,6 +112,7 @@ group_changes_app = new Vue({
     mounted(){
         M.Modal.init(document.getElementById('edit-group-changes-modal'));
         M.Modal.init(document.getElementById('edit-group-change-line-modal'));
+        M.Modal.init(document.getElementById('add-group-change-modal'));
         this.edit_group_change_load() // Подгрузка всего спика подмен для модального окна Редактирование подмен
     },
     computed:{

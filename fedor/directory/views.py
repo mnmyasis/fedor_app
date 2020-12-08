@@ -74,3 +74,12 @@ def group_change_update(request):
     search = request['data']['search']
     require = group_change.update_or_create_group_change(pk=group_pk, change=change, search=search)
     return JsonResponse(require)
+
+
+def group_change_add(request):
+    """Добавление подмены в БД"""
+    request = json.loads(request.body.decode('utf-8'))
+    change = request['data']['change']
+    search = request['data']['search']
+    require = group_change.update_or_create_group_change(change=change, search=search)
+    return JsonResponse(require)

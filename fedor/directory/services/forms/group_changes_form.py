@@ -15,4 +15,4 @@ class GroupChangeForm(forms.ModelForm):
                 'search': self.cleaned_data['search'],
             }
         )
-        return create
+        return create, result

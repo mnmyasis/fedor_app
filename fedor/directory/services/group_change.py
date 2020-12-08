@@ -87,11 +87,17 @@ def update_or_create_group_change(change, search, pk=None):
         }
     group_change_form = GroupChangeForm(res)
     if group_change_form.is_valid():
-        res = group_change_form.save(pk)
-        if not res:
+        is_create, res = group_change_form.save(pk)
+        if not is_create:
             result = {
                 'error': False,
                 'error_message': None,
                 'access': "Запись успешно обновлена"
             }
-            return result
+        else:
+            result = {
+                'error': False,
+                'error_message': None,
+                'access': 'Запись: "Заменить: {} Найти: {}" успешно добавлена'.format(res.change, res.search)
+            }
+        return result
