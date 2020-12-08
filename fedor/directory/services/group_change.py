@@ -40,7 +40,7 @@ def __replace_line(line, change_lines):
             else:  # Если буква не совпала сброс счетчиков
                 string = 0
                 counter_equality = 0
-    # line.save()
+    line.save()
     print('old: {}---->new: {}'.format(old_name, new_name))
     return True
 
