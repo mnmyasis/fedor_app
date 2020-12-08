@@ -11,4 +11,12 @@ modal_error_app = new Vue({
     data: {
         'error': ''
     },
+    methods:{
+        error_message(message){
+            this.error = message
+            let modal_error = document.getElementById('error-modal');
+            let instance = M.Modal.init(modal_error);
+            instance.open()
+        }
+    }
 })

@@ -2,6 +2,8 @@ import json
 import re
 from datetime import datetime
 from directory.models import ClientDirectory, GroupChangeTable
+from django.core import serializers
+
 from .forms.group_changes_form import *
 
 def __replace_line(line, change_lines):
@@ -79,14 +81,17 @@ def filter_group_changes(**fields):
 
 
 def update_or_create_group_change(change, search, pk=None):
-    group_change_form = GroupChangeForm(
-        {
-            'pk': pk,
+    res = {
             'change': change,
             'search': search
         }
-    )
+    group_change_form = GroupChangeForm(res)
     if group_change_form.is_valid():
-        res = group_change_form.save()
-        print(res)
-        return res
+        res = group_change_form.save(pk)
+        if not res:
+            result = {
+                'error': False,
+                'error_message': None,
+                'access': "Запись успешно обновлена"
+            }
+            return result

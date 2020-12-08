@@ -1,5 +1,21 @@
 function access_message(){
-    var modal_access = document.getElementById('access_window');
-    var instance = M.Modal.init(modal_access);
+    let modal_access = document.getElementById('access_window');
+    let instance = M.Modal.init(modal_access);
     instance.open()
 }
+
+modal_access_app = new Vue({
+    delimiters: ['{(', ')}'],
+    el: '#access_window',
+    data: {
+        'access': 'Какая-то информация...'
+    },
+    methods: {
+        access_message(message){
+            this.access = message
+            let modal_access = document.getElementById('access_window');
+            let instance = M.Modal.init(modal_access);
+            instance.open()
+        }
+    }
+})
