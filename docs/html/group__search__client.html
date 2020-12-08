@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Joint_system: Поиск по ClientDirectory</title>
+<title>fedor: Поиск по ClientDirectory</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Joint_system
+   <div id="projectname">fedor
    &#160;<span id="projectnumber">0.1</span>
    </div>
    <div id="projectbrief">Стыковщик фарма</div>
@@ -66,7 +66,7 @@ $(function() {
   <div class="summary">
 <a href="#groups">Modules</a>  </div>
   <div class="headertitle">
-<div class="title">Поиск по ClientDirectory<div class="ingroups"><a class="el" href="group__auto__joint.html">Модуль автоматической стыковки</a> &raquo; <a class="el" href="group__auto__joint__interface.html">Интерфейс auto_joint</a></div></div>  </div>
+<div class="title">Поиск по ClientDirectory<div class="ingroups"><a class="el" href="group__auto__matching.html">Модуль автоматической стыковки</a> &raquo; <a class="el" href="group__auto__joint__interface.html">Интерфейс auto_matching</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
@@ -74,9 +74,9 @@ Collaboration diagram for Поиск по ClientDirectory:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__search__client.png" border="0" usemap="#group____search____client" alt=""/></div>
 <map name="group____search____client" id="group____search____client">
-<area shape="rect" title=" " alt="" coords="153,20,340,45"/>
-<area shape="rect" href="group__service__search__client__directory__data.html" title="search_client_directory" alt="" coords="388,5,527,60"/>
-<area shape="rect" href="group__auto__joint__interface.html" title=" " alt="" coords="5,13,105,53"/>
+<area shape="rect" title=" " alt="" coords="176,20,363,45"/>
+<area shape="rect" href="group__service__search__client__directory__data.html" title="search_client_directory" alt="" coords="411,5,549,60"/>
+<area shape="rect" href="group__auto__joint__interface.html" title=" " alt="" coords="5,13,128,53"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -85,19 +85,19 @@ Modules</h2></td></tr>
 <tr class="memitem:group__service__search__client__directory__data"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__service__search__client__directory__data.html">Сервис поиска по клиентскому справочнику</a></td></tr>
 <tr class="memdesc:group__service__search__client__directory__data"><td class="mdescLeft">&#160;</td><td class="mdescRight">search_client_directory <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa6f22b2e9fc41417e8c7f9d60eb4ff41"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__search__client.html#gaa6f22b2e9fc41417e8c7f9d60eb4ff41">joint_system.auto_joint.views.search_client_directory_data</a> (request)</td></tr>
-<tr class="separator:gaa6f22b2e9fc41417e8c7f9d60eb4ff41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9043cc37afd7bc3132e6cad9614946f0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__search__client.html#ga9043cc37afd7bc3132e6cad9614946f0">auto_matching.views.search_client_directory_data</a> (request)</td></tr>
+<tr class="separator:ga9043cc37afd7bc3132e6cad9614946f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="gaa6f22b2e9fc41417e8c7f9d60eb4ff41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa6f22b2e9fc41417e8c7f9d60eb4ff41">&#9670;&nbsp;</a></span>search_client_directory_data()</h2>
+<a id="ga9043cc37afd7bc3132e6cad9614946f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9043cc37afd7bc3132e6cad9614946f0">&#9670;&nbsp;</a></span>search_client_directory_data()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def joint_system.auto_joint.views.search_client_directory_data </td>
+          <td class="memname">def auto_matching.views.search_client_directory_data </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>request</em></td><td>)</td>
@@ -105,22 +105,25 @@ Modules</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Поиск по клиентскому справочнику, форма поиска на интерфейсе</pre> <div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">def </span><a class="code" href="group__search__client.html#gaa6f22b2e9fc41417e8c7f9d60eb4ff41">search_client_directory_data</a>(request):</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Поиск по клиентскому справочнику, форма поиска на интерфейсе&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    logger.debug(<span class="stringliteral">&#39;Запуск поиска по ClientDirectory&#39;</span>)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    search_client_data = request.GET.get(<span class="stringliteral">&#39;search_client_data&#39;</span>)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    number_competitor_id = request.GET.get(<span class="stringliteral">&#39;number_competitor_id&#39;</span>)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    logger.debug(<span class="stringliteral">&#39;Поисковой запрос: {}&#39;</span>.format(search_client_data))</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    client_data = <a class="code" href="group__service__search__client__directory__data.html#gaadbf95e3fa0290fab4a422d79fada0d8">search_client_directory</a>(search_client_data, number_competitor_id)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    result = {<span class="stringliteral">&#39;client_data&#39;</span>: client_data}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> JsonResponse(result, safe=<span class="keyword">False</span>)</div>
+<pre class="fragment">Поиск по клиентскому справочнику, форма поиска на интерфейсе</pre> <div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">def </span><a class="code" href="group__search__client.html#ga9043cc37afd7bc3132e6cad9614946f0">search_client_directory_data</a>(request):</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Поиск по клиентскому справочнику, форма поиска на интерфейсе&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    logger.debug(<span class="stringliteral">&#39;Запуск поиска по ClientDirectory&#39;</span>)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    logger.debug(request)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    search_client_data = request.GET.get(<span class="stringliteral">&#39;search_client_data&#39;</span>)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    number_competitor_id = request.GET.get(<span class="stringliteral">&#39;number_competitor_id&#39;</span>)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    logger.debug(<span class="stringliteral">&#39;Поисковой запрос: {}&#39;</span>.format(search_client_data))</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    client_data = <a class="code" href="group__service__search__client__directory__data.html#gaeb1f7a45f3c99af5d8bc39c92cd40881">search_client_directory</a>(search_client_data, number_competitor_id)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    result = {<span class="stringliteral">&#39;client_data&#39;</span>: client_data}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> JsonResponse(result)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="agroup__service__search__client__directory__data_html_gaadbf95e3fa0290fab4a422d79fada0d8"><div class="ttname"><a href="group__service__search__client__directory__data.html#gaadbf95e3fa0290fab4a422d79fada0d8">client_directory_manipulate.search_client_directory</a></div><div class="ttdeci">def search_client_directory(data, number_competitor_id)</div><div class="ttdef"><b>Definition:</b> client_directory_manipulate.py:15</div></div>
-<div class="ttc" id="agroup__search__client_html_gaa6f22b2e9fc41417e8c7f9d60eb4ff41"><div class="ttname"><a href="group__search__client.html#gaa6f22b2e9fc41417e8c7f9d60eb4ff41">joint_system.auto_joint.views.search_client_directory_data</a></div><div class="ttdeci">def search_client_directory_data(request)</div><div class="ttdef"><b>Definition:</b> views.py:37</div></div>
+<div class="ttc" id="agroup__service__search__client__directory__data_html_gaeb1f7a45f3c99af5d8bc39c92cd40881"><div class="ttname"><a href="group__service__search__client__directory__data.html#gaeb1f7a45f3c99af5d8bc39c92cd40881">auto_matching.services.client_directory_manipulate.search_client_directory</a></div><div class="ttdeci">def search_client_directory(data, number_competitor_id)</div><div class="ttdef"><b>Definition:</b> client_directory_manipulate.py:17</div></div>
+<div class="ttc" id="agroup__search__client_html_ga9043cc37afd7bc3132e6cad9614946f0"><div class="ttname"><a href="group__search__client.html#ga9043cc37afd7bc3132e6cad9614946f0">auto_matching.views.search_client_directory_data</a></div><div class="ttdeci">def search_client_directory_data(request)</div><div class="ttdef"><b>Definition:</b> views.py:48</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

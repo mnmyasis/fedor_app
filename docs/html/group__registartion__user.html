@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Joint_system: Создание пользователя</title>
+<title>fedor: Создание пользователя</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Joint_system
+   <div id="projectname">fedor
    &#160;<span id="projectnumber">0.1</span>
    </div>
    <div id="projectbrief">Стыковщик фарма</div>
@@ -84,8 +84,8 @@ Collaboration diagram for Создание пользователя:</div>
 Modules</h2></td></tr>
 <tr class="memitem:group__service__registartion__user"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__service__registartion__user.html">Сервис создания пользователя</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga700b7cfc7df7db2d35e9749ab418b023"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__registartion__user.html#ga700b7cfc7df7db2d35e9749ab418b023">joint_system.admin_joint.views.user_registrations</a> (request)</td></tr>
-<tr class="separator:ga700b7cfc7df7db2d35e9749ab418b023"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3e389ae4b0423ad3cc370c7c28a658ec"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__registartion__user.html#ga3e389ae4b0423ad3cc370c7c28a658ec">admin_panel.views.user_registrations</a> (request)</td></tr>
+<tr class="separator:ga3e389ae4b0423ad3cc370c7c28a658ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -96,14 +96,14 @@ Modules</h2></td></tr>
   </dd>
 </dl>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga700b7cfc7df7db2d35e9749ab418b023"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga700b7cfc7df7db2d35e9749ab418b023">&#9670;&nbsp;</a></span>user_registrations()</h2>
+<a id="ga3e389ae4b0423ad3cc370c7c28a658ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3e389ae4b0423ad3cc370c7c28a658ec">&#9670;&nbsp;</a></span>user_registrations()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def joint_system.admin_joint.views.user_registrations </td>
+          <td class="memname">def admin_panel.views.user_registrations </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>request</em></td><td>)</td>
@@ -111,7 +111,7 @@ Modules</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Принимает POST запрос регистрации пользователя</p><pre class="fragment">Регистрация пользователя</pre> <div class="fragment"><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">def </span><a class="code" href="group__registartion__user.html#ga700b7cfc7df7db2d35e9749ab418b023">user_registrations</a>(request):</div>
+<p>Принимает POST запрос регистрации пользователя</p><pre class="fragment">Регистрация пользователя</pre> <div class="fragment"><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">def </span><a class="code" href="group__registartion__user.html#ga3e389ae4b0423ad3cc370c7c28a658ec">user_registrations</a>(request):</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Регистрация пользователя&quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    user_id = <a class="code" href="group__service__registartion__user.html#ga456fb568bf60a5aa43512ab7f422cd19">user_manipulation.create_user</a>(request.POST)</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> user_id:</div>
@@ -129,8 +129,8 @@ Modules</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="agroup__registartion__user_html_ga700b7cfc7df7db2d35e9749ab418b023"><div class="ttname"><a href="group__registartion__user.html#ga700b7cfc7df7db2d35e9749ab418b023">joint_system.admin_joint.views.user_registrations</a></div><div class="ttdeci">def user_registrations(request)</div><div class="ttdef"><b>Definition:</b> views.py:68</div></div>
 <div class="ttc" id="agroup__service__registartion__user_html_ga456fb568bf60a5aa43512ab7f422cd19"><div class="ttname"><a href="group__service__registartion__user.html#ga456fb568bf60a5aa43512ab7f422cd19">user_manipulation.create_user</a></div><div class="ttdeci">def create_user(request_post)</div><div class="ttdef"><b>Definition:</b> user_manipulation.py:16</div></div>
+<div class="ttc" id="agroup__registartion__user_html_ga3e389ae4b0423ad3cc370c7c28a658ec"><div class="ttname"><a href="group__registartion__user.html#ga3e389ae4b0423ad3cc370c7c28a658ec">admin_panel.views.user_registrations</a></div><div class="ttdeci">def user_registrations(request)</div><div class="ttdef"><b>Definition:</b> views.py:68</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

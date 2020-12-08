@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Joint_system: Редактирование пользовательского профиля</title>
+<title>fedor: Редактирование пользовательского профиля</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Joint_system
+   <div id="projectname">fedor
    &#160;<span id="projectnumber">0.1</span>
    </div>
    <div id="projectbrief">Стыковщик фарма</div>
@@ -84,8 +84,8 @@ Collaboration diagram for Редактирование пользователь�
 Modules</h2></td></tr>
 <tr class="memitem:group__service__update__user__profile"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__service__update__user__profile.html">Сервис редактирования пользовательского профиля</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9e5b56f87b349f0760ccae378b3ae8bd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__update__user__profile.html#ga9e5b56f87b349f0760ccae378b3ae8bd">joint_system.admin_joint.views.update_user_profile</a> (request, user_id)</td></tr>
-<tr class="separator:ga9e5b56f87b349f0760ccae378b3ae8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2de36687d8f4e0dce6512687c033762b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__update__user__profile.html#ga2de36687d8f4e0dce6512687c033762b">admin_panel.views.update_user_profile</a> (request, user_id)</td></tr>
+<tr class="separator:ga2de36687d8f4e0dce6512687c033762b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -96,14 +96,14 @@ Modules</h2></td></tr>
   </dd>
 </dl>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga9e5b56f87b349f0760ccae378b3ae8bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9e5b56f87b349f0760ccae378b3ae8bd">&#9670;&nbsp;</a></span>update_user_profile()</h2>
+<a id="ga2de36687d8f4e0dce6512687c033762b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2de36687d8f4e0dce6512687c033762b">&#9670;&nbsp;</a></span>update_user_profile()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def joint_system.admin_joint.views.update_user_profile </td>
+          <td class="memname">def admin_panel.views.update_user_profile </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>request</em>, </td>
@@ -129,7 +129,7 @@ Modules</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div class="fragment"><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">def </span><a class="code" href="group__update__user__profile.html#ga9e5b56f87b349f0760ccae378b3ae8bd">update_user_profile</a>(request, user_id):</div>
+<div class="fragment"><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">def </span><a class="code" href="group__update__user__profile.html#ga2de36687d8f4e0dce6512687c033762b">update_user_profile</a>(request, user_id):</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Изменение профиля пользовтеля&quot;&quot;&quot;</span></div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    access_level = request.POST.get(<span class="stringliteral">&#39;access_level&#39;</span>)</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">if</span> <a class="code" href="group__service__update__user__profile.html#gaff5ab34dc9506f0b780a1d4df7b00332">user_manipulation.edit_user_profile</a>(request.POST, user_id, access_level):</div>
@@ -150,7 +150,7 @@ Modules</h2></td></tr>
 </div>
 </div><!-- contents -->
 <div class="ttc" id="agroup__service__update__user__profile_html_gaff5ab34dc9506f0b780a1d4df7b00332"><div class="ttname"><a href="group__service__update__user__profile.html#gaff5ab34dc9506f0b780a1d4df7b00332">user_manipulation.edit_user_profile</a></div><div class="ttdeci">def edit_user_profile(request_post, user_id=None, access_level=1)</div><div class="ttdef"><b>Definition:</b> user_manipulation.py:37</div></div>
-<div class="ttc" id="agroup__update__user__profile_html_ga9e5b56f87b349f0760ccae378b3ae8bd"><div class="ttname"><a href="group__update__user__profile.html#ga9e5b56f87b349f0760ccae378b3ae8bd">joint_system.admin_joint.views.update_user_profile</a></div><div class="ttdeci">def update_user_profile(request, user_id)</div><div class="ttdef"><b>Definition:</b> views.py:106</div></div>
+<div class="ttc" id="agroup__update__user__profile_html_ga2de36687d8f4e0dce6512687c033762b"><div class="ttname"><a href="group__update__user__profile.html#ga2de36687d8f4e0dce6512687c033762b">admin_panel.views.update_user_profile</a></div><div class="ttdeci">def update_user_profile(request, user_id)</div><div class="ttdef"><b>Definition:</b> views.py:106</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

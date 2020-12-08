@@ -1,4 +1,4 @@
-from auto_matching.models import ClientDirectory
+from directory.models import ClientDirectory
 from django.core import serializers
 import logging, json
 
@@ -15,8 +15,9 @@ logger = logging.getLogger(__name__)
 #  @param[in] number_competitor - id клиента
 #  @param[out] client_data = результат поиск по ClientDirectory
 def search_client_directory(data, number_competitor_id):
+    logger.debug('data: {}  number_competitor_id: {}'.format(data, number_competitor_id))
     client_data = ClientDirectory.objects.filter(name__icontains=data,
-                                                 joint_status=False,
+                                                 matching_status=False,
                                                  number_competitor=number_competitor_id
                                                  )[:10]
     logger.debug(client_data)

@@ -1,0 +1,30 @@
+<div>
+    <div class="row f-mt" id="manual_matching_app">
+        <div class="col s6">
+            <h6 class="text-center">SKU</h6>
+            <div class="matching-lists">
+                <ul class="collection with-header">
+                    <li class="collection-item"
+                        v-for="data in sku"
+                        v-on:click="load_eas_variants_for_sku(data.sku_dict)"
+                        v-bind:class="change_status(data.sku_dict)"
+                        v-html="data.name_sku"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col s6">
+            <h6 class="text-center">EAS</h6>
+            <div class="matching-lists">
+                <ul class="collection with-header">
+                    <li class="collection-item"
+                        v-for="data in eas"
+                        v-on:click="matching(data.eas_dict)"
+                        v-bind:class="change_status(data.eas_dict)"
+                        v-html="data.name_eas"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['update_5fuser_5fprofile_63',['update_user_profile',['../group__update__user__profile.html#ga9e5b56f87b349f0760ccae378b3ae8bd',1,'joint_system::admin_joint::views']]],
-  ['user_5flogin_64',['user_login',['../group__auth__joint.html#ga760bbe983fa53d5ca93f8305c4f2d476',1,'joint_system::auth_joint::views']]],
-  ['user_5flogout_65',['user_logout',['../group__auth__joint.html#ga1ea5f897d770c6f5ed37cfbd27106681',1,'joint_system::auth_joint::views']]],
-  ['user_5fregistrations_66',['user_registrations',['../group__registartion__user.html#ga700b7cfc7df7db2d35e9749ab418b023',1,'joint_system::admin_joint::views']]]
+  ['update_5fuser_5fprofile_107',['update_user_profile',['../group__update__user__profile.html#ga2de36687d8f4e0dce6512687c033762b',1,'admin_panel::views']]],
+  ['user_5flogin_108',['user_login',['../group__auth__joint.html#ga117ae153a17d5d51d6a7b61192426230',1,'auth_fedor::views']]],
+  ['user_5flogout_109',['user_logout',['../group__auth__joint.html#gabcdb7f2ef1ac17d1c80a1fe7ca9fcc4e',1,'auth_fedor::views']]],
+  ['user_5fregistrations_110',['user_registrations',['../group__registartion__user.html#ga3e389ae4b0423ad3cc370c7c28a658ec',1,'admin_panel::views']]]
 ];

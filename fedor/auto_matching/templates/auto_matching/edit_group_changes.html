@@ -1,0 +1,94 @@
+<div id="edit-group-changes-modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Редактирование массовые подмены</h4>
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>
+                    <div class="input-field">
+                        <input placeholder="Поиск подмен" type="text" class="validate" id="change"
+                               v-model="group_change_input">
+                        <label for="change">Заменить</label>
+                    </div>
+                </th>
+                <th>
+                    <div class="input-field">
+                        <input placeholder="Поиск подмен" type="text" class="validate" id="search"
+                               v-model="group_search_input">
+                        <label for="search">Найти</label>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr v-for="ch in edit_group_change_list">
+                <td>
+                    <a class="waves-effect waves-light material-icons modal-trigger" href="#edit-group-change-line-modal"
+                       v-on:click="select_group_change(ch)"
+                    >border_color</a>
+                </td>
+                <td>{( ch.change )}</td>
+                <td>{( ch.search )}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a class="btn waves-effect waves-light modal-trigger" href="#add-group-change-modal">Добавить</a>
+        <a href="#!" class="modal-close btn waves-effect waves-light ">Закрыть</a>
+    </div>
+</div>
+
+<div id="edit-group-change-line-modal" class="modal">
+    <div class="modal-content">
+        <h4>Редактировать подмену</h4>
+        <div class="row">
+            <div class="col s6">
+                <div class="input-field">
+                    <input placeholder="Редактирование подмен" type="text" class="validate" id="change-edit"
+                           v-model="update_change">
+                    <label for="change-edit">Заменить</label>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="input-field">
+                    <input placeholder="Редактирование подмен" type="text" class="validate" id="search-edit"
+                           v-model="update_search">
+                    <label for="search-edit">Найти</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close btn waves-effect waves-light" v-on:click="update_group_change">Изменить</a>
+        <a href="#!" class="modal-close btn waves-effect waves-light ">Закрыть</a>
+    </div>
+</div>
+
+<div id="add-group-change-modal" class="modal">
+    <div class="modal-content">
+        <h4>Добавить подмену</h4>
+        <div class="row">
+            <div class="col s6">
+                <div class="input-field">
+                    <input placeholder="Добавить подмену" type="text" class="validate" id="change-add"
+                           v-model="add_change">
+                    <label for="change-edit">Заменить</label>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="input-field">
+                    <input placeholder="Добавить подмену" type="text" class="validate" id="search-add"
+                           v-model="add_search">
+                    <label for="search-add">Найти</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" btn waves-effect waves-light" v-on:click="add_group_change">Добавить</a>
+        <a href="#!" class="modal-close btn waves-effect waves-light ">Закрыть</a>
+    </div>
+</div>

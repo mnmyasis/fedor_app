@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['clientdirectory_46',['ClientDirectory',['../classjoint__system_1_1auto__joint_1_1models_1_1ClientDirectory.html',1,'joint_system::auto_joint::models']]],
-  ['customcreationform_47',['CustomCreationForm',['../classforms_1_1create__update__user__forms_1_1CustomCreationForm.html',1,'forms::create_update_user_forms']]],
-  ['customupdateuserform_48',['CustomUpdateUserForm',['../classforms_1_1create__update__user__forms_1_1CustomUpdateUserForm.html',1,'forms::create_update_user_forms']]]
+  ['changestyleinterface_77',['ChangeStyleInterface',['../classstyle__interface__middleware_1_1ChangeStyleInterface.html',1,'style_interface_middleware']]],
+  ['clientdirectory_78',['ClientDirectory',['../classdirectory_1_1models_1_1ClientDirectory.html',1,'directory::models']]],
+  ['customcreationform_79',['CustomCreationForm',['../classcreate__update__user__forms_1_1CustomCreationForm.html',1,'create_update_user_forms']]],
+  ['customupdateuserform_80',['CustomUpdateUserForm',['../classcreate__update__user__forms_1_1CustomUpdateUserForm.html',1,'create_update_user_forms']]]
 ];

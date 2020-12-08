@@ -8,6 +8,7 @@ urlpatterns = [
     path('auto/', include('auto_matching.urls')),
     path('admin/', include('admin_panel.urls')),
     path('matching/', include('manual_matching.urls')),
+    path('directory/', include('directory.urls')),
     path('change-style-interface/', change_style_interface),
     re_path(r'^', index)
 ]

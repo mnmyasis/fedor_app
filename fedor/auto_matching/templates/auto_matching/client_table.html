@@ -1,0 +1,36 @@
+<div id="search_form_app">
+    <h5 class="text-center">Мэтчинг по новому SKU в EAS</h5>
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">search</i>
+                    <textarea id="icon_prefix2" class="materialize-textarea" v-model="message" @input="updateMessage"></textarea>
+                    <label for="icon_prefix2">Поиск SKU</label>
+                </div>
+            </div>
+        </form>
+    <table class="highlight centered">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Nnt</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="data in client_data" v-on:click="element_select(data.pk)"
+            v-bind:class="change_status(data.pk)" >
+            <th scope="row">{( data.pk )}</th>
+            <td>{( data.fields.name )}</td>
+            <td>{( data.fields.nnt )}</td>
+            <!-- Если выделен, показываем кнопку -->
+            <td v-if="activeIndex == data.pk">
+                <button class="btn waves-effect waves-light" type="submit" v-on:click="send_element_on_joint">
+                    <i class="material-icons">autorenew</i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

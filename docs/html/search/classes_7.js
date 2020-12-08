@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['resultjointconfig_37',['ResultJointConfig',['../classjoint__system_1_1result__joint_1_1apps_1_1ResultJointConfig.html',1,'joint_system::result_joint::apps']]]
+  ['test_93',['Test',['../classauto__matching_1_1services_1_1algoritm_1_1Test.html',1,'auto_matching::services::algoritm']]]
 ];

@@ -27,7 +27,7 @@ SECRET_KEY = 'bq3z__9-5*+uz_tgc2xhhs0clnp&2&o32f%@-rn^y28ut47f_1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.105', '85.175.101.29', '127.0.0.1']
 
 
 # Application definition
@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'auth_fedor',
     'admin_panel',
     'auto_matching',
-    'manual_matching'
+    'manual_matching',
+    'directory',
 ]
 
 MIDDLEWARE = [
@@ -85,17 +86,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fedor',
         'USER': 'django',
-        'PASSWORD': 'kajshdf^&%234sadhjgf43265433654$%&^*$@#%',
+        'PASSWORD': '12345',
         'HOST': '127.0.0.1',
         'PORT': '5432'
-    },
-    'EAS': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'temp12345',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-        'USER': 'django',
-        'PASSWORD': 'kajshdf^&%234sadhjgf43265433654$%&^*$@#%'
     },
 }
 
@@ -133,11 +126,14 @@ USE_L10N = True
 USE_TZ = True
 
 """Настройки сессии"""
-SESSION_COOKIE_AGE = 30  # Время жизни
+SESSION_COOKIE_AGE = 30000  # Время жизни в секундах
 SESSION_SAVE_EVERY_REQUEST = True  # Время жизни обновляется при любом запросе.
 
 """Настройки логов вынесены в отдельный файл log_setting.py"""
 LOGGING = get_log_settings()
+
+"""Если пользователь не авторизован, то перенаправляет его на URL"""
+LOGIN_URL = '/auth/login/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

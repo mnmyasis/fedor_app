@@ -1,0 +1,25 @@
+<div id="final-filters-app">
+    <div class="row">
+        <div class="input-field col s3 filters-statuses-form">
+            <select multiple
+                    v-model="statuses" id="filter-final-select">
+                <option value="" disabled selected>Мэтчинг статус</option>
+                <option value="1">Мэтчинг по ШК - требуется проверка</option>
+                <option value="2">Мэтчинг по ШК - проверка не требуется</option>
+                <option value="3">Мэтчинг вручную</option>
+                <option value="4">Не найдено соответствие в ЕАС</option>
+                <option value="5">Предложено к добавлению в ЕАС</option>
+                <option value="6">Прочее</option>
+                <option value="7">Смэтчено аптекой</option>
+                <option value="8">Алгоритм</option>
+            </select>
+            <label>Фильтр по статусам</label>
+            <a class="waves-effect waves-light btn-small"
+               v-on:click="clear_filter">
+                Сброс</a>
+        </div>
+        <div col s2>
+
+        </div>
+    </div>
+</div>
