@@ -26,6 +26,7 @@
             <tr v-for="ch in edit_group_change_list">
                 <td>
                     <a class="waves-effect waves-light material-icons modal-trigger" href="#edit-group-change-line-modal"
+                       v-on:click="select_group_change(ch)"
                     >border_color</a>
                 </td>
                 <td>{( ch.change )}</td>
@@ -46,19 +47,22 @@
         <div class="row">
             <div class="col s6">
                 <div class="input-field">
-                    <input placeholder="Поиск подмен" type="text" class="validate" id="change-edit">
+                    <input placeholder="Поиск подмен" type="text" class="validate" id="change-edit"
+                           v-model="update_change">
                     <label for="change-edit">Заменить</label>
                 </div>
             </div>
             <div class="col s6">
                 <div class="input-field">
-                    <input placeholder="Поиск подмен" type="text" class="validate" id="search-edit">
+                    <input placeholder="Поиск подмен" type="text" class="validate" id="search-edit"
+                           v-model="update_search">
                     <label for="search-edit">Найти</label>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
+        <a href="#!" class=" btn waves-effect waves-light" v-on:click="update_group_change()">Изменить</a>
         <a href="#!" class="modal-close btn waves-effect waves-light ">Закрыть</a>
     </div>
 </div>

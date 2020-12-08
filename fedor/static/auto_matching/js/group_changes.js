@@ -2,17 +2,21 @@ group_changes_app = new Vue({
     el: '#group_changes_app',
     delimiters: ['{(', ')}'],
     data: {
-        url_group_changes_filter: '/directory/group_changes/filter/',
-        url_edit_group_change_list: '/directory/group_changes/edit-list/',
-        url_group_changes_list: '/directory/group_changes/list/',
-        url_group_changes_start: '/directory/group_changes/',
-        group_changes_input: '',
-        group_change_status: false,
-        changes_list: [],
-        exclude_list: [],
-        edit_group_change_list: [],
-        group_change_input: '',
-        group_search_input: '',
+        url_group_changes_update: '/directory/group_changes/update/', // Изменение в бд подмен
+        url_group_changes_filter: '/directory/group_changes/filter/', // Фильтрация подмен в модальном окне
+        url_edit_group_change_list: '/directory/group_changes/edit-list/', // Список подмен в модальном окне
+        url_group_changes_list: '/directory/group_changes/list/', // Поиск подмен для исключения
+        url_group_changes_start: '/directory/group_changes/', // Запуск массовых подмен
+        group_changes_input: '', //Форма поиска подмен для исключения
+        group_change_status: false, // Показывать выпадающий список
+        changes_list: [], // Список подмен в выпадающем меню исключений
+        exclude_list: [], // Список выбранных исключений
+        edit_group_change_list: [], // Список всех подмен в модальном окне
+        group_change_input: '', // Фильтр в модальном окне подмен
+        group_search_input: '', // Фильтр в модальном окне подмен
+        update_change: '', // редактирование подмены
+        update_search: '', // редактирование подмены
+        selected_group_change_pk: ''
     },
     methods: {
         exclude_group_changes(change_id, change_name){
@@ -51,6 +55,25 @@ group_changes_app = new Vue({
                 modal_error_app.error = error
                 error_message()
             });
+        },
+        update_group_change(change, search){
+            let request_params = {
+                'pk': this.selected_group_change_pk,
+                'change': change,
+                'search': search
+            }
+            axios.post(this.url_group_changes_update, {data: request_params})
+                .then(function (response){
+                    console.log(response)
+                }).catch(function (error){
+                modal_error_app.error = error
+                error_message()
+            });
+        },
+        select_group_change(change){
+            this.selected_group_change_pk = change.pk
+            this.update_change = change.change
+            this.update_search = change.search
         }
     },
     mounted(){
@@ -72,7 +95,7 @@ group_changes_app = new Vue({
                 modal_error_app.error = error
                 error_message()
             });
-        }
+        },
     },
     watch:{
         filter_edit_changes: function (){},

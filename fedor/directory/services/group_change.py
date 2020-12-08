@@ -2,7 +2,7 @@ import json
 import re
 from datetime import datetime
 from directory.models import ClientDirectory, GroupChangeTable
-
+from .forms.group_changes_form import *
 
 def __replace_line(line, change_lines):
     old_name = line.name
@@ -76,3 +76,17 @@ def filter_group_changes(**fields):
     gr_changes = GroupChangeTable.objects.filter(**filter_fields).values('pk', 'search', 'change')
     gr_changes = json.dumps(list(gr_changes))
     return gr_changes
+
+
+def update_or_create_group_change(change, search, pk=None):
+    group_change_form = GroupChangeForm(
+        {
+            'pk': pk,
+            'change': change,
+            'search': search
+        }
+    )
+    if group_change_form.is_valid():
+        res = group_change_form.save()
+        print(res)
+        return res
