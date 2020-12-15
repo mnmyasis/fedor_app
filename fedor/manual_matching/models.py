@@ -14,7 +14,7 @@ class ManualMatchingData(models.Model):
     matching_status = models.BooleanField(default=False)
     number_competitor = models.IntegerField(default=1)
     user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
-    create_date= models.DateTimeField(auto_now_add=True)
+    create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 
     class Meta:

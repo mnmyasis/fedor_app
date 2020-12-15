@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<div id="test">
+    <div class="row f-mt-2">
+        <div class="col s12">
+            <div class="card-tabs">
+                <ul class="tabs tabs-fixed-width">
+                    <li class="tab"><a href="#status-matching" class="active">Накопления по статусам мэтчинга</a></li>
+                    <li class="tab"><a href="#final-matching">Виды изменения статусов</a></li>
+                    <li class="tab"><a href="#final-matching">Измененные статусы пользователем</a></li>
+                    <li class="tab"><a href="#final-matching">Рейтинг пользователей</a></li>
+                    <li class="tab"><a href="#final-matching">Необработанные</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="status-matching">
+
+        </div>
+    </div>
+    <line-chart></line-chart>
+    <canvas id="speedChart" width="600" height="400"></canvas>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'fw/chartjs/dist/Chart.min.js' %}"></script>
+    <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
+    <script src="{% static 'analytic/js/statistic.js' %}"></script>
+{% endblock %}

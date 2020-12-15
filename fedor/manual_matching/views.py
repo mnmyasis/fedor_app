@@ -96,7 +96,8 @@ def edit_match(request):
     edit_status(
         sku_id=sku_id,
         number_competitor=number_competitor,
-        type_binding=type_binding
+        type_binding=type_binding,
+        user_id = request.user.pk
     )
 
     data = final_get_sku(number_competitor=number_competitor, sku_id=sku_id)

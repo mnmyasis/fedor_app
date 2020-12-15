@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'auto_matching',
     'manual_matching',
     'directory',
+    'analytic'
 ]
 
 MIDDLEWARE = [
