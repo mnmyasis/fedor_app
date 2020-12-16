@@ -18,7 +18,18 @@
 
         </div>
     </div>
-    <line-chart></line-chart>
+    <line-bar-status-matching v-bind:statistic='status_matchs'></line-bar-status-matching>
+    <div class="row">
+        <div class="col s3">
+            <input type="text" class="datepicker col s3" v-model.lazy="start_date">
+        </div>
+        <div class="col s3">
+            <input type="text" class="datepicker col s3" v-model.lazy="end_date">
+        </div>
+        <div class="col s3">
+            <a class="waves-effect waves-light btn-small" v-on:click="status_matchings">Показать</a>
+        </div>
+    </div>
     <canvas id="speedChart" width="600" height="400"></canvas>
 </div>
 {% endblock %}

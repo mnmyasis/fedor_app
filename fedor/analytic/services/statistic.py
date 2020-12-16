@@ -2,7 +2,7 @@ from analytic.models import MatchingStatistic
 from django.contrib.auth.models import User
 from directory.models import NumberCompetitor, ClientDirectory
 from manual_matching.models import ManualMatchingData, FinalMatching
-
+from datetime import datetime
 
 def statistic_write(user_id, sku_id, eas_id, number_competitor, action):
     MatchingStatistic.objects.create(
@@ -34,12 +34,16 @@ def __stat(status, count):
     return statistic
 
 
-def status_matchings(date, number_competitor=1):
+def status_matchings(start_date, end_date, number_competitor=1):
+    start_date = datetime.strptime(start_date, '%Y/%m/%d')
+    end_date = datetime.strptime(end_date, '%Y/%m/%d')
     statistic = {
-        'progress': ManualMatchingData.objects.filter(number_competitor=number_competitor, create_date=date).count()
+        'progress': ManualMatchingData.objects.filter(
+            number_competitor=number_competitor, create_date__gte=start_date, create_date__lte=end_date).count()
     }
     for status in range(1, 7):
-        count = FinalMatching.objects.filter(number_competitor=number_competitor, create_date=date,
+        count = FinalMatching.objects.filter(number_competitor=number_competitor,
+                                             create_date__gte=start_date, create_date__lte=end_date,
                                              type_binding=status).count()
         statistic.update(__stat(status, count))
     return statistic
