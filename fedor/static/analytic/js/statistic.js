@@ -4,8 +4,8 @@ Vue.component('line-bar-status-matching', {
     methods:{
       drow_statistic(){
           this.renderChart({
-              labels: ['В обработке', 'Ручная', 'Не найдено', 'Предложено добавить', 'Штрих код', 'штрих код проверка', 'Прочее'],
-              datasets: [
+              labels: ['В обработке', 'Ручная', 'Не найдено', 'Предложено добавить', 'Штрих код', 'Штрих код проверка', 'Прочее'],
+              /*datasets: [
                   {
                       label: 'Наколпдения по статусам мэтчинга',
                       backgroundColor: '#f87979',
@@ -19,10 +19,13 @@ Vue.component('line-bar-status-matching', {
                           this.statistic.other
                       ]
                   }
-              ]
+              ]*/
+              datasets: this.statistic
           }, {responsive: true, maintainAspectRatio: false})
-      }
+      },
+
     },
+
     watch:{
         statistic: function (){
             this.drow_statistic()
@@ -32,6 +35,17 @@ Vue.component('line-bar-status-matching', {
         this.drow_statistic()
     }
 })
+function random_color(){
+    let col = Math.round(255.0*Math.random());
+    let r = col.toString(16);
+    col = Math.round(255.0*Math.random());
+    let g=col.toString(16);
+    col = Math.round(255.0*Math.random());
+    let d=col.toString(16);
+    col= '#'+r+g+d;
+    console.log(col)
+    return col;
+}
 
 analytic = new Vue({
     el: '#test',
@@ -48,11 +62,12 @@ analytic = new Vue({
         },
         start_date: '',
         end_date: '',
-        in_progress: 0
+        datasets: []
 
     },
     methods:{
         status_matchings(){
+            this.datasets = []
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date
@@ -60,20 +75,25 @@ analytic = new Vue({
             console.log(request_params)
             axios.get(this.url_status_matchings, {params: request_params})
                 .then(function (response){
-                    console.log(response)
-
-                    analytic.status_matchs = {
-                        progress: response.data.progress,
-                        manual: response.data.manual,
-                        not_found: response.data.not_found,
-                        other: response.data.other,
-                        add_eas: response.data.add_eas,
-                        barcode_check: response.data.barcode_check,
-                        barcode: response.data.barcode
+                    let stats = response.data.stats
+                    for(let i = 0; i < stats.length; i++){
+                        console.log(stats[i])
+                        let dataset = {
+                            label: stats[i].competitor_name,
+                                backgroundColor: random_color(),
+                            data: [
+                                stats[i].values.progress,
+                                stats[i].values.manual,
+                                stats[i].values.not_found,
+                                stats[i].values.add_eas,
+                                stats[i].values.barcode,
+                                stats[i].values.barcode_check,
+                                stats[i].values.other
+                             ]
+                        }
+                        analytic.datasets.push(dataset)
                     }
 
-                    console.log(analytic.status_matchs)
-                    //analytic.status_matchs = JSON.parse(response.data)
                 }).catch(function (error){
                 modal_error_app.error_message(error)
             });
@@ -85,9 +105,12 @@ analytic = new Vue({
         let datepicker = document.querySelectorAll('.datepicker');
         let options = {
             default: 'now',
+            autoClose: true,
             format: 'yyyy/mm/dd'
         }
         M.Datepicker.init(datepicker, options);
-        //this.status_matchings()
+        this.start_date='2020/12/1'
+        this.end_date='2020/12/16'
+        this.status_matchings()
     }
 })

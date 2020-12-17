@@ -14,23 +14,32 @@
                 </ul>
             </div>
         </div>
-        <div id="status-matching">
+
+    </div>
+    <div id="status-matching">
+        <div class="row">
+            <div class="col s8">
+                <line-bar-status-matching v-bind:statistic="datasets"></line-bar-status-matching>
+            </div>
 
         </div>
+        <div class="row">
+            <div class="col s3">
+                <input type="text" class="datepicker col s3" v-model.lazy="start_date">
+            </div>
+            <div class="col s3">
+                <input type="text" class="datepicker col s3" v-model.lazy="end_date">
+            </div>
+            <div class="col s3">
+                <a class="waves-effect waves-light btn-small" v-on:click="status_matchings">Показать</a>
+            </div>
+        </div>
     </div>
-    <line-bar-status-matching v-bind:statistic='status_matchs'></line-bar-status-matching>
-    <div class="row">
-        <div class="col s3">
-            <input type="text" class="datepicker col s3" v-model.lazy="start_date">
-        </div>
-        <div class="col s3">
-            <input type="text" class="datepicker col s3" v-model.lazy="end_date">
-        </div>
-        <div class="col s3">
-            <a class="waves-effect waves-light btn-small" v-on:click="status_matchings">Показать</a>
-        </div>
+
+    <div id="final-matching">
+
     </div>
-    <canvas id="speedChart" width="600" height="400"></canvas>
+
 </div>
 {% endblock %}
 
