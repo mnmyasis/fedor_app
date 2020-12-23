@@ -4,6 +4,7 @@ from django.shortcuts import render
 from .services import statistic
 from directory.models import NumberCompetitor
 import json
+
 # Create your views here.
 ANALYTIC_PAGE = 'analytic/page.html'
 
@@ -27,5 +28,27 @@ def status_matchings(request):
     require = {
         'stats': res
     }
-    #require = statistic.status_matchings(start_date=start_date, end_date=end_date, number_competitor=1)
+    # require = statistic.status_matchings(start_date=start_date, end_date=end_date, number_competitor=1)
+    return JsonResponse(require)
+
+
+def status_changes(request):
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    competitor = request.GET.get('number_competitor')
+    st = statistic.status_changes(start_date=start_date, end_date=end_date, number_competitor=competitor)
+    require = {
+        'stats': st
+    }
+    return JsonResponse(require)
+
+
+def user_status_changes(request):
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    competitor = request.GET.get('number_competitor')
+    st = statistic.status_user_changes(start_date=start_date, end_date=end_date, number_competitor=competitor)
+    require = {
+        'stats': st
+    }
     return JsonResponse(require)

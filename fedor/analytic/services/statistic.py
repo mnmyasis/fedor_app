@@ -2,7 +2,8 @@ from analytic.models import MatchingStatistic
 from django.contrib.auth.models import User
 from directory.models import NumberCompetitor, ClientDirectory
 from manual_matching.models import ManualMatchingData, FinalMatching
-from datetime import datetime
+from datetime import datetime, timedelta
+
 
 def statistic_write(user_id, sku_id, eas_id, number_competitor, action):
     MatchingStatistic.objects.create(
@@ -31,12 +32,14 @@ def __stat(status, count):
         statistic['other'] = count
     elif status == 7:
         statistic['drugstore'] = count
+    elif status == 8:
+        statistic['algoritm'] = count
     return statistic
 
 
 def status_matchings(start_date, end_date, number_competitor=1):
-    start_date = datetime.strptime(start_date, '%Y/%m/%d')
-    end_date = datetime.strptime(end_date, '%Y/%m/%d')
+    start_date = datetime.strptime(start_date, '%Y-%m-%d')
+    end_date = datetime.strptime(end_date, '%Y-%m-%d')
     statistic = {
         'progress': ManualMatchingData.objects.filter(
             number_competitor=number_competitor, create_date__gte=start_date, create_date__lte=end_date).count()
@@ -49,28 +52,43 @@ def status_matchings(start_date, end_date, number_competitor=1):
     return statistic
 
 
-def status_changes(date, number_competitor):
-    statistic = {}
-    for status in range(1, 7):
-        count = FinalMatching.objects.filter(number_competitor=number_competitor, update_date=date,
-                                             type_binding=status).count()
-        statistic.update(__stat(status, count))
+def status_changes(start_date, end_date, number_competitor):
+    start_date = datetime.strptime(start_date, '%Y-%m-%d')
+    end_date = datetime.strptime(end_date, '%Y-%m-%d')
+    date = start_date
+    statistic = []
+    while date < end_date:
+        stats = {
+            'date': datetime.strftime(date, '%Y-%m-%d'),
+            'statistic': {}
+        }
+        _date = datetime.strftime(date, '%Y-%m-%d')
+        for status in range(1, 9):
+            count = FinalMatching.objects.filter(number_competitor=number_competitor,
+                                                 update_date__contains=_date,
+                                                 type_binding=status).count()
+            stats['statistic'].update(__stat(status, count))
+        statistic.append(stats)
+        date = date + timedelta(1)
     return statistic
 
 
-def status_user_changes(date, number_competitor):
+def status_user_changes(start_date, end_date, number_competitor):
+    start_date = datetime.strptime(start_date, '%Y-%m-%d')
+    end_date = datetime.strptime(end_date, '%Y-%m-%d')
     statistic = []
     users = User.objects.all()
     for user in users:
+        stats = {
+            'user': user.username,
+            'statistic': {}
+        }
         for status in range(1, 7):
-            count = FinalMatching.objects.filter(number_competitor=number_competitor, update_date=date,
+            count = FinalMatching.objects.filter(number_competitor=number_competitor,
+                                                 update_date__gte=start_date, update_date__lte=end_date,
                                                  type_binding=status, user=user).count()
-            statistic.append(
-                {
-                    'user': user.last_name,
-                    'statistic': __stat(status, count)
-                }
-            )
+            stats['statistic'].update(__stat(status, count))
+        statistic.append(stats)
     return statistic
 
 
@@ -87,5 +105,5 @@ def user_rating(number_competitor):
 
 
 def not_used_sku(number_competitor):
-    count = ClientDirectory.objects.filter(number_competitor=number_competitor, matching_status=False).cpunt()
+    count = ClientDirectory.objects.filter(number_competitor=number_competitor, matching_status=False).count()
     return count

@@ -1,14 +1,19 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
+<div class="row">
+<div class="col s4 offset-s8">
+    {% include 'number_competitor.html' %}
+</div>
+</div>
 <div id="test">
     <div class="row f-mt-2">
         <div class="col s12">
             <div class="card-tabs">
                 <ul class="tabs tabs-fixed-width">
                     <li class="tab"><a href="#status-matching" class="active">Накопления по статусам мэтчинга</a></li>
-                    <li class="tab"><a href="#final-matching">Виды изменения статусов</a></li>
-                    <li class="tab"><a href="#final-matching">Измененные статусы пользователем</a></li>
+                    <li class="tab"><a href="#status-changes">Виды изменения статусов</a></li>
+                    <li class="tab"><a href="#user-status-changes">Измененные статусы пользователем</a></li>
                     <li class="tab"><a href="#final-matching">Рейтинг пользователей</a></li>
                     <li class="tab"><a href="#final-matching">Необработанные</a></li>
                 </ul>
@@ -36,10 +41,43 @@
         </div>
     </div>
 
-    <div id="final-matching">
-
+    <div id="status-changes">
+        <div class="row">
+            <div class="col s8">
+                <line-status-changes v-bind:statistic="data_collection"></line-status-changes>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s3">
+                <input type="text" class="datepicker col s3" v-model.lazy="start_date">
+            </div>
+            <div class="col s3">
+                <input type="text" class="datepicker col s3" v-model.lazy="end_date">
+            </div>
+            <div class="col s3">
+                <a class="waves-effect waves-light btn-small" v-on:click="status_changes">Показать</a>
+            </div>
+        </div>
     </div>
 
+    <div id="user-status-changes">
+        <div class="row">
+            <div class="col s8">
+                <line-bar-status-matching  v-bind:statistic="datasets2"></line-bar-status-matching >
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s3">
+                <input type="text" class="datepicker col s3" v-model.lazy="start_date">
+            </div>
+            <div class="col s3">
+                <input type="text" class="datepicker col s3" v-model.lazy="end_date">
+            </div>
+            <div class="col s3">
+                <a class="waves-effect waves-light btn-small" v-on:click="user_status_changes">Показать</a>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
