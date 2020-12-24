@@ -21,6 +21,28 @@ Vue.component('line-bar-status-matching', {
     }
 })
 
+Vue.component('bar-user-rating', {
+    extends: VueChartJs.Bar,
+    props: ['statistic'],
+    methods:{
+        draw_statistic(){
+            this.renderChart(
+                this.statistic
+            , {responsive: true, maintainAspectRatio: false})
+        },
+
+    },
+
+    watch:{
+        statistic: function (){
+            this.draw_statistic()
+        }
+    },
+    mounted () {
+        this.draw_statistic()
+    }
+})
+
 Vue.component('line-status-changes', {
     extends: VueChartJs.Line,
     props: ['statistic'],
@@ -54,6 +76,7 @@ function random_color(){
 analytic = new Vue({
     el: '#test',
     data:{
+        url_user_rating: '/analytic/user-rating/',
         url_user_status_changes: '/analytic/user-status-changes/',
         url_status_changes: '/analytic/status-changes/',
         url_status_matchings: '/analytic/status-matchings/',
@@ -61,7 +84,9 @@ analytic = new Vue({
         end_date: '',
         datasets: [],
         datasets2: [],
+        datasets3: [],
         data_collection: {},
+        data_collection1: {},
 
     },
     methods:{
@@ -216,6 +241,39 @@ analytic = new Vue({
                             ]
                         }
                         analytic.datasets2.push(dataset)
+                    }
+
+                }).catch(function (error){
+                modal_error_app.error_message(error)
+            });
+        },
+        user_rating(){
+            this.datasets3 = []
+            let request_params = {
+                'start_date': this.start_date,
+                'end_date': this.end_date,
+                'number_competitor': number_competitor_app.selected_competitor
+            }
+            axios.get(this.url_user_rating, {params: request_params})
+                .then(function (response){
+                    console.log(response)
+                    let stats = response.data.stats
+                    let labels = []
+                    let data = []
+                    for(let i = 0; i < stats.length; i++){
+                        labels.push(stats[i].user)
+                        console.log(stats[i])
+                        data.push(stats[i].count)
+                    }
+                    analytic.data_collection1 = {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Рейтинг',
+                                backgroundColor: random_color(),
+                                data: data
+                            }
+                        ]
                     }
 
                 }).catch(function (error){

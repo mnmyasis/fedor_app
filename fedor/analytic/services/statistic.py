@@ -92,13 +92,19 @@ def status_user_changes(start_date, end_date, number_competitor):
     return statistic
 
 
-def user_rating(number_competitor):
+def user_rating(start_date, end_date, number_competitor):
+
     statistic = []
+    print(end_date)
     users = User.objects.all()
     for user in users:
-        count = MatchingStatistic.objects.filter(number_competitor=number_competitor, user=user).count()
+        print(user)
+        count = MatchingStatistic.objects.filter(number_competitor=number_competitor,
+                                                 create_date__range=(start_date, end_date),
+                                                 user=user).count()
+        print(count)
         statistic.append({
-            'user': user,
+            'user': user.username,
             'count': count
         })
     return statistic

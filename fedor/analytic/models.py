@@ -11,7 +11,7 @@ class MatchingStatistic(models.Model):
     sku_id = models.IntegerField()
     eas_id = models.IntegerField()
     number_competitor = models.ForeignKey(NumberCompetitor, on_delete=models.CASCADE)
-    create_date = models.DateTimeField(auto_now=True)
+    create_date = models.DateField(auto_now=True)
 
     class Meta:
         db_table = 'matching_statistic'
