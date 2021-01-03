@@ -89,15 +89,15 @@ def get_final_matching(request):
 @login_required
 def edit_match(request):
     """изменить статус мэтчинга"""
-    request = json.loads(request.body.decode('utf-8'))
-    number_competitor = request['data']['number_competitor_id']
-    sku_id = request['data']['sku_id']
-    type_binding = request['data']['type_binding']
+    req = json.loads(request.body.decode('utf-8'))
+    number_competitor = req['data']['number_competitor_id']
+    sku_id = req['data']['sku_id']
+    type_binding = req['data']['type_binding']
     edit_status(
         sku_id=sku_id,
         number_competitor=number_competitor,
         type_binding=type_binding,
-        user_id = request.user.pk
+        user_id=request.user.pk
     )
 
     data = final_get_sku(number_competitor=number_competitor, sku_id=sku_id)

@@ -3,7 +3,7 @@ from django.urls import path, include, re_path
 from .views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     path('auth/', include('auth_fedor.urls')),
     path('auto/', include('auto_matching.urls')),
     #path('admin/', include('admin_panel.urls')),

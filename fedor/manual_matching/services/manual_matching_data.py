@@ -54,6 +54,7 @@ def edit_status(sku_id, number_competitor, type_binding, user_id):
         {'status': 7, 'binding_name': 'Смэтчено аптекой'},
     ]
     for type_bind in types_binding:
+        print(sku_id)
         if type_bind['status'] == int(type_binding):
             FinalMatching.objects.filter(
                 sku_dict__pk=sku_id,
@@ -65,7 +66,7 @@ def edit_status(sku_id, number_competitor, type_binding, user_id):
             statistic.statistic_write(
                 user_id=user_id,
                 sku_id=sku_id,
-                eas_id=FinalMatching.objects.get(sku_dict__pk=sku_id).eas_dict__pk,
+                eas_id=FinalMatching.objects.get(sku_dict__pk=sku_id).eas_dict.pk,
                 number_competitor=number_competitor,
                 action=3
             )
