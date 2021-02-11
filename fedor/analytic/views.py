@@ -62,3 +62,13 @@ def user_rating(request):
         'stats': st
     }
     return JsonResponse(require)
+
+
+def raw_sku(request):
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    st = statistic.load_raw_sku(start_date=start_date, end_date=end_date)
+    require = {
+        'stats': st
+    }
+    return JsonResponse(require)

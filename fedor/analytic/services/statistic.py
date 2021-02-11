@@ -95,14 +95,11 @@ def status_user_changes(start_date, end_date, number_competitor):
 def user_rating(start_date, end_date, number_competitor):
 
     statistic = []
-    print(end_date)
     users = User.objects.all()
     for user in users:
-        print(user)
         count = MatchingStatistic.objects.filter(number_competitor=number_competitor,
                                                  create_date__range=(start_date, end_date),
                                                  user=user).count()
-        print(count)
         statistic.append({
             'user': user.username,
             'count': count
@@ -110,6 +107,17 @@ def user_rating(start_date, end_date, number_competitor):
     return statistic
 
 
-def not_used_sku(number_competitor):
-    count = ClientDirectory.objects.filter(number_competitor=number_competitor, matching_status=False).count()
-    return count
+def load_raw_sku(start_date, end_date):
+    statistic = []
+    number_competitors = NumberCompetitor.objects.all()
+    for number_competitor in number_competitors:
+        raw_count = ClientDirectory.objects.filter(
+            number_competitor=number_competitor,
+            matching_status=False,
+            create_date__range=(start_date, end_date)
+        ).count()
+        statistic.append({
+            'number_competitor': number_competitor.name,
+            'raw_count': raw_count
+        })
+    return statistic

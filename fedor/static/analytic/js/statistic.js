@@ -1,3 +1,5 @@
+/* Накопления по статусам мэтчинга */
+/* Измененные статусы пользователем */
 Vue.component('line-bar-status-matching', {
     extends: VueChartJs.Bar,
     props: ['statistic'],
@@ -21,6 +23,7 @@ Vue.component('line-bar-status-matching', {
     }
 })
 
+/* Рейтинг пользователей */
 Vue.component('bar-user-rating', {
     extends: VueChartJs.Bar,
     props: ['statistic'],
@@ -43,6 +46,7 @@ Vue.component('bar-user-rating', {
     }
 })
 
+/* Виды изменения статусов */
 Vue.component('line-status-changes', {
     extends: VueChartJs.Line,
     props: ['statistic'],
@@ -62,6 +66,29 @@ Vue.component('line-status-changes', {
     }
 })
 
+/* Необработанные */
+Vue.component('bar-raw-sku', {
+    extends: VueChartJs.Bar,
+    props: ['statistic'],
+    methods:{
+        draw_statistic(){
+            this.renderChart(
+                this.statistic
+                , {responsive: true, maintainAspectRatio: false})
+        },
+
+    },
+
+    watch:{
+        statistic: function (){
+            this.draw_statistic()
+        }
+    },
+    mounted () {
+        this.draw_statistic()
+    }
+})
+
 function random_color(){
     let col = Math.round(255.0*Math.random());
     let r = col.toString(16);
@@ -74,24 +101,27 @@ function random_color(){
 }
 
 analytic = new Vue({
-    el: '#test',
+    el: '#analytic-graph',
     data:{
+        url_raw_sku_all_number_competitor: '/analytic/raw-sku-all-number-competitor/',
         url_user_rating: '/analytic/user-rating/',
         url_user_status_changes: '/analytic/user-status-changes/',
         url_status_changes: '/analytic/status-changes/',
         url_status_matchings: '/analytic/status-matchings/',
         start_date: '',
         end_date: '',
-        datasets: [],
-        datasets2: [],
-        datasets3: [],
-        data_collection: {},
-        data_collection1: {},
+        datasets_status_mathing: [],
+        datasets_status_change: [],
+        data_collection_status_change: {},
+        data_collection_user_rating: {},
+        data_collection_raw_sku: {},
+
 
     },
     methods:{
-        status_matchings(){
-            this.datasets = []
+        /* Накопления по статусам мэтчинга */
+       status_matchings(){
+            this.datasets_status_mathing = []
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date
@@ -115,13 +145,15 @@ analytic = new Vue({
                         }
 
 
-                        analytic.datasets.push(dataset)
+                        analytic.datasets_status_mathing.push(dataset)
                     }
 
                 }).catch(function (error){
                 modal_error_app.error_message(error)
             });
         },
+
+        /* Виды изменения статусов */
         status_changes(){
             let request_params = {
                 'start_date': this.start_date,
@@ -130,7 +162,6 @@ analytic = new Vue({
             }
             axios.get(this.url_status_changes, {params: request_params})
                 .then(function (response){
-                    console.log(response)
                     let stats = response.data.stats
                     let labels = []
                     let data_progress = []
@@ -156,54 +187,54 @@ analytic = new Vue({
                         {
                             label: 'В обработке',
                             backgroundColor: "transparent",
-                            borderColor: random_color(),
+                            borderColor: '#1fd191',
                             data: data_progress
                         },
                         {
                             label: 'Ручная',
                             backgroundColor: "transparent",
-                            borderColor: random_color(),
+                            borderColor: '#d34767',
                             data: data_manual
                         },
                         {
                             label: 'Не найдено',
                             backgroundColor: "transparent",
-                            borderColor: random_color(),
+                            borderColor: '#e9d3b0',
                             data: data_not_found
                         },
                         {
                             label: 'Предложено добавить',
                             backgroundColor: "transparent",
-                            borderColor: random_color(),
+                            borderColor: '#bf8c1d',
                             data: data_add_eas
                         },
                         {
                             label: 'Штрих-код',
                             backgroundColor: "transparent",
-                            borderColor: random_color(),
+                            borderColor: '#ffe21d',
                             data: data_barcode
                         },
                         {
                             label: 'Штрих-код проверка',
                             backgroundColor: "transparent",
-                            borderColor: random_color(),
+                            borderColor: '#d870ef',
                             data: data_barcode_chek
                         },
                         {
                             label: 'Алгоритм',
                             backgroundColor: "transparent",
-                            borderColor: random_color(),
+                            borderColor: '#909af4',
                             data: data_algoritm
                         },
                         {
                             label: 'Прочее',
                             backgroundColor: "transparent",
-                            borderColor: random_color(),
+                            borderColor: '#ac9995',
                             data: data_other
                         },
 
                     ]
-                    analytic.data_collection = {
+                    analytic.data_collection_status_change = {
                         labels: labels,
                         datasets: datasets
                     }
@@ -212,8 +243,10 @@ analytic = new Vue({
                 modal_error_app.error_message(error)
             });
         },
+
+        /* Измененные статусы пользователем */
         user_status_changes(){
-            this.datasets2 = []
+            this.datasets_status_change = []
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
@@ -221,10 +254,8 @@ analytic = new Vue({
             }
             axios.get(this.url_user_status_changes, {params: request_params})
                 .then(function (response){
-                    console.log(response)
                     let stats = response.data.stats
                     for(let i = 0; i < stats.length; i++){
-                        console.log(stats[i].statistic)
                         let dataset = {
                             label: stats[i].user,
                             backgroundColor: random_color(),
@@ -240,15 +271,16 @@ analytic = new Vue({
 
                             ]
                         }
-                        analytic.datasets2.push(dataset)
+                        analytic.datasets_status_change.push(dataset)
                     }
 
                 }).catch(function (error){
                 modal_error_app.error_message(error)
             });
         },
+
+        /* Рейтинг пользователей */
         user_rating(){
-            this.datasets3 = []
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
@@ -256,21 +288,54 @@ analytic = new Vue({
             }
             axios.get(this.url_user_rating, {params: request_params})
                 .then(function (response){
-                    console.log(response)
                     let stats = response.data.stats
                     let labels = []
                     let data = []
                     for(let i = 0; i < stats.length; i++){
                         labels.push(stats[i].user)
-                        console.log(stats[i])
                         data.push(stats[i].count)
                     }
-                    analytic.data_collection1 = {
+                    analytic.data_collection_user_rating = {
                         labels: labels,
                         datasets: [
                             {
                                 label: 'Рейтинг',
-                                backgroundColor: random_color(),
+                                backgroundColor: '#e14550',
+                                maxBarThickness: 80,
+                                minBarLength: 20,
+                                data: data
+                            }
+                        ]
+                    }
+
+                }).catch(function (error){
+                modal_error_app.error_message(error)
+            });
+        },
+
+        /* Необработанные */
+        raw_sku(){
+            let request_params = {
+                'start_date': this.start_date,
+                'end_date': this.end_date,
+            }
+            axios.get(this.url_raw_sku_all_number_competitor, {params: request_params})
+                .then(function (response){
+                    let stats = response.data.stats
+                    let labels = []
+                    let data = []
+                    for(let i = 0; i < stats.length; i++){
+                        labels.push(stats[i].number_competitor)
+                        data.push(stats[i].raw_count)
+                    }
+                    analytic.data_collection_raw_sku = {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Необработанные',
+                                backgroundColor: '#e15a00',
+                                maxBarThickness: 80,
+                                minBarLength: 20,
                                 data: data
                             }
                         ]

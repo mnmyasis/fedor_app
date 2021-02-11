@@ -2,11 +2,11 @@
 {% load static %}
 {% block content %}
 <div class="row">
-<div class="col s4 offset-s8">
-    {% include 'number_competitor.html' %}
+    <div class="col s4 offset-s8">
+        {% include 'number_competitor.html' %}
+    </div>
 </div>
-</div>
-<div id="test">
+<div id="analytic-graph">
     <div class="row f-mt-2">
         <div class="col s12">
             <div class="card-tabs">
@@ -15,16 +15,17 @@
                     <li class="tab"><a href="#status-changes">Виды изменения статусов</a></li>
                     <li class="tab"><a href="#user-status-changes">Измененные статусы пользователем</a></li>
                     <li class="tab"><a href="#user-rating">Рейтинг пользователей</a></li>
-                    <li class="tab"><a href="#final-matching">Необработанные</a></li>
+                    <li class="tab"><a href="#raw-sku">Необработанные</a></li>
                 </ul>
             </div>
         </div>
-
     </div>
+
+    <!-- Накопления по статусам мэтчинга -->
     <div id="status-matching">
         <div class="row">
-            <div class="col s8">
-                <line-bar-status-matching v-bind:statistic="datasets"></line-bar-status-matching>
+            <div class="col s12">
+                <line-bar-status-matching v-bind:statistic="datasets_status_mathing"></line-bar-status-matching>
             </div>
 
         </div>
@@ -41,10 +42,11 @@
         </div>
     </div>
 
+    <!-- Виды изменения статусов -->
     <div id="status-changes">
         <div class="row">
-            <div class="col s8">
-                <line-status-changes v-bind:statistic="data_collection"></line-status-changes>
+            <div class="col s12">
+                <line-status-changes v-bind:statistic="data_collection_status_change"></line-status-changes>
             </div>
         </div>
         <div class="row">
@@ -60,10 +62,11 @@
         </div>
     </div>
 
+    <!-- Измененные статусы пользователем -->
     <div id="user-status-changes">
         <div class="row">
-            <div class="col s8">
-                <line-bar-status-matching  v-bind:statistic="datasets2"></line-bar-status-matching >
+            <div class="col s12">
+                <line-bar-status-matching  v-bind:statistic="datasets_status_change"></line-bar-status-matching >
             </div>
         </div>
         <div class="row">
@@ -79,10 +82,11 @@
         </div>
     </div>
 
+    <!-- Рейтинг пользователя -->
     <div id="user-rating">
         <div class="row">
-            <div class="col s8">
-                <bar-user-rating  v-bind:statistic="data_collection1"></bar-user-rating>
+            <div class="col s12">
+                <bar-user-rating  v-bind:statistic="data_collection_user_rating"></bar-user-rating>
             </div>
         </div>
         <div class="row">
@@ -94,6 +98,26 @@
             </div>
             <div class="col s3">
                 <a class="waves-effect waves-light btn-small" v-on:click="user_rating">Показать</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Необработанные -->
+    <div id="raw-sku">
+        <div class="row">
+            <div class="col s12">
+                <bar-raw-sku  v-bind:statistic="data_collection_raw_sku"></bar-raw-sku>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s3">
+                <input type="text" class="datepicker col s3" v-model.lazy="start_date">
+            </div>
+            <div class="col s3">
+                <input type="text" class="datepicker col s3" v-model.lazy="end_date">
+            </div>
+            <div class="col s3">
+                <a class="waves-effect waves-light btn-small" v-on:click="raw_sku">Показать</a>
             </div>
         </div>
     </div>

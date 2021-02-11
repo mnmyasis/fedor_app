@@ -147,3 +147,4 @@ level:INFO time:2020-12-24 11:20:59,727 name:auth_fedor.views message:Автор
 level:INFO time:2020-12-30 11:53:27,411 name:auth_fedor.views message:Ошибка авторизации admin
 level:INFO time:2020-12-30 11:53:33,360 name:auth_fedor.views message:Авторизовался:admin
 level:INFO time:2020-12-30 11:53:42,519 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-10 15:32:12,940 name:auth_fedor.views message:Авторизовался:admin
