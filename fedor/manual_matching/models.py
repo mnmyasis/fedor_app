@@ -21,6 +21,7 @@ class ManualMatchingData(models.Model):
         db_table = 'manual_matching_data'
 
 
+
 class FinalMatching(models.Model):
     sku_dict = models.ForeignKey(ClientDirectory, on_delete=models.CASCADE)
     eas_dict = models.ForeignKey(BaseDirectory, on_delete=models.CASCADE)

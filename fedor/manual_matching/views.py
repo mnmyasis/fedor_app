@@ -1,7 +1,8 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import JsonResponse, Http404
-from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.urls import reverse
 from .services.get_manual_data import get_sku_data, get_eas_data
 from .services.get_final_data import final_get_sku, final_matching_lines
@@ -27,6 +28,9 @@ SHOW_MANUAL_MATCHING_PAGE_TEMPLATE = 'manual_matching/page.html'
 
 ## @ingroup show_manual_matching_page
 # @{
+
+
+
 @login_required
 def show_manual_matching_page(request):
     logger.debug(request.user.pk)
@@ -47,7 +51,7 @@ def get_sku(request):
     return JsonResponse(result)
 
 
-@login_required
+@login_required()
 def get_eas(request):
     """Получить записи из ЕАС"""
     sku_id = request.GET.get('sku_id')

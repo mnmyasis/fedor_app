@@ -2,6 +2,7 @@ from directory.models import *
 from django.core import serializers
 from manual_matching.models import *
 import logging, json
+from .get_manual_data import color_line
 
 logger = logging.getLogger(__name__)
 
@@ -66,6 +67,7 @@ class ManualFilter:
     def get_eas(self, **filter_field):
         """выгрузка для таблицы SKU"""
         eas = ManualMatchingData.objects.filter(**filter_field).values('eas_dict', 'name_eas')
+        eas = color_line(eas, 'name_eas')
         eas = json.dumps(list(eas))
         return eas
 
@@ -96,6 +98,7 @@ class SKUFilter:
 
     def start(self, **fields):
         sku = ManualMatchingData.objects.filter(**fields).distinct('sku_dict__pk').values('sku_dict', 'name_sku')
+        sku =color_line(sku, 'name_sku')
         sku = json.dumps(list(sku))
         result = {'sku': sku}
         return result

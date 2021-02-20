@@ -20,6 +20,7 @@ Vue.prototype.$load_eas_list = function (id_sku, url){
     }
     axios.get(url, {params: request_params})
         .then(function (response){
+            console.log(response)
             manual_matching_app.eas = JSON.parse(response.data.eas)
         }).catch(function (error){
             modal_error_app.error = error
@@ -33,6 +34,7 @@ manual_matching_app = new Vue({
     data: {
         sku: null,
         eas: null,
+        old_eas: null,
         eas_load_url: '/matching/manual-matching/page/get/eas/?format=json',
         sku_eas_match_url: '/matching/manual-matching/match/',
         active_sku: 0,
