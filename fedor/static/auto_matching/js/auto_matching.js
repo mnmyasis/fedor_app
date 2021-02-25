@@ -31,8 +31,7 @@ auto_matching_app = new Vue({
             }).then(function (response){
                 access_message()
             }).catch(error => {
-                modal_error_app.error = error
-                error_message()
+                error_message(error)
             }).then(function(){
                 preloader_app.show_preloading = false
 
@@ -56,6 +55,8 @@ auto_matching_app = new Vue({
                     .then(function (response){
                         auto_matching_app.new_sku_dates = JSON.parse(response.data.date_create_new_sku)
 
+                    }).catch(error => {
+                        error_message(error)
                     });
             }else{
                 this.new_sku = ''

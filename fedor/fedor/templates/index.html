@@ -9,7 +9,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/main.css' %}">
     <!--<link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark/test.css' %}">-->
-    <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark/materialize-dark.css' %}">-
+    {% if request.COOKIES.user_style %}
+        {% if request.COOKIES.user_style == 'dark' %}
+            <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark/materialize-dark.css' %}">
+        {% else %}
+            <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/classic/materialize-classic.css' %}">
+        {% endif %}
+    {% else %}
+         <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/classic/materialize-classic.css' %}">
+    {% endif %}
     <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/menu.css' %}">
     <script src="{% static 'fw/vuejs/vue.js' %}"></script>
     <script src="{% static 'fw/axios/dist/axios.min.js' %}"></script>
@@ -21,6 +29,9 @@
 {% block content %}{% endblock %}
 {% include 'error_window.html'  %}
 {% include 'access_window.html'  %}
+{% if request.user.is_authenticated %}
+    {% include 'user_style.html' %}
+{% endif %}
 </body>
 <script src="{% static 'fw/materialize/js/materialize.min.js' %}"></script>
 <script src="{% static 'fedor/js/main_menu.js' %}"></script>
@@ -28,5 +39,8 @@
 <script src="{% static 'fedor/js/show_access_window.js' %}"></script>
 <script src="{% static 'fedor/js/show_preloader.js' %}"></script>
 <script src="{% static 'fedor/js/number_competitor.js' %}"></script>
+{% if request.user.is_authenticated %}
+    <script src="{% static 'fedor/js/user_style.js' %}"></script>
+{% endif %}
 {% block script %}{% endblock %}
 </html>

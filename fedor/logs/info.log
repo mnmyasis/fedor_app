@@ -197,3 +197,5 @@ level:INFO time:2021-02-24 19:23:52,241 name:auth_fedor.views message:Автор
 level:INFO time:2021-02-25 13:58:02,323 name:auth_fedor.views message:Авторизовался:admin
 level:INFO time:2021-02-25 15:08:46,174 name:auth_fedor.views message:Авторизовался:admin
 level:INFO time:2021-02-25 15:34:31,323 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-25 17:22:35,728 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-25 19:02:45,684 name:auth_fedor.views message:Авторизовался:admin

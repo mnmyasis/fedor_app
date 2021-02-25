@@ -5,17 +5,18 @@ $fedor-dark-4: #768F9B !default;
 $fedor-dark-5: #80939B !default;
 $fedor-text-color: #FFFFFF !default;
 $fedor-dark-2-rgba: rgba(32,39,42, .42) !default;
+$fedor-dark-4-rgba: rgba(118,143,155, .42) !default;
 
 
-$tabs-bg-color: $fedor-dark-2;
+$tabs-bg-color: $fedor-dark-1;
 $tabs-underline-color: $fedor-dark-4;
 $tabs-text-color: $fedor-text-color;
 
-$collection-border-color: #000000 !default;
-$collection-bg-color: $fedor-dark-2;
+$collection-border-color: $fedor-dark-3;
+$collection-bg-color: $fedor-dark-1;
 $collection-link-color: $fedor-text-color;
-$collection-active-bg-color: $fedor-dark-2-rgba;
-$collection-hover-bg-color: $fedor-dark-2-rgba;
+$collection-active-bg-color: $fedor-dark-4-rgba;
+$collection-hover-bg-color: $fedor-dark-4-rgba;
 
 
 $input-focus-color: $fedor-dark-5;
@@ -76,5 +77,29 @@ h6, h5, h4, h3, h2, h1, th, tr, p, li, input{
 .drop-menu ul li{
      background-color: #20272A !important;
 }
+
+.f-preloader{
+    display: block;
+    position: fixed;
+    top: 30%;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 999;
+
+}
+
+.f-preloader .container{
+    background-color: #0C1D24 !important;
+    padding: 50px;
+    border-radius: 10px;
+    opacity: 95%;
+}
+
+.fedor-font-change{
+    width: 100px;
+    border-color: #20272A !important
+}
+
+
 
 @import "../../fw/materialize-src/sass/materialize.scss";

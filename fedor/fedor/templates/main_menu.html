@@ -6,7 +6,7 @@
                 <img src="{% static 'fedor/media/6.jpg' %}">
               </div>
               <a href="#!user"><img class="circle" src="{% static 'fedor/media/FEDOR2.png' %}" style="height: 40%; width: 40%;"></a>
-              <a href="#!name"><span class="white-text name">Fedor</span></a>
+              <a href="#!name"><span class="white-text name">{{ request.user.profile.access_level.level_name }}</span></a>
               <a href="#!email"><span class="white-text email">{{ request.user.first_name }} {{ request.user.last_name }}</span></a>
         </div>
     </li>

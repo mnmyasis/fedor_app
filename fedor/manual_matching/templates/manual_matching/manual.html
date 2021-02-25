@@ -3,7 +3,7 @@
         <div class="col s6">
             <h6 class="text-center">SKU</h6>
             <div class="matching-lists">
-                <ul class="collection">
+                <ul class="collection fedor-item">
                     <a href="#!" class="collection-item"
                         v-for="data in sku"
                         v-on:click="load_eas_variants_for_sku(data.sku_dict)"
@@ -15,7 +15,7 @@
         <div class="col s6">
             <h6 class="text-center">EAS</h6>
             <div class="matching-lists">
-                <ul class="collection">
+                <ul class="collection fedor-item">
                     <a href="#!" class="collection-item"
                         v-for="data in eas"
                         v-on:click="matching(data.eas_dict)"

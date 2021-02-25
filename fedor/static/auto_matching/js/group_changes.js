@@ -39,7 +39,7 @@ group_changes_app = new Vue({
                 .then(function (response) {
                     access_message()
                 }).catch(function (error) {
-                    modal_error_app.error_message(error)
+                    error_message(error)
                 }).then(function(){
                     preloader_app.show_preloading = false
                 });
@@ -54,7 +54,7 @@ group_changes_app = new Vue({
                 .then(function (response) {
                     group_changes_app.edit_group_change_list = JSON.parse(response.data.group_changes_list)
                 }).catch(function (error) {
-                    modal_error_app.error_message(error)
+                    error_message(error)
                 });
         },
         update_group_change(){ // Изменение в БД записи подмен
@@ -71,7 +71,7 @@ group_changes_app = new Vue({
                         modal_access_app.access_message(response.data.access)
                     }
                 }).catch(function (error){
-                    modal_error_app.error_message(error)
+                    error_message(error)
                 });
             /* Обновление записи в таблице */
             for(let i = 0; i < this.edit_group_change_list.length; i++){
@@ -97,7 +97,7 @@ group_changes_app = new Vue({
                             M.Modal.init(document.getElementById('add-group-change-modal')).close(); // Закрытие модального окна
                         }
                     }).catch(function (error){
-                        modal_error_app.error_message(error)
+                        error_message(error)
                     });
             }else{
                 modal_error_app.error_message("Необходимо заполнить обе формы.")
@@ -125,7 +125,7 @@ group_changes_app = new Vue({
                 .then(function (response) {
                     group_changes_app.edit_group_change_list = JSON.parse(response.data.group_changes_list)
                 }).catch(function (error) {
-                    modal_error_app.error_message(error)
+                    error_message(error)
                 });
         },
     },
@@ -141,7 +141,7 @@ group_changes_app = new Vue({
                         group_changes_app.changes_list = JSON.parse(response.data.group_changes_list)
 
                     }).catch(function (error) {
-                        modal_error_app.error_message(error)
+                       error_message(error)
                     });
                 this.group_change_status = true
             }

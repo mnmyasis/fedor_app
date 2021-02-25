@@ -1,0 +1,42 @@
+$fedor-classic-1: #ebebeb !default;
+
+.drop-menu{
+    display: block;
+    position: absolute;
+    background-color: $fedor-classic-1;
+    width: 90%;
+    z-index: 999;
+    overflow: auto;
+}
+
+.drop-menu ul li{
+
+}
+
+.f-preloader{
+    display: block;
+    position: fixed;
+    top: 30%;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 999;
+
+}
+
+.f-preloader .container{
+    background-color: #FFFFFF !important;
+    padding: 50px;
+    border-radius: 10px;
+    opacity: 100%;
+}
+
+.fedor-font-change{
+    width: 100px;
+    border-color: #FFFFFF !important
+}
+
+
+
+
+
+@import "../../fw/materialize-src/sass/materialize.scss";

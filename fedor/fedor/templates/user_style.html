@@ -1,0 +1,17 @@
+{% load static %}
+<div class="fixed-action-btn" id="user-style">
+  <a class="btn-floating btn-large red">
+    <i class="large material-icons">build</i>
+  </a>
+  <ul>
+    <li><a class="btn-floating green" v-on:click="style_change"><i class="material-icons">color_lens</i></a></li>
+    <li><a class="btn-floating blue" v-on:click="reset_font_size"><i class="material-icons">clear</i></a></li>
+    <li>
+      <form action="#">
+          <p class="range-field" >
+            <input type="range" id="test5" min="12" max="30" class="fedor-font-change" v-model="font_size"/>
+          </p>
+      </form>
+    </li>
+  </ul>
+</div>

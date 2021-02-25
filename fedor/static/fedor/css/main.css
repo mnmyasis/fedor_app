@@ -7,6 +7,10 @@
     line-height: 32px;
 }
 
+.fedor-item{
+    font-size: 12px;
+}
+
 .text-center{
     text-align:  center;
 }
@@ -25,22 +29,6 @@
 
 .f-mt-2{
     margin-top: 40px;
-}
-
-.f-preloader{
-    display: block;
-    position: fixed !important;
-    min-width: 100%;
-    min-height: 100%;
-    z-index: 999 !important;
-
-}
-
-.f-preloader .container{
-    background-color: #212121 !important;
-    padding: 50px;
-    border-radius: 10px;
-    opacity: 95%;
 }
 
 .filter-result{

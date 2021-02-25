@@ -8,8 +8,7 @@ Vue.prototype.$load_sku_list = function (){
     axios.get(url, {params: request_params}).then(function (response){
         manual_matching_app.sku = (JSON.parse(response.data.sku))
     }).catch(function (error){
-        modal_error_app.error = error
-        error_message()
+        error_message(error)
     })
 }
 
@@ -22,8 +21,7 @@ Vue.prototype.$load_eas_list = function (id_sku, url){
         .then(function (response){
             manual_matching_app.eas = JSON.parse(response.data.eas)
         }).catch(function (error){
-            modal_error_app.error = error
-            error_message()
+            error_message(error)
         });
 }
 
@@ -37,6 +35,7 @@ manual_matching_app = new Vue({
         eas_load_url: '/matching/manual-matching/page/get/eas/?format=json',
         sku_eas_match_url: '/matching/manual-matching/match/',
         active_sku: 0,
+        font_size: 24,
     },
     methods: {
 
@@ -52,8 +51,7 @@ manual_matching_app = new Vue({
                 .then(function (response){
                     manual_matching_app.sku = (JSON.parse(response.data.sku))
                 }).catch(function (error){
-                    modal_error_app.error = error
-                    error_message()
+                    error_message(error)
                 });
 
             this.$load_sku_list() //Подгрузить данные

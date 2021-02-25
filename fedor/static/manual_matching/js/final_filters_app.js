@@ -29,8 +29,7 @@ final_filters_app = new Vue({
                     .then(function (response){
                         final_matching_app.matching_data = (JSON.parse(response.data.matching))
                     }).catch(function (error){
-                        modal_error_app.error = error
-                        error_message()
+                        error_message(error)
                     });
             }
         }

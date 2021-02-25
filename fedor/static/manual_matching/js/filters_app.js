@@ -77,9 +77,8 @@ filters_app = new Vue({
                     });
 
                 }else if(this.manufacturer.length > 0 || this.tn_fv.length > 0 || this.barcode.length > 0){
-                    modal_error_app.error = 'Не выбрана запись SKU'
-                    error_message()
-                    return false;
+                    error_message('Не выбрана запись SKU')
+                    return;
                 }
         },
     },
@@ -121,12 +120,10 @@ filters_app = new Vue({
                         .then(function (response) {
                             manual_matching_app.sku = JSON.parse(response.data.sku)
                         }).catch(function (error) {
-                            modal_error_app.error = error
-                            error_message()
+                            error_message(error)
                         });
                 }else{
-                    modal_error_app.error = 'Не выбрано поле фильтра'
-                    error_message()
+                    error_message('Не выбрано поле фильтра')
                 }
             }else{
                 this.$load_sku_list() // Выгрузка номенклатуры без фильтрации

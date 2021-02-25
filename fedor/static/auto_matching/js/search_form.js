@@ -24,7 +24,7 @@ var search_form_app = new Vue({
                 this.error = error
                 console.log(error)
                 /* запуск окна с ошибкой */
-                error_message()
+                error_message(error)
             })
         },
         element_select(id_client_directory){
@@ -52,6 +52,7 @@ var search_form_app = new Vue({
             }).then(function (response){
                 console.log(response)
             }).catch(function(error){
+                error_message(error)
                 console.log(error)
             }).then(function(){
                 preloader_app.show_preloading = false
