@@ -154,3 +154,46 @@ level:INFO time:2021-02-20 17:40:43,503 name:auth_fedor.views message:Автор
 level:INFO time:2021-02-20 17:43:56,224 name:auth_fedor.views message:Авторизовался:admin
 level:INFO time:2021-02-20 18:08:42,542 name:auth_fedor.views message:Авторизовался:admin
 level:INFO time:2021-02-20 18:09:01,704 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 12:08:19,719 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 12:49:05,676 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 12:51:39,543 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 12:51:52,733 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 16:29:40,805 name:auth_fedor.views message:Ошибка авторизации maxim
+level:INFO time:2021-02-24 16:29:46,123 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:30:01,009 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:30:14,058 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:30:55,333 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:34:02,708 name:auth_fedor.views message:Ошибка авторизации alesha
+level:INFO time:2021-02-24 16:34:11,628 name:auth_fedor.views message:Ошибка авторизации test
+level:INFO time:2021-02-24 16:35:31,943 name:auth_fedor.views message:Ошибка авторизации 
+level:INFO time:2021-02-24 16:35:38,694 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:36:19,256 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:38:12,837 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:38:45,372 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:38:58,760 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:39:49,309 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:41:05,583 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:42:54,947 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:43:38,213 name:auth_fedor.views message:Авторизовался:maxim
+level:INFO time:2021-02-24 16:45:08,664 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:45:39,730 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:52:48,366 name:auth_fedor.views message:Авторизовался:maxim
+level:INFO time:2021-02-24 16:54:29,880 name:auth_fedor.views message:Авторизовался:maxim
+level:INFO time:2021-02-24 16:54:59,743 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-02-24 16:56:49,567 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 16:57:00,055 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 16:57:25,697 name:auth_fedor.views message:Авторизовался:maxim
+level:INFO time:2021-02-24 17:02:37,657 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 17:03:17,035 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 17:03:36,382 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 17:06:54,372 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 17:08:52,138 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 17:11:45,165 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 17:11:58,742 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 17:12:11,249 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 17:33:21,842 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 18:42:26,753 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-24 19:23:52,241 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-25 13:58:02,323 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-25 15:08:46,174 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-02-25 15:34:31,323 name:auth_fedor.views message:Авторизовался:admin

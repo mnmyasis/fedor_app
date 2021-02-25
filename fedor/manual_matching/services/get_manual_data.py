@@ -32,7 +32,7 @@ def color_line(lines, dict_key):
     skus = []
     for line in lines:
         tmp_lines = re.split(' ', line[dict_key])
-        end_line = '<strong style="color: red;">{}</strong>'.format(tmp_lines[0])
+        end_line = '<strong style="color: #FF3333;">{}</strong>'.format(tmp_lines[0])
         i = 1
         while i < len(tmp_lines):
             end_line = end_line + ' {}'.format(tmp_lines[i])
@@ -65,7 +65,6 @@ def get_eas_data(sku_id):
         'name_eas'
     )
     eas = color_line(lines=eas, dict_key='name_eas')
-    print(eas)
     data = json.dumps(list(eas))
     logger.debug('данные eas выгружены -- {}'.format(len(eas)))
     return data

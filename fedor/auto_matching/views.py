@@ -11,7 +11,7 @@ from .services.client_directory_manipulate import *
 from .services.algoritm import *
 from .services.write_mathing_result import *
 from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list, test_get_sku
-
+from manual_matching.views import fedor_auth_for_ajax
 logger = logging.getLogger(__name__)
 
 ## @defgroup auto_matching Модуль автоматической стыковки
@@ -29,7 +29,8 @@ SHOW_AUTO_MATCHING_PAGE_TEMPLATE = 'auto_matching/auto_matching_page.html'
 
 ## @ingroup show_matching_page
 # @{
-# @login_required(login_url='/auth/login/')
+
+@login_required
 @ensure_csrf_cookie
 def auto_matching_page(request):
     """Рендер страницы авто-стыковки"""
@@ -45,6 +46,7 @@ def auto_matching_page(request):
 
 ## @ingroup search_client
 # @{
+@fedor_auth_for_ajax
 def search_client_directory_data(request):
     """Поиск по клиентскому справочнику, форма поиска на интерфейсе"""
     logger.debug('Запуск поиска по ClientDirectory')
@@ -60,7 +62,7 @@ def search_client_directory_data(request):
 
 ##@}
 
-
+@fedor_auth_for_ajax
 def algoritm_mathing(request):
     """Функция запуска алгоритма"""
     request = json.loads(request.body.decode('utf-8'))

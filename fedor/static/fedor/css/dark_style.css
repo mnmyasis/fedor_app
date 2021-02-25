@@ -1,8 +1,9 @@
 :root{
     --color-text:#fffde7 !important;
+    --color-bg:#20272A !important;
 }
 body{
-    background-color: #263238;
+    background-color: #20272A;
 }
 
 .tabs{
@@ -42,8 +43,16 @@ body{
 }
 
 .dropdown-content li>span {
-  background-color: #37474f !important;
+  background-color: var(--color-bg) !important;
   color:var(--color-text);
+}
+
+input:focus{
+    border-bottom: 1px solid red !important;
+}
+
+label.active{
+    color: red !important;
 }
 
 .dropdown-content li>span:hover {
@@ -87,8 +96,12 @@ h5, h6, th, tr, p, li{
 }
 
 /* Боковое меню */
+.sidenav-trigger{
+
+}
+
 #slide-out{
-    background-color: #455a64 !important;
+    background-color: #20272A !important;
     color:var(--color-text);
 }
 
@@ -121,17 +134,17 @@ h5, h6, th, tr, p, li{
 
 /* список */
 .collection, .collection-header, .collection-item{
-    background-color:#37474f !important;
+    background-color:#263238 !important;
     border-color: #263238 !important;
     cursor: pointer;
 }
 .collection-item:hover{
-    background-color: #455a64 !important;
+    background-color: #20272A !important;
 }
 
 /* настройка выбор записи */
 .eas-select{
-    background-color: #2b4952 !important;
+    background-color: #0C1D24 !important;
 }
 .drop-menu{
     display: block;

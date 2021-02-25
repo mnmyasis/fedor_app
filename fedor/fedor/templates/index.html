@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <title>{% block title %}Стыковщик{% endblock %}</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'fw/materialize/css/materialize.min.css' %}">
+   <!-- <link rel="stylesheet" type="text/css" href="{% static 'fw/materialize/css/materialize.min.css' %}">-->
     <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/main.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark_style.css' %}">
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark/test.css' %}">-->
+    <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark/materialize-dark.css' %}">-
     <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/menu.css' %}">
     <script src="{% static 'fw/vuejs/vue.js' %}"></script>
     <script src="{% static 'fw/axios/dist/axios.min.js' %}"></script>
     {% block custom_css %}{% endblock %}
 </head>
 <body class="{{ request.COOKIES.body }}">
-{% include 'header.html' %}
 {% include 'preloader.html' %}
 {% include 'main_menu.html' %}
 {% block content %}{% endblock %}

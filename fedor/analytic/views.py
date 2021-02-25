@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -9,6 +10,7 @@ import json
 ANALYTIC_PAGE = 'analytic/page.html'
 
 
+@login_required
 def analytic_page(request):
     return render(request, ANALYTIC_PAGE)
 

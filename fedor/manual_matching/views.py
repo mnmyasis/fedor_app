@@ -11,7 +11,6 @@ from .services.filters import Filter, ManualFilter, SKUFilter
 from .services.filters_final import FilterStatuses
 from directory.services.directory_querys import search_by_tn_fv
 import logging, json
-
 logger = logging.getLogger(__name__)
 
 ## @defgroup manual_matching Модуль ручного мэтчинга
@@ -26,9 +25,17 @@ logger = logging.getLogger(__name__)
 SHOW_MANUAL_MATCHING_PAGE_TEMPLATE = 'manual_matching/page.html'
 
 
+def fedor_auth_for_ajax(func):
+    def wrapper(request):
+        if request.user.is_authenticated:
+            return func(request)
+        else:
+            raise PermissionDenied()
+    return wrapper
+
+
 ## @ingroup show_manual_matching_page
 # @{
-
 
 
 @login_required
@@ -39,7 +46,7 @@ def show_manual_matching_page(request):
 
 ##@}
 
-@login_required
+@fedor_auth_for_ajax
 def get_sku(request):
     """Получить записи из SKU"""
     logger.debug(request.user.pk)
@@ -51,7 +58,7 @@ def get_sku(request):
     return JsonResponse(result)
 
 
-@login_required()
+@fedor_auth_for_ajax
 def get_eas(request):
     """Получить записи из ЕАС"""
     sku_id = request.GET.get('sku_id')
@@ -61,7 +68,7 @@ def get_eas(request):
     return JsonResponse(result)
 
 
-@login_required
+@fedor_auth_for_ajax
 def match_eas_sku(request):
     """Смэтчить СКУ к ЕАС вручную"""
     user_id = request.user.pk
@@ -80,7 +87,7 @@ def match_eas_sku(request):
         return JsonResponse(True, safe=False)  # Запись успешно обновлена
 
 
-@login_required
+@fedor_auth_for_ajax
 def get_final_matching(request):
     user_id = request.user.pk
     number_competitor = request.GET.get('number_competitor_id')
@@ -90,7 +97,7 @@ def get_final_matching(request):
     return JsonResponse(result)
 
 
-@login_required
+@fedor_auth_for_ajax
 def edit_match(request):
     """изменить статус мэтчинга"""
     req = json.loads(request.body.decode('utf-8'))
@@ -109,7 +116,7 @@ def edit_match(request):
     return JsonResponse(result)
 
 
-@login_required
+@fedor_auth_for_ajax
 def filter_matching(request):
     """Фильтры ручного мэтчинга по таблице ЕАС"""
     number_competitor = request.GET.get('number_competitor_id')  # Справочник СКУ
@@ -129,7 +136,7 @@ def filter_matching(request):
     return JsonResponse(result)
 
 
-@login_required
+@fedor_auth_for_ajax
 def filter_for_sku_list(request):
     """Фильтры ручного мэтчинга SKU"""
     type_filter = int(request.GET.get('type_filter'))
@@ -149,7 +156,7 @@ def filter_for_sku_list(request):
     return JsonResponse(res)
 
 
-@login_required
+@fedor_auth_for_ajax
 def filter_statuses(request):
     """Фильтр по статусу мэтчинга"""
     number_competitor = request.GET.get('number_competitor_id')
@@ -160,7 +167,7 @@ def filter_statuses(request):
     return JsonResponse(result)
 
 
-@login_required
+@fedor_auth_for_ajax
 def re_match_filter(request):
     """Фильтрация по ЕАС tn_fv AND manufacturer"""
     tn_fv = request.GET.get('tn_fv')

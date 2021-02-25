@@ -50,7 +50,7 @@ filters_app = new Vue({
             if(type_menu == 3){ //manufacturer
                 this.manufacturer = filter_line
             }
-        }
+        },
     },
 
     computed: {
@@ -136,5 +136,5 @@ filters_app = new Vue({
     mounted(){
         let sku_filter_form = document.getElementById('sku-filter-form');
         let instances = M.FormSelect.init(sku_filter_form);
-    }
+    },
 })

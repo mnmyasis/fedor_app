@@ -1,6 +1,6 @@
 from .forms.create_update_user_forms import CustomCreationForm, CustomUpdateUserForm
 from django.contrib.auth.models import User
-from admin_panel.models import Profile, AccessLevel
+from admin_panel.models import *
 import logging
 
 logger = logging.getLogger(__name__)

@@ -1,0 +1,80 @@
+$fedor-dark-1: #20272A !default;
+$fedor-dark-2: #263238 !default;
+$fedor-dark-3: #0C1D24 !default;
+$fedor-dark-4: #768F9B !default;
+$fedor-dark-5: #80939B !default;
+$fedor-text-color: #FFFFFF !default;
+$fedor-dark-2-rgba: rgba(32,39,42, .42) !default;
+
+
+$tabs-bg-color: $fedor-dark-2;
+$tabs-underline-color: $fedor-dark-4;
+$tabs-text-color: $fedor-text-color;
+
+$collection-border-color: #000000 !default;
+$collection-bg-color: $fedor-dark-2;
+$collection-link-color: $fedor-text-color;
+$collection-active-bg-color: $fedor-dark-2-rgba;
+$collection-hover-bg-color: $fedor-dark-2-rgba;
+
+
+$input-focus-color: $fedor-dark-5;
+$input-disabled-solid-color: $fedor-text-color;
+$input-success-color: $fedor-dark-5;
+
+
+
+$select-disabled-color: rgba(255,255,255,.3) !default;
+$select-option-selected: rgba(255,255,255,.03) !default;
+
+$dropdown-bg-color: $fedor-dark-1;
+$dropdown-color: $fedor-text-color;
+
+$button-raised-background: $fedor-dark-2;
+
+$card-bg-color: $fedor-dark-2;
+
+$sidenav-bg-color: $fedor-dark-1;
+$sidenav-font-color: rgba(255,255,255,.72) !default;
+
+body{
+    background-color: $fedor-dark-1;
+}
+h6, h5, h4, h3, h2, h1, th, tr, p, li, input{
+    color: $fedor-text-color;
+}
+
+.card-title{
+    color: $fedor-text-color;
+}
+
+.modal, .modal-footer{
+    background-color: $fedor-dark-1 !important;
+}
+
+.sidenav-trigger .material-icons{
+    color: $fedor-dark-5 !important;
+}
+
+.material-icons{
+    color: $fedor-text-color !important;
+}
+
+.divider{
+    background-color: $fedor-dark-4 !important;
+}
+
+.drop-menu{
+    display: block;
+    position: absolute;
+    background-color: $fedor-dark-1;
+    width: 90%;
+    z-index: 999;
+    overflow: auto;
+}
+
+.drop-menu ul li{
+     background-color: #20272A !important;
+}
+
+@import "../../fw/materialize-src/sass/materialize.scss";

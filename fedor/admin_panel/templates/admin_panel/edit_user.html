@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+{% block content %}
+	<div class="container f-mt">
+		<div class="row">
+			<div class="col s8">
+				<div class="card">
+					<div class="card-content white-text">
+						<span class="card-title">Редактирование</span>
+					<form method="post", action="{% url 'admin_panel:update_user_profile' user_id=target_user.pk %}">
+						{% csrf_token %}
+						<div class="row">
+							<div class="input-field col s6">
+								<input placeholder="Логин" id="login" type="text" class="validate" value="{{ target_user.username }}" name="username">
+								<label for="login">Логин</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<input placeholder="Имя" id="first_name" type="text" class="validate" value="{{ target_user.first_name }}" name="first_name">
+								<label for="first_name">Имя</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<input placeholder="Фамилия" id="last_name" type="text" class="validate" value="{{ target_user.last_name }}" name="last_name">
+								<label for="last_name">Фамилия</label>
+							</div>
+						</div>
+						<div class="row">
+							 <div class="input-field col s6">
+								<input placeholder="Почта" id="email" type="email" class="validate" value="{{ target_user.email }}" name="email">
+								<label for="email">Почта</label>
+							 </div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<select name="access_level">
+									<option value="" disabled selected>Профили</option>
+										{% for level in access_levels %}
+											{% if level.level == target_user.profile.access_level.level %}
+												<option value="{{ level.level }}" selected>{{ level.level_name }}</option>
+											{% else %}
+												<option value="{{ level.level }}">{{ level.level_name }}</option>
+											{% endif %}
+										{% endfor %}
+								</select>
+								<label>Профиль доступа</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s2">
+								<button type="submit" class="btn btn-primary">Изменить</button>
+							</div>
+							<div class="col s1">
+								<button type="submit" class="btn btn-danger" form="user-card-del">Удалить</button>
+							</div>
+						</div>
+					</form>
+					<form method="post" action="{% url 'admin_panel:delete_user' user_id=target_user.pk %}" id="user-card-del">{% csrf_token %}</form>
+				</div>
+				</div>
+			</div>
+			<div class="col s4 text-center">
+				<h5>Список пользователей</h5>
+				<div class="collection f-mt">
+					{% for user in users %}
+						{% if target_user.pk == user.pk %}
+							<a href="{% url 'admin_panel:show_edit_user_page' user_id=user.pk %}" class="collection-item active">{{ user }}</a>
+						{% else %}
+							<a href="{% url 'admin_panel:show_edit_user_page' user_id=user.pk %}"  class="collection-item">{{ user }}</a>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block script %}
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% block title %}Форма регистрации пользователя{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col s12 text-center">
+			<h5>Форма регистрации</h5>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s12 offset-s3">
+			<form method="post", action="{% url 'admin_panel:create_user' %}">
+				{% csrf_token %}
+				<div class="row">
+					<div class="input-field col s6">
+					  <input placeholder="Логин" id="login" type="text" class="validate" name="username">
+					  <label for="login">Логин</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+					  	<input placeholder="Пароль" id="password" type="password" class="validate" name="password1">
+					  	<label for="password">Пароль</label>
+						{% if error %}
+						<p class="text-danger">{{ error }}</p>
+						{% endif %}
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<input placeholder="Повторите пароль" id="password2" type="password" class="validate" name="password2">
+						<label for="password2">Повторите пароль</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+					  	<input placeholder="Ваш почтовый ящик" id="email" type="email" class="validate" name="email">
+					  	<label for="email">Ваш почтовый ящик</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+				  		<input placeholder="Имя" id="first_name" type="text" class="validate" name="first_name">
+				  		<label for="first_name">Имя</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+					  	<input placeholder="Фамилия" id="last_name" type="text" class="validate" name="last_name">
+					  	<label for="last_name">Фамилия</label>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">Зарегистрировать</button>
+			</form>
+
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -27,18 +27,16 @@ def show_login_page(request):
 @require_http_methods(['POST'])
 def user_login(request):
     """Авторизация пользователя"""
-    res = {}
-    res['username'] = request.POST.get('username')
-    res['password'] = request.POST.get('password')
+    res = {'username': request.POST.get('username'), 'password': request.POST.get('password')}
     user = auth.authenticate(username=res['username'], password=res['password'])
     if user:
         auth.login(request, user)
         logger.info('Авторизовался:{}'.format(request.user))
 
         previous_url = request.GET.get('next')
-        if previous_url:  # Если есть путь на страницу, с которой пользователя средиректило
+        if previous_url and previous_url != 'None':  # Если есть путь на страницу, с которой пользователя средиректило
             return redirect(previous_url)  # Возварт к предыдущей странице
-        return redirect('/')
+        return redirect('/matching/manual-matching/page/')
     else:
         logger.info('Ошибка авторизации {}'.format(res['username']))
         request.session['error'] = 'Неверно введены имя пользователя или пароль'

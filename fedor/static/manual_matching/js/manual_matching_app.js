@@ -20,7 +20,6 @@ Vue.prototype.$load_eas_list = function (id_sku, url){
     }
     axios.get(url, {params: request_params})
         .then(function (response){
-            console.log(response)
             manual_matching_app.eas = JSON.parse(response.data.eas)
         }).catch(function (error){
             modal_error_app.error = error
@@ -74,7 +73,7 @@ manual_matching_app = new Vue({
         change_status(id_sku){
             /* Вешаем активный класс на элемент */
             return{
-            'eas-select' : this.active_sku === id_sku
+            'eas-select active' : this.active_sku === id_sku
             }
         },
     },

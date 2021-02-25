@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from admin_panel.models import Profile, AccessLevel
+from admin_panel.models import *
 
 
 ## @defgroup form_registartion_user Форма создания пользователя
@@ -38,14 +38,17 @@ class CustomUpdateUserForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active', 'is_superuser']
+        fields = ['username', 'first_name', 'last_name', 'email']
 
     ##  @param[in] level_id - уровень доступа
     def save(self, level_id):
         user = super(CustomUpdateUserForm, self).save(commit=True)
         access_level = AccessLevel.objects.get(level=level_id)
-        profile = Profile.objects.get(user=user)
-        profile.access_level = access_level
-        profile.save()
+        try:
+            profile = Profile.objects.get(user=user)
+            profile.access_level = access_level
+            profile.save()
+        except Profile.DoesNotExist:
+            Profile.objects.create(user=user, access_level=access_level)
         return user
 ##@}

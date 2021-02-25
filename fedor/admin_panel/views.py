@@ -1,10 +1,12 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
 from django.urls import reverse
 import logging
 from .services import user_manipulation
+from django.contrib.auth.models import User
 
-## @defgroup admin_joint Администрирование стыковщика
+## @defgroup admin_panel Администрирование стыковщика
 # @brief Основной модуль, содержащий в себе модули для работы с пользователями
 
 
@@ -12,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 ## @defgroup registration - Регистрация пользователя
 #  @brief Основной модуль, содержащий в себе модули регистрации пользователя
-#  @ingroup admin_joint
+#  @ingroup admin_panel
 
 ## @defgroup show_registartion_user Рендеринг страницы регистрации
 #  @ingroup registration
@@ -26,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 ## @defgroup edit_user - Редактирование пользователя
 #  @brief Основной модуль, содержащий в себе модули работы с редактирование профиля
-#  @ingroup admin_joint
+#  @ingroup admin_panel
 
 ## @defgroup show_update_user_profile Рендеринг страницы редактирования пользовательского профиля
 #  @ingroup edit_user
@@ -40,14 +42,13 @@ logger = logging.getLogger(__name__)
 
 
 """Глобальные переменные шаблонов"""
-REGISTRATION_PAGE_TEMPLATE_PATH = 'admin_joint/registration_page.html'
-UPDATE_USER_PROFILE_TEMPLATE_PATH = 'admin_joint/update_user_profile_page.html'
+REGISTRATION_PAGE_TEMPLATE_PATH = 'admin_panel/registration_page.html'
+UPDATE_USER_PROFILE_TEMPLATE_PATH = 'admin_panel/edit_user.html'
+ADMIN_PAGE_PATH = 'admin_panel/admin_page.html'
 
 """Глобальные переменные урлов"""
-SHOW_REGISTRATION_PAGE_URL = 'admin_joint:show_registration_page'
-SHOW_UPDATE_USER_PROFILE_PAGE_URL = 'admin_joint:show_update_user_profile_page'
-
-
+SHOW_REGISTRATION_PAGE_URL = 'admin_panel:show_registration_page'
+SHOW_UPDATE_USER_PROFILE_PAGE_URL = 'admin_panel:show_edit_user_page'
 
 
 ## @ingroup show_registartion_user
@@ -55,15 +56,18 @@ SHOW_UPDATE_USER_PROFILE_PAGE_URL = 'admin_joint:show_update_user_profile_page'
 
 ## @details Рендер интерфейса регистрации пользовтеля
 #  @param request.session в сессии с ключом "error" передаются ошибки
-
+@login_required
 def show_registration_page(request):
     result = {'error': request.session.get('error')}
     return render(request, REGISTRATION_PAGE_TEMPLATE_PATH, result)
+
+
 ##@}
 
 ## @ingroup registartion_user
 # @{
 ## @details Принимает POST запрос регистрации пользователя
+@login_required
 @require_http_methods(['POST'])
 def user_registrations(request):
     """Регистрация пользователя"""
@@ -79,20 +83,25 @@ def user_registrations(request):
     return HttpResponseRedirect(
         reverse(SHOW_REGISTRATION_PAGE_URL)
     )
+
+
 ##@}
 
 
 ## @ingroup show_update_user_profile
 # @{
 #  @param[in] user_id передается в GET
-def show_update_user_profile_page(request, user_id):
+@login_required
+def show_edit_user_page(request, user_id=1):
     """Показывает интерфейс редактирования профиля"""
     logger.info('user_id: {}'.format(user_id))
     result = {
         'target_user': user_manipulation.get_user(user_id),
-        'access_levels': user_manipulation.get_all_access_level()
+        'access_levels': user_manipulation.get_all_access_level(),
+        'users': User.objects.all()
     }
     return render(request, UPDATE_USER_PROFILE_TEMPLATE_PATH, result)
+
 
 ##@}
 
@@ -102,9 +111,11 @@ def show_update_user_profile_page(request, user_id):
 #  @param[in] user_id - принимает user_id
 #  @param[in] POST.get('access_level') - выбранный уровень доступа
 #  @param request.POST - содержит поля стандартной модели User
+@login_required
 @require_http_methods(['POST'])
 def update_user_profile(request, user_id):
     """Изменение профиля пользовтеля"""
+    request.session['error'] = ''
     access_level = request.POST.get('access_level')
     if user_manipulation.edit_user_profile(request.POST, user_id, access_level):
         logger.debug('Профиль успешно обновлен!')
@@ -119,4 +130,20 @@ def update_user_profile(request, user_id):
             reverse(SHOW_UPDATE_USER_PROFILE_PAGE_URL,
                     kwargs={'user_id': user_id})
         )
+
+
 ##@}
+
+
+@login_required
+@require_http_methods(['POST'])
+def delete_user(request, user_id):
+    User.objects.get(pk=user_id).delete()
+    return HttpResponseRedirect(
+        reverse(SHOW_UPDATE_USER_PROFILE_PAGE_URL,
+                kwargs={'user_id': User.objects.latest('pk').pk})
+    )
+
+@login_required
+def show_admin_page(request):
+    return render(request, ADMIN_PAGE_PATH, {})

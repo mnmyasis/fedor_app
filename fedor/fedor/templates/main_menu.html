@@ -1,36 +1,29 @@
+{% load static %}
 <ul id="slide-out" class="sidenav">
     <li>
         <div class="user-view">
-            <div class="background text-center">
-                MENU
-            </div>
+              <div class="background">
+                <img src="{% static 'fedor/media/6.jpg' %}">
+              </div>
+              <a href="#!user"><img class="circle" src="{% static 'fedor/media/FEDOR2.png' %}" style="height: 40%; width: 40%;"></a>
+              <a href="#!name"><span class="white-text name">Fedor</span></a>
+              <a href="#!email"><span class="white-text email">{{ request.user.first_name }} {{ request.user.last_name }}</span></a>
         </div>
     </li>
-    <li>
-        <div class="divider mt-3"></div>
-    </li>
-    <li><a href="{% url 'show_auto_matching_page' %}"><i class="material-icons">autorenew</i>Авто-мэтчинг</a></li>
-    <li>
-        <div class="divider"></div>
-    </li>
-    <li>
-        <div class="divider mt-3"></div>
-    </li>
-    <li><a href="{% url 'show_manual_matching_page' %}"><i class="material-icons">border_color</i>Ручной-мэтчинг</a></li>
-    <li>
-        <div class="divider"></div>
-    </li>
-    <li>
-        <div class="divider"></div>
-    </li>
-    <li>
-        <div class="divider mt-3"></div>
-    </li>
-    <li><a href="{% url 'analytic_page' %}"><i class="material-icons">dvr</i>Аналитика</a></li>
-    <li>
-        <div class="divider"></div>
-    </li>
+
+    <li><a href="{% url 'show_auto_matching_page' %}"><i class="material-icons">autorenew</i>АВТО-МЭТЧИНГ</a></li>
+    <li><a href="{% url 'show_manual_matching_page' %}"><i class="material-icons">border_color</i>РУЧНОЙ-МЭТЧИНГ</a></li>
+    <li><a href="{% url 'analytic_page' %}"><i class="material-icons">trending_up</i>АНАЛИТИКА</a></li>
+    <!--<li><a class="waves-effect" href="#!"><i class="material-icons">vpn_key</i>Админ панель</a></li>-->
+    <li><div class="divider"></div></li>
+     <li class="f-ml"><a class="subheader"></a>Админ панель</li>
+     <li><a class="waves-effect" href="{% url 'admin_panel:show_edit_user_page' user_id=1 %}"><i class="material-icons">supervisor_account</i>USERS EDIT</a></li>
+     <li><a class="waves-effect" href="{% url 'admin_panel:show_registration_page' %}"><i class="material-icons">show_chart</i>CREATE USER</a></li>
+
+    <li style="position: absolute; bottom: 15%; width: 100%;"><div class="divider"></div></li>
+     <li style="position: absolute; bottom: 10%; width: 100%;"><a class="waves-effect" href="{% url 'auth_fedor:user_logout' %}"><i class="material-icons">exit_to_app</i>{{ request.user }}</a></li>
 </ul>
+
 <div id="main_menu_app" style="position: absolute">
     <a href="#" data-target="slide-out" class="sidenav-trigger" v-on:click="show_menu">
         <i class="small material-icons">menu</i>
