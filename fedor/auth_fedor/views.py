@@ -1,9 +1,9 @@
 import logging
 from django.contrib import auth
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect, HttpResponseRedirect
-
 ## @defgroup auth_fedor Авторизация пользователей
 # @brief Модуль содержащий функции для работы с авторизацией пользователей
 #  @param  PATH_AUTH_JOINT_PAGE - Глобальная переменная шаблона
@@ -15,6 +15,33 @@ logger = logging.getLogger(__name__)
 
 PATH_AUTH_JOINT_PAGE = 'auth_fedor/auth_joint_page.html'
 REDIRECT_URL_AUTH_JOINT = 'auth_fedor:login_page'
+
+
+def fedor_auth_for_ajax(func):
+    def wrapper(request):
+        if request.user.is_authenticated:
+            return func(request)
+        else:
+            raise PermissionDenied()
+
+    return wrapper
+
+
+def fedor_permit(perm=[1]):
+    def wrapper(func):
+        def permit(*args, **kwargs):
+            request = args[0]
+            if request.user.profile.access_level.level in perm:
+                return func(*args, **kwargs)
+            else:
+                if request.is_ajax():
+                    raise PermissionDenied()
+                else:
+                    return redirect(REDIRECT_URL_AUTH_JOINT)
+
+        return permit
+
+    return wrapper
 
 
 def show_login_page(request):
@@ -48,6 +75,7 @@ def user_login(request):
 def user_logout(request):
     """Деавторизация пользователя"""
     auth.logout(request)
-    return redirect(REDIRECT_URL_AUTH_JOINT)
+    next_page = request.GET['next']
+    return HttpResponseRedirect(next_page)
 
 ##@}

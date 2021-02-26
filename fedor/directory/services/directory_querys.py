@@ -27,8 +27,11 @@ def search_by_tn_fv(**fields):
     return res
 
 
-def get_number_competitor_list():
-    number_competitors = NumberCompetitor.objects.all().values('pk', 'name')
+def get_number_competitor_list(user):
+    if user.profile.access_level.level == 4:
+        number_competitors = NumberCompetitor.objects.filter(pk=user.profile.competitor.pk).values('pk', 'name')
+    else:
+        number_competitors = NumberCompetitor.objects.all().values('pk', 'name')
     number_competitors = json.dumps(list(number_competitors))
     return number_competitors
 

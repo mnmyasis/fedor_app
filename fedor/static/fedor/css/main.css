@@ -41,3 +41,8 @@
     z-index: 999;
 }
 
+.fedor-menu{
+    position: fixed;
+    top: 0%;
+}
+

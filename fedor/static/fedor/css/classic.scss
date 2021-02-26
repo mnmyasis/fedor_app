@@ -9,8 +9,12 @@ $fedor-classic-1: #ebebeb !default;
     overflow: auto;
 }
 
-.drop-menu ul li{
+.drop-menu{
+    background-color: #fff !important;
+}
 
+.drop-menu ul li{
+    cursor: pointer;
 }
 
 .f-preloader{

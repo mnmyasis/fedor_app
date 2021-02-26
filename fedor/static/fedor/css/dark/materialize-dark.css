@@ -28,7 +28,8 @@ h6, h5, h4, h3, h2, h1, th, tr, p, li, input {
   overflow: auto; }
 
 .drop-menu ul li {
-  background-color: #20272A !important; }
+  background-color: #20272A !important;
+  cursor: pointer; }
 
 .f-preloader {
   display: block;

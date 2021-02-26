@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from .services import statistic
 from directory.models import NumberCompetitor
+from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
 import json
 
 # Create your views here.
@@ -11,6 +12,7 @@ ANALYTIC_PAGE = 'analytic/page.html'
 
 
 @login_required
+@fedor_permit([1, 2, 3])
 def analytic_page(request):
     return render(request, ANALYTIC_PAGE)
 

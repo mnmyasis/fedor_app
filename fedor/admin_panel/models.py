@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from directory.models import NumberCompetitor
+
 
 ## @defgroup access_level_model
 #  @ingroup get_access_level_all
@@ -17,6 +19,7 @@ class AccessLevel(models.Model):
     def __str__(self):
         return '{}'.format(self.level_name)
 
+
 ##@}
 
 ## @defgroup profile_model
@@ -30,4 +33,5 @@ class Profile(models.Model):
     """Профиль пользователя"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     access_level = models.ForeignKey(AccessLevel, on_delete=models.CASCADE)
+    competitor = models.ForeignKey(NumberCompetitor, models.SET_NULL, blank=True, null=True)
 ##@}

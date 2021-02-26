@@ -5,6 +5,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 ## @defgroup service_registartion_user Сервис создания пользователя
 ## @ingroup registartion_user
 # @{
@@ -24,6 +25,7 @@ def create_user(request_post):
         logger.debug('Форма регистрации не прошла проверку на валидность')
         return False
 
+
 ##@}
 
 ## @defgroup service_update_user_profile Сервис редактирования пользовательского профиля
@@ -34,17 +36,18 @@ def create_user(request_post):
 #  @param[in] request_post - POST запрос
 #  @param[in] user_id - Пользовательский id
 #  @param[in] access_level - Уровень доступа
-def edit_user_profile(request_post, user_id=None, access_level=1):
+def edit_user_profile(request_post, user_id=None, access_level=1, competitor=None):
     """Редактирование профиля пользователя"""
     logger.debug('user_id: {}, access_level_id: {}'.format(user_id, access_level))
     update_form = CustomUpdateUserForm(request_post, instance=get_user(user_id))
     if update_form.is_valid():
         logger.debug('Валидность формы пройдена')
-        update_form.save(access_level)
+        update_form.save(access_level, competitor)
         return True
     else:
         logger.debug('Форма не прошла проверку на валидность')
         return False
+
 
 ##@}
 
@@ -63,6 +66,7 @@ def get_user(user_id):
     except User.DoesNotExist:
         logger.error('Пользователь с id {} не найден'.format(user_id))
         return False
+
 
 ##@}
 

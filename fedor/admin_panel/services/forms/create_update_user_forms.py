@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from directory.models import NumberCompetitor
 from admin_panel.models import *
 
 
@@ -14,14 +15,14 @@ class CustomCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1']
+        fields = ['username', 'first_name', 'last_name', 'password1']
 
     ##  @details Создается юзер и связь между User и AccessLevel в Profile
     def save(self):
         user = super(CustomCreationForm, self).save(commit=True)
         Profile.objects.create(
             user=user,
-            access_level=AccessLevel.objects.get(id=1))  # Права по умолчанию
+            access_level=AccessLevel.objects.get(id=3))  # Права по умолчанию
         return user
 
 
@@ -41,13 +42,20 @@ class CustomUpdateUserForm(UserChangeForm):
         fields = ['username', 'first_name', 'last_name', 'email']
 
     ##  @param[in] level_id - уровень доступа
-    def save(self, level_id):
+    def save(self, level_id, competitor=None):
         user = super(CustomUpdateUserForm, self).save(commit=True)
         access_level = AccessLevel.objects.get(level=level_id)
         try:
             profile = Profile.objects.get(user=user)
             profile.access_level = access_level
             profile.save()
+            if competitor:
+                competitor = NumberCompetitor.objects.get(pk=competitor)
+                profile.competitor = competitor
+                profile.save()
+            else:
+                profile.competitor = None
+                profile.save()
         except Profile.DoesNotExist:
             Profile.objects.create(user=user, access_level=access_level)
         return user

@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import *
 
+app_name = 'manual_matching'
 urlpatterns = [
     path('manual-matching/page/', show_manual_matching_page, name='show_manual_matching_page'),  # Рендер страницы
     path('manual-matching/page/get/sku/', get_sku, name='get_sku'),  # Выгрузка клиентской номенклатуры

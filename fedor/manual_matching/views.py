@@ -10,7 +10,9 @@ from .services.manual_matching_data import matching_sku_eas, edit_status
 from .services.filters import Filter, ManualFilter, SKUFilter
 from .services.filters_final import FilterStatuses
 from directory.services.directory_querys import search_by_tn_fv
+from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
 import logging, json
+
 logger = logging.getLogger(__name__)
 
 ## @defgroup manual_matching Модуль ручного мэтчинга
@@ -25,18 +27,8 @@ logger = logging.getLogger(__name__)
 SHOW_MANUAL_MATCHING_PAGE_TEMPLATE = 'manual_matching/page.html'
 
 
-def fedor_auth_for_ajax(func):
-    def wrapper(request):
-        if request.user.is_authenticated:
-            return func(request)
-        else:
-            raise PermissionDenied()
-    return wrapper
-
-
 ## @ingroup show_manual_matching_page
 # @{
-
 
 @login_required
 def show_manual_matching_page(request):

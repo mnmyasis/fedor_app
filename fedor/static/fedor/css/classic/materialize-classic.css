@@ -6,6 +6,12 @@
   z-index: 999;
   overflow: auto; }
 
+.drop-menu {
+  background-color: #fff !important; }
+
+.drop-menu ul li {
+  cursor: pointer; }
+
 .f-preloader {
   display: block;
   position: fixed;

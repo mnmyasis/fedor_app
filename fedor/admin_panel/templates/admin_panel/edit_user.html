@@ -47,6 +47,23 @@
 								<label>Профиль доступа</label>
 							</div>
 						</div>
+						{% if target_user.profile.access_level.level == 4 %}
+							<div class="row">
+								<div class="input-field col s6">
+									<select name="competitor">
+										<option value="" disabled selected>Справочники</option>
+											{% for competitor in competitors %}
+												{% if competitor.pk == target_user.profile.competitor.pk %}
+													<option value="{{ competitor.pk }}" selected>{{ competitor.name }}</option>
+												{% else %}
+													<option value="{{ competitor.pk }}">{{ competitor.name  }}</option>
+												{% endif %}
+											{% endfor %}
+									</select>
+									<label>Справочники</label>
+								</div>
+							</div>
+						{% endif %}
 						<div class="row">
 							<div class="col s2">
 								<button type="submit" class="btn btn-primary">Изменить</button>

@@ -4,18 +4,22 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from .services.directory_querys import get_number_competitor_list, load_date_new_sku
 from .services import group_change
-from manual_matching.views import fedor_auth_for_ajax
+from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
+from .models import NumberCompetitor
 
 # Create your views here.
 
 @fedor_auth_for_ajax
 def number_competitor_list(request):
     """Получить список клиентских справочников"""
-    number_competitors = get_number_competitor_list()
+
+    number_competitors = get_number_competitor_list(request.user)
     require = {
         'number_competitors': number_competitors
     }
+    print(require)
     return JsonResponse(require)
+
 
 @fedor_auth_for_ajax
 def get_new_sku(request):
@@ -27,7 +31,9 @@ def get_new_sku(request):
     }
     return JsonResponse(require)
 
+
 @fedor_auth_for_ajax
+@fedor_permit([1, 2])
 def group_change_start(request):
     """Запуск массовых подмен по справочнику"""
     number_competitor = request.GET.get('number_competitor_id')
@@ -35,7 +41,9 @@ def group_change_start(request):
     group_change.change_line(number_competitor, exclude_list)
     return JsonResponse(True, safe=False)
 
+
 @fedor_auth_for_ajax
+@fedor_permit([1, 2, 3])
 def group_changes_list(request):
     """Поиск подмен для их исключения"""
     group_changes_input = request.GET.get('group_changes_input')
@@ -45,7 +53,9 @@ def group_changes_list(request):
     }
     return JsonResponse(require)
 
+
 @fedor_auth_for_ajax
+@fedor_permit([1, 2, 3])
 def group_changes_edit_list(request):
     """Список всех подмен в модальном окне"""
     res = group_change.get_group_changes_list()
@@ -54,7 +64,9 @@ def group_changes_edit_list(request):
     }
     return JsonResponse(require)
 
+
 @fedor_auth_for_ajax
+@fedor_permit([1, 2, 3])
 def group_changes_filter(request):
     """Фильтрация в модальном окне"""
     change = request.GET.get('group_change_input')
@@ -65,7 +77,9 @@ def group_changes_filter(request):
     }
     return JsonResponse(require)
 
+
 @fedor_auth_for_ajax
+@fedor_permit([1, 2, 3])
 def group_change_update(request):
     """Изменение записи подмен"""
     request = json.loads(request.body.decode('utf-8'))
@@ -75,7 +89,9 @@ def group_change_update(request):
     require = group_change.update_or_create_group_change(pk=group_pk, change=change, search=search)
     return JsonResponse(require)
 
+
 @fedor_auth_for_ajax
+@fedor_permit([1, 2, 3])
 def group_change_add(request):
     """Добавление подмены в БД"""
     request = json.loads(request.body.decode('utf-8'))

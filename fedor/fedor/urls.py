@@ -10,6 +10,5 @@ urlpatterns = [
     path('matching/', include('manual_matching.urls')),
     path('directory/', include('directory.urls')),
     path('analytic/', include('analytic.urls')),
-    path('change-style-interface/', change_style_interface),
     re_path(r'^', index)
 ]

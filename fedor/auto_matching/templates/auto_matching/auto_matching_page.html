@@ -12,10 +12,16 @@
                     </div>
                     <div class="card-action">
                         <div>
-                            <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                    v-on:click="group_change_start">Изменить
-                                <i class="material-icons right">border_color</i>
-                            </button>
+                            {% if request.user.profile.access_level.level == 1 or request.user.profile.access_level.level == 2 %}
+                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                        v-on:click="group_change_start">Изменить
+                                    <i class="material-icons right">border_color</i>
+                                </button>
+                            {% else %}
+                                <button class="btn waves-effect waves-light f-mt f-mb disabled" type="submit">Изменить
+                                    <i class="material-icons right">border_color</i>
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -45,10 +51,17 @@
                                 v-on:click="group_change_reset">Сброс
                             <i class="material-icons right">clear</i>
                         </button>
+                        {% if request.user.profile.access_level.level == 1 or request.user.profile.access_level.level == 2 or request.user.profile.access_level.level == 3%}
                         <a class="btn waves-effect waves-light f-mt f-mb modal-trigger" href="#edit-group-changes-modal"
                                 >Редактирование
                             <i class="material-icons right">clear</i>
                         </a>
+                        {% else %}
+                            <a class="btn waves-effect waves-light f-mt f-mb disabled"
+                                >Редактирование
+                            <i class="material-icons right">clear</i>
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -66,10 +79,16 @@
                     </div>
                     <div class="card-action">
                         <div>
-                            <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                    v-on:click="start_matching">Смэтчить
-                                <i class="material-icons right">autorenew</i>
-                            </button>
+                            {% if request.user.profile.access_level.level == 1 or request.user.profile.access_level.level == 2 %}
+                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                        v-on:click="start_matching">Смэтчить
+                                    <i class="material-icons right">autorenew</i>
+                                </button>
+                            {% else %}
+                                <button class="btn waves-effect waves-light f-mt f-mb disabled" type="submit">Смэтчить
+                                    <i class="material-icons right">autorenew</i>
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,8 @@ from django.urls import reverse
 import logging
 from .services import user_manipulation
 from django.contrib.auth.models import User
+from auth_fedor.views import fedor_permit
+from directory.models import NumberCompetitor
 
 ## @defgroup admin_panel Администрирование стыковщика
 # @brief Основной модуль, содержащий в себе модули для работы с пользователями
@@ -56,7 +58,6 @@ SHOW_UPDATE_USER_PROFILE_PAGE_URL = 'admin_panel:show_edit_user_page'
 
 ## @details Рендер интерфейса регистрации пользовтеля
 #  @param request.session в сессии с ключом "error" передаются ошибки
-@login_required
 def show_registration_page(request):
     result = {'error': request.session.get('error')}
     return render(request, REGISTRATION_PAGE_TEMPLATE_PATH, result)
@@ -66,18 +67,22 @@ def show_registration_page(request):
 
 ## @ingroup registartion_user
 # @{
-## @details Принимает POST запрос регистрации пользователя
-@login_required
+## @details
 @require_http_methods(['POST'])
 def user_registrations(request):
     """Регистрация пользователя"""
     user_id = user_manipulation.create_user(request.POST)
     if user_id:
-        logger.debug('Пользователь успешно создан')
-        return HttpResponseRedirect(
-            reverse(SHOW_UPDATE_USER_PROFILE_PAGE_URL,
-                    kwargs={'user_id': user_id})
-        )
+        if request.user.is_authenticated:
+            logger.debug('Пользователь успешно создан')
+            return HttpResponseRedirect(
+                reverse(SHOW_UPDATE_USER_PROFILE_PAGE_URL,
+                        kwargs={'user_id': user_id})
+                )
+        else:
+            return HttpResponseRedirect(
+                reverse('auth_fedor:login_page')
+            )
     request.session['error'] = 'Вы ввели невалидный пароль!'
     logger.debug('Не удалось создать пользователя')
     return HttpResponseRedirect(
@@ -92,12 +97,14 @@ def user_registrations(request):
 # @{
 #  @param[in] user_id передается в GET
 @login_required
-def show_edit_user_page(request, user_id=1):
+@fedor_permit([1])
+def show_edit_user_page(request, user_id):
     """Показывает интерфейс редактирования профиля"""
     logger.info('user_id: {}'.format(user_id))
     result = {
         'target_user': user_manipulation.get_user(user_id),
         'access_levels': user_manipulation.get_all_access_level(),
+        'competitors': NumberCompetitor.objects.all(),
         'users': User.objects.all()
     }
     return render(request, UPDATE_USER_PROFILE_TEMPLATE_PATH, result)
@@ -112,12 +119,13 @@ def show_edit_user_page(request, user_id=1):
 #  @param[in] POST.get('access_level') - выбранный уровень доступа
 #  @param request.POST - содержит поля стандартной модели User
 @login_required
-@require_http_methods(['POST'])
+@fedor_permit([1])
 def update_user_profile(request, user_id):
     """Изменение профиля пользовтеля"""
     request.session['error'] = ''
     access_level = request.POST.get('access_level')
-    if user_manipulation.edit_user_profile(request.POST, user_id, access_level):
+    competitor = request.POST.get('competitor')
+    if user_manipulation.edit_user_profile(request.POST, user_id, access_level, competitor):
         logger.debug('Профиль успешно обновлен!')
         return HttpResponseRedirect(
             reverse(SHOW_UPDATE_USER_PROFILE_PAGE_URL,
@@ -136,7 +144,7 @@ def update_user_profile(request, user_id):
 
 
 @login_required
-@require_http_methods(['POST'])
+@fedor_permit([1])
 def delete_user(request, user_id):
     User.objects.get(pk=user_id).delete()
     return HttpResponseRedirect(

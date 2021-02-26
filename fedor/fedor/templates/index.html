@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <title>{% block title %}Стыковщик{% endblock %}</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   <!-- <link rel="stylesheet" type="text/css" href="{% static 'fw/materialize/css/materialize.min.css' %}">-->
     <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/main.css' %}">
-    <!--<link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark_style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark/test.css' %}">-->
     {% if request.COOKIES.user_style %}
         {% if request.COOKIES.user_style == 'dark' %}
             <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark/materialize-dark.css' %}">
@@ -18,18 +15,17 @@
     {% else %}
          <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/classic/materialize-classic.css' %}">
     {% endif %}
-    <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/menu.css' %}">
     <script src="{% static 'fw/vuejs/vue.js' %}"></script>
     <script src="{% static 'fw/axios/dist/axios.min.js' %}"></script>
     {% block custom_css %}{% endblock %}
 </head>
 <body class="{{ request.COOKIES.body }}">
 {% include 'preloader.html' %}
-{% include 'main_menu.html' %}
 {% block content %}{% endblock %}
 {% include 'error_window.html'  %}
 {% include 'access_window.html'  %}
 {% if request.user.is_authenticated %}
+    {% include 'main_menu.html' %}
     {% include 'user_style.html' %}
 {% endif %}
 </body>
