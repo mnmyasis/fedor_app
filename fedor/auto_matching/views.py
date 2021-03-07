@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import JsonResponse
@@ -12,6 +14,8 @@ from .services.algoritm import *
 from .services.write_mathing_result import *
 from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list, test_get_sku
 from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
+from admin_panel.tasks import create_task_starting_algoritm
+from admin_panel.models import Tasks
 
 logger = logging.getLogger(__name__)
 
@@ -31,9 +35,9 @@ SHOW_AUTO_MATCHING_PAGE_TEMPLATE = 'auto_matching/auto_matching_page.html'
 ## @ingroup show_matching_page
 # @{
 
-@login_required
+
 @fedor_permit([1, 2, 3])
-@ensure_csrf_cookie
+#@ensure_csrf_cookie
 def auto_matching_page(request):
     """Рендер страницы авто-стыковки"""
     logger.info(request.session.get('style_interface'))
@@ -48,7 +52,7 @@ def auto_matching_page(request):
 
 ## @ingroup search_client
 # @{
-@fedor_auth_for_ajax
+@fedor_permit([1, 2])
 def search_client_directory_data(request):
     """Поиск по клиентскому справочнику, форма поиска на интерфейсе"""
     logger.debug('Запуск поиска по ClientDirectory')
@@ -64,7 +68,7 @@ def search_client_directory_data(request):
 
 ##@}
 
-@fedor_auth_for_ajax
+
 @fedor_permit([1, 2])
 def algoritm_mathing(request):
     """Функция запуска алгоритма"""
@@ -83,6 +87,29 @@ def algoritm_mathing(request):
     """Запись результата работы алгоритма"""
     match = Matching()
     [match.wr_match(matching_state=x['qnt'], matching_line=x) for x in matching_result['data']]
+    return JsonResponse(True, safe=False)
+
+
+@fedor_permit([1, 2])
+def create_work_algoritm(request):
+    user = request.user
+    request = json.loads(request.body.decode('utf-8'))
+    number_competitor_id = request['data'].get('number_competitor_id')
+    action = request['data'].get('action')  # Акция
+    barcode_match = request['data'].get('barcode_match')  # Доверять ШК
+    new_sku = request['data'].get('new_sku')  # Новая ску номенклатура
+    task = create_task_starting_algoritm.delay(
+        number_competitor_id=number_competitor_id,
+        action=action,
+        barcode_match=barcode_match,
+        new_sku=new_sku
+    )
+    Tasks.objects.create(
+        task_id=task.id,
+        name='Алгоритм',
+        user=user,
+        status=task.status
+    )
     return JsonResponse(True, safe=False)
 
 

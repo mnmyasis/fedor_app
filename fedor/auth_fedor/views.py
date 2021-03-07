@@ -31,7 +31,7 @@ def fedor_permit(perm=[1]):
     def wrapper(func):
         def permit(*args, **kwargs):
             request = args[0]
-            if request.user.profile.access_level.level in perm:
+            if request.user.is_authenticated and request.user.profile.access_level.level in perm:
                 return func(*args, **kwargs)
             else:
                 if request.is_ajax():

@@ -43,7 +43,7 @@ user_style_app = new Vue({
                 fedor_items[i].style.fontSize = this.font_size + 'px';
             }
             let size = this.font_size + 'px';
-            document.cookie = "fedor_font_size=" + size + '; path=/';
+            document.cookie = "fedor_font_size=" + size + '; path=/; SameSite=None; Secure';
         }
     },
     mounted(){

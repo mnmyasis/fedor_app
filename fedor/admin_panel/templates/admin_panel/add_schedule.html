@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    {% include 'admin_panel/schedule.html'  %}
+<div class="container" id="schedule_app">
+    <div class="row fedor-schedule-form">
+        <div class="col s6 offset-s4">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" id="min" class="datepicker" placeholder="День" name="date" v-model.lazy="date">
+                        <label for="min">День</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" id="hour" class="timepicker" placeholder="Время" name="time" v-model.lazy="time">
+                        <label for="hour">Время</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s2">
+						<button class="btn btn-primary" v-on:click="create_schedule">Добавить</button>
+					</div>
+				</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script src="{% static 'admin_panel/js/schedule.js' %}"></script>
+{% endblock %}
+

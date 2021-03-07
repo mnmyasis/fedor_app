@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    {% include 'admin_panel/schedule.html'  %}
+    <div class="container">
+        <div class="row fedor-schedule-form">
+            <div class="col s6 offset-s4">
+                <form method="post" action="{% url 'admin_panel:schedule_update' schedule_id=schedule.pk %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input type="text" id="min" placeholder="Минута" name="minute" value="{{ schedule.minute }}">
+                            <label for="min">Минута</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input type="text" id="hour" placeholder="Час" name="hour" value="{{ schedule.hour }}">
+                            <label for="hour">Час</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input type="text" id="day_of_week" placeholder="Дни недели" name="day_of_week" value="{{ schedule.day_of_week }}">
+                            <label for="day_of_week">Дни недели</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input type="text" id="month_of_year" placeholder="Месяца" value="{{ schedule.month_of_year }}" name="month_of_year">
+                            <label for="month_of_year">Месяца</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s2">
+                            <button type="submit" class="btn btn-primary" v-on:click="create_schedule">Изменить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

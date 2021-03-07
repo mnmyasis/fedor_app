@@ -49,6 +49,57 @@ h6, h5, h4, h3, h2, h1, th, tr, p, li, input {
   width: 100px;
   border-color: #20272A !important; }
 
+.fedor-menu {
+  position: fixed;
+  top: 0%; }
+
+.fedor-schedule-form {
+  margin-top: 20%; }
+
+.fedor-schedule-menu {
+  position: fixed;
+  top: 30%; }
+
+.fedor-schedule-menu th {
+  padding: 5px 10px;
+  border-bottom: 1px solid #80939B; }
+
+.fedor-schedule-menu a {
+  padding-left: 10px;
+  text-decoration: none;
+  color: #FFFFFF !important;
+  font-size: 14px; }
+
+.fedor-schedule-menu th:hover {
+  background-color: rgba(118, 143, 155, 0.42); }
+
+.fedor-schedule-menu h6 {
+  background-color: rgba(118, 143, 155, 0.42) !important;
+  color: #FFFFFF !important;
+  padding: 17px; }
+
+.fedor-status-task {
+  -webkit-animation: fedor-status-task 3s linear infinite;
+  animation: fedor-status-task 3s linear infinite; }
+
+@-webkit-keyframes fedor-status-task {
+  0% {
+    color: #ffab00; }
+  50% {
+    color: rgba(255, 171, 0, 0); }
+  100% {
+    color: #ffab00; } }
+@keyframes fedor-status-task {
+  0% {
+    color: #ffab00; }
+  50% {
+    color: rgba(255, 171, 0, 0); }
+  100% {
+    color: #ffab00; } }
+.fedor-table .collection-item a {
+  text-decoration: none !important;
+  color: #FFFFFF !important; }
+
 .materialize-red {
   background-color: #e51c23 !important; }
 

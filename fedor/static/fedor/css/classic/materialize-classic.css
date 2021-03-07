@@ -30,6 +30,57 @@
   width: 100px;
   border-color: #FFFFFF !important; }
 
+.fedor-menu {
+  position: fixed;
+  top: 0%; }
+
+.fedor-schedule-form {
+  margin-top: 20%; }
+
+.fedor-schedule-menu {
+  position: fixed;
+  top: 30%; }
+
+.fedor-schedule-menu th {
+  padding: 5px 10px;
+  border-bottom: 1px solid #e0e0e0; }
+
+.fedor-schedule-menu a {
+  padding-left: 10px;
+  text-decoration: none;
+  color: #26a69a;
+  font-size: 14px; }
+
+.fedor-schedule-menu th:hover {
+  background-color: #e0e0e0; }
+
+.fedor-schedule-menu h6 {
+  background-color: #26a69a !important;
+  color: #eafaf9;
+  padding: 17px; }
+
+.fedor-status-task {
+  -webkit-animation: fedor-status-task 3s linear infinite;
+  animation: fedor-status-task 3s linear infinite; }
+
+@-webkit-keyframes fedor-status-task {
+  0% {
+    color: #ffab00; }
+  50% {
+    color: rgba(255, 171, 0, 0); }
+  100% {
+    color: #ffab00; } }
+@keyframes fedor-status-task {
+  0% {
+    color: #ffab00; }
+  50% {
+    color: rgba(255, 171, 0, 0); }
+  100% {
+    color: #ffab00; } }
+.fedor-table .collection-item a {
+  text-decoration: none !important;
+  color: #26a69a !important; }
+
 .materialize-red {
   background-color: #e51c23 !important; }
 

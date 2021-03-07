@@ -81,7 +81,11 @@
                         <div>
                             {% if request.user.profile.access_level.level == 1 or request.user.profile.access_level.level == 2 %}
                                 <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                        v-on:click="start_matching">Смэтчить
+                                        v-on:click="start_worker_matching">Смэтчить
+                                    <i class="material-icons right">autorenew</i>
+                                </button>
+                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                        v-on:click="start_matching">Смэтчить(DEV)
                                     <i class="material-icons right">autorenew</i>
                                 </button>
                             {% else %}
@@ -140,10 +144,41 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col s12" id="task-status-app">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title text-center">Задачи</span>
+                    <table style="font-size: 12px;" class="centered f-mt">
+                        <thead>
+                        <tr>
+                            <th class="text-center">ИМЯ</th>
+                            <th class="text-center">ПОЛЬЗОВАТЕЛЬ</th>
+                            <th class="text-center">ВРЕМЯ ЗАПУСКА</th>
+                            <th class="text-center">СТАТУС</th>
+                            <th class="text-center">РЕЗУЛЬТАТ</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="task in tasks">
+                                <th class="text-center">{( task.name )}</th>
+                                <th class="text-center">{( task.user__username )}</th>
+                                <th class="text-center">{( task.create_date )}</th>
+                                <th class="text-center fedor-status-task" v-if="task.status=='PENDING'">{( task.status )}</th>
+                                <th class="text-center  light-green-text accent-2" v-else>{( task.status )}</th>
+                                <th class="text-center">{( task.result )}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
 {% block script %}
     <script src="{% static 'auto_matching/js/auto_matching.js' %}"></script>
     <script src="{% static 'auto_matching/js/group_changes.js' %}"></script>
+    <script src="{% static 'auto_matching/js/tasks_status.js' %}"></script>
 {% endblock %}

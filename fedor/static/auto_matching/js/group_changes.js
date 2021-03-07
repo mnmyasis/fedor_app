@@ -29,6 +29,9 @@ group_changes_app = new Vue({
                 change: change_name
             })
         },
+        task_status(task_id){
+            let cookie_value = document.cookie.replace(/(?:(?:^|.*;\s*)user_style\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        },
         group_change_start(){ // Запуск массовых подмен
             preloader_app.show_preloading = true
             let request_params = {

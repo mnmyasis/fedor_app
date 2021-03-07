@@ -30,7 +30,8 @@
         <li><a class="waves-effect subheader"><i class="material-icons">supervisor_account</i>USERS EDIT</a></li>
     {% endif %}
     {% if request.user.profile.access_level.level == 1 %}
-    <li><a class="waves-effect" href="{% url 'admin_panel:show_registration_page' %}"><i class="material-icons">show_chart</i>CREATE USER</a></li>
+        <li><a class="waves-effect" href="{% url 'admin_panel:show_registration_page' %}"><i class="material-icons">local_library</i>CREATE USER</a></li>
+        <li><a class="waves-effect" href="{% url 'admin_panel:schedule_list' %}"><i class="material-icons">assignment</i>Планировщик</a></li>
     {% endif %}
 
     <li style="position: absolute; bottom: 15%; width: 100%;"><div class="divider"></div></li>

@@ -6,6 +6,7 @@ auto_matching_app = new Vue({
     delimiters: ['{(', ')}'],
     data: {
         url_new_sku: '/directory/new-sku/',
+        url_start_matching_worker: '/auto/matching/create-work-algoritm/',
         url_auto_matching: '/auto/matching/algoritm/',
         action: false, // Акция
         barcode_match: false, // Доверие ШК
@@ -36,10 +37,31 @@ auto_matching_app = new Vue({
                 preloader_app.show_preloading = false
 
             })
+        },
+
+        start_worker_matching(){
+            console.log(this.action)
+            console.log(this.barcode_match)
+            console.log(this.new_sku)
+            console.log(number_competitor_app.selected_competitor)
+
+            axios.post(this.url_start_matching_worker, {
+                data: {
+                    number_competitor_id: number_competitor_app.selected_competitor,
+                    action: this.action,
+                    barcode_match: this.barcode_match,
+                    new_sku: this.new_sku,
+                },
+            }).then(function (response){
+                access_message()
+            }).catch(error => {
+                error_message(error)
+            }).then(function(){
+            })
         }
+
     },
    mounted(){
-
     },
     updated(){
         let form_sel = document.querySelector('.select-new-sku');

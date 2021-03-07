@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    {% include 'admin_panel/schedule.html'  %}
+    <div class="container">
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <table class="collection fedor-table">
+                    <thead>
+                        {% for schedule in schedules %}
+                            <tr>
+                                <th class="collection-item">
+                                    <a href="{% url 'admin_panel:schedule_update_page' schedule.pk %}">
+                                        {{schedule.hour}}:{{schedule.minute}} День недели:{{schedule.day_of_week}} Месяц:{{schedule.month_of_year}}
+                                    </a></th>
+                                <th class="collection-item"><a href="{% url 'admin_panel:schedule_remove' schedule.pk %}">
+                                    <i class="material-icons  deep-orange-text accent-3">remove</i>
+                                </a></th>
+                            </tr>
+                        {% endfor %}
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
