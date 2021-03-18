@@ -1,4 +1,9 @@
 Vue.prototype.$get_matching_lines = function(){
+    let filter_value = final_filters_app.statuses
+    if(filter_value.length > 0){
+        final_filters_app.filter()
+        return;
+    }
     let request_params = {'number_competitor_id' : number_competitor_app.selected_competitor}
     let url = '/matching/final-matching/page/get/?format=json'
     axios.get(url, {params: request_params})
@@ -110,7 +115,10 @@ final_matching_app = new Vue({
     },
     mounted(){
         /* Стартовая выгрузка данных мэтчинга */
-        this.$get_matching_lines()
+        let final_tab = document.querySelector('.final');
+        final_tab.onclick = function(){
+            final_matching_app.$get_matching_lines()
+        }
 
         /* модальное окно перепривязки мэтчинга */
         let modal_re_matching= document.getElementById('re-matching');

@@ -1,4 +1,4 @@
-from directory.models import ClientDirectory, BaseDirectory, NumberCompetitor
+from directory.models import ClientDirectory, BaseDirectory, NumberCompetitor, SyncSKU
 import json
 from django.core import serializers
 from datetime import datetime
@@ -6,6 +6,16 @@ from datetime import datetime
 
 def test_get_sku(number_competitor):
     result = ClientDirectory.objects.filter(number_competitor=number_competitor, matching_status=False)[:100]
+    return result
+
+
+def get_sku(number_competitor):
+    result = ClientDirectory.objects.filter(number_competitor=number_competitor, matching_status=False)[:10000]
+    return result
+
+
+def test_new_sku(number_competitor, count):
+    result = SyncSKU.objects.filter(number_competitor=number_competitor, matching_status=False)[:count]
     return result
 
 

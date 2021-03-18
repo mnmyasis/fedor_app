@@ -54,7 +54,7 @@ def change_line(number_competitor, exclude_list):
         __replace_line(name, change_lines)
     end = datetime.now()
     result_time = end - start
-    print('Потрачено времени - {}'.format(result_time))
+    return result_time
 
 
 def get_group_changes(group_changes_input):

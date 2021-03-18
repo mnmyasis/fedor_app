@@ -10,9 +10,9 @@ import logging, json
 
 from .services.zalivv import *
 from .services.client_directory_manipulate import *
-from .services.algoritm import *
+from .services import algoritm
 from .services.write_mathing_result import *
-from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list, test_get_sku
+from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list, test_get_sku, test_new_sku
 from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
 from admin_panel.tasks import create_task_starting_algoritm
 from admin_panel.models import Tasks
@@ -81,12 +81,12 @@ def algoritm_mathing(request):
     """Получаем список записей СКУ"""
     sku_data = test_get_sku(number_competitor_id)  # Выгрузка из справочника directory/services/sku_querys
     """Запускаем алгоритм"""
-    ts = Test()
-    matching_result = ts.get_match_result(sku_data)
+    alg = algoritm.Matching()
+    matching_result = alg.start_test(sku_data)
     change_matching_status_sku(sku_data)  # Изменение поля matching_status directory/services/sku_querys
     """Запись результата работы алгоритма"""
-    match = Matching()
-    [match.wr_match(matching_state=x['qnt'], matching_line=x) for x in matching_result['data']]
+    #match = Matching()
+    #[match.wr_match(matching_state=x['qnt'], matching_line=x) for x in matching_result['data']]
     return JsonResponse(True, safe=False)
 
 

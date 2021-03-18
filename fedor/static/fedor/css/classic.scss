@@ -49,17 +49,10 @@ $fedor-classic-1: #ebebeb !default;
     margin-top: 20%;
 }
 
-
-
 .fedor-schedule-menu{
     position: fixed;
     top: 30%;
-}
-
-.fedor-schedule-menu th{
-    padding: 5px 10px;
-    border-bottom: 1px solid #e0e0e0;
-
+    width: 15%;
 }
 
 .fedor-schedule-menu a{
@@ -69,32 +62,52 @@ $fedor-classic-1: #ebebeb !default;
     font-size: 14px;
 }
 
-.fedor-schedule-menu th:hover{
-    background-color: #e0e0e0;
-}
-.fedor-schedule-menu h6{
-    background-color: #26a69a !important;
-    color: #eafaf9; padding: 17px;
+.fedor-schedule-menu .collection-item:hover{
+    background-color: #e0e0e0 !important;
 }
 
-.fedor-status-task{
-    -webkit-animation: fedor-status-task 3s linear infinite;
-    animation: fedor-status-task 3s linear infinite;
+.fedor-schedule-menu .collection-header{
+    background-color: #26a69a !important;
+    color: #eafaf9;
+    padding: 17px !important;
 }
-@-webkit-keyframes fedor-status-task {
+
+.fedor-status-pending{
+    -webkit-animation: fedor-status-pending 3s linear infinite;
+    animation: fedor-status-pending 3s linear infinite;
+}
+@-webkit-keyframes fedor-status-pending {
   0% { color: rgba(255, 171, 0, 1); }
   50% { color: rgba(255, 171, 0, 0); }
   100% { color: rgba(255, 171, 0, 1); }
 }
-@keyframes fedor-status-task {
+@keyframes fedor-status-pending {
   0% { color: rgba(255, 171, 0, 1); }
   50% { color: rgba(255, 171, 0, 0); }
   100% { color: rgba(255, 171, 0, 1); }
 }
+
+.fedor-status-started{
+    -webkit-animation: fedor-status-started3s linear infinite;
+    animation: fedor-status-started 3s linear infinite;
+}
+@-webkit-keyframes fedor-status-started{
+  0% { color: rgba(21, 102, 192, 1); }
+  50% { color: rgba(21, 102, 192, 0); }
+  100% { color: rgba(21, 102, 192, 1); }
+}
+@keyframes fedor-status-started {
+  0% { color: rgba(21, 102, 192, 1); }
+  50% { color: rgba(21, 102, 192, 0); }
+  100% { color: rgba(21, 102, 192, 1); }
+}
+
+
 
 .fedor-table .collection-item a{
     text-decoration: none !important;
     color: #26a69a !important;
 }
+
 
 @import "../../fw/materialize-src/sass/materialize.scss";

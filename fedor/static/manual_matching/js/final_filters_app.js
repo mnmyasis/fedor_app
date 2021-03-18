@@ -12,14 +12,9 @@ final_filters_app = new Vue({
             filter_status_form.querySelector(".select-dropdown").value='Мэтчинг Статус'
             this.$get_matching_lines() // manual_matching/final_matching_apps.js выгрузка без фильтров
 
-        }
-    },
-    mounted(){
-        let filter_final_select = document.getElementById('filter-final-select');
-        let select_instance = M.FormSelect.init(filter_final_select);
-    },
-    watch:{
-        statuses: function (){
+        },
+
+        filter(){
             if(this.statuses.length > 0){
                 let request_params = {
                     'number_competitor_id': number_competitor_app.selected_competitor,
@@ -32,6 +27,15 @@ final_filters_app = new Vue({
                         error_message(error)
                     });
             }
+        }
+    },
+    mounted(){
+        let filter_final_select = document.getElementById('filter-final-select');
+        let select_instance = M.FormSelect.init(filter_final_select);
+    },
+    watch:{
+        statuses: function(){
+            this.filter()
         }
     }
 

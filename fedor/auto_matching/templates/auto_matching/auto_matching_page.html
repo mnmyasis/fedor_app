@@ -164,9 +164,11 @@
                                 <th class="text-center">{( task.name )}</th>
                                 <th class="text-center">{( task.user__username )}</th>
                                 <th class="text-center">{( task.create_date )}</th>
-                                <th class="text-center fedor-status-task" v-if="task.status=='PENDING'">{( task.status )}</th>
-                                <th class="text-center  light-green-text accent-2" v-else>{( task.status )}</th>
-                                <th class="text-center">{( task.result )}</th>
+                                <th class="text-center fedor-status-pending" v-if="task.status=='PENDING'">{( task.status )}</th>
+                                <th class="text-center fedor-status-started" v-else-if="task.status=='STARTED'">{( task.status )}</th>
+                                <th class="text-center deep-orange-text accent-3" v-else-if="task.status=='FAILURE'">{( task.status )}</th>
+                                <th class="text-center light-green-text accent-2" v-else>{( task.status )}</th>
+                                <th class="text-center task-result">{( task.result )}</th>
                             </tr>
                         </tbody>
                     </table>

@@ -17,6 +17,7 @@ from .tasks import create_task_starting_algoritm
 from django_celery_beat.models import CrontabSchedule, PeriodicTask
 from .services.forms.schedule_forms import CrontabScheduleForm
 from directory.services.directory_querys import get_number_competitor_list
+from django_celery_results.models import TaskResult
 
 ## @defgroup admin_panel Администрирование стыковщика
 # @brief Основной модуль, содержащий в себе модули для работы с пользователями
@@ -176,31 +177,6 @@ def show_admin_page(request):
     return render(request, ADMIN_PAGE_PATH, {})
 
 
-'''
-task = create_task_starting_algoritm.apply_async(
-        number_competitor_id=number_competitor_id,
-        action=action,
-        barcode_match=barcode_match,
-        new_sku=new_sku,
-        date_start_matching_worker=date_start_matching_worker,
-        time_start_matching_worker=time_start_matching_worker,
-        eta=start_worker_time
-    )
-    schedule, _ = CrontabSchedule.objects.get_or_create(
-        minute='*',
-        hour='*',
-        day_of_week='*',
-        day_of_month='*',
-        month_of_year='*'
-    )
-    PeriodicTask.objects.create(
-        crontab=schedule,
-        name='Importing contacts',
-        task='proj.tasks.import_contacts',
-    )
-'''
-
-
 @fedor_permit([1])
 def schedule_add_page(request):
     result = {}
@@ -323,6 +299,34 @@ def task_add_algoritm(request):
     return JsonResponse(True, safe=False)
 
 
+def task_sync_directory(request):
+    request = json.loads(request.body.decode('utf-8'))
+    name = request['data'].get('name')
+    description = request['data'].get('description')
+    crontab = request['data'].get('crontab')
+    task_status = request['data'].get('task_status')
+    one_task_status = request['data'].get('one_task_status')
+    selected_task = request['data'].get('selected_task')
+    arguments = {}
+    if selected_task == 'eas_api':
+        from .services.sync_directory import request_eas_api
+        arguments['api_func'] = request_eas_api()
+    else:
+        from .services.sync_directory import request_sku_api
+        arguments['api_func'] = request_sku_api
+
+    PeriodicTask.objects.create(
+        crontab=CrontabSchedule.objects.get(pk=crontab),
+        name=name,
+        description=description,
+        task=selected_task,
+        kwargs=json.dumps(arguments),
+        enabled=task_status,
+        one_off=one_task_status
+    )
+    return JsonResponse(True, safe=False)
+
+
 @fedor_permit([1])
 def task_remove(request, task_id):
     PeriodicTask.objects.get(pk=task_id).delete()
@@ -351,8 +355,8 @@ def tasks_user_list(request):
                                                                                      'task_id')
     result = []
     for task in tasks:
-        task_result = AsyncResult(task['task_id'])
-        tsk = Tasks.objects.get(task_id=task_result.id)
+        task_result = TaskResult.objects.get(task_id=task['task_id'])
+        tsk = Tasks.objects.get(task_id=task_result.task_id)
         tsk.status = task_result.status
         tsk.result = '{}'.format(task_result.result)
         tsk.save()

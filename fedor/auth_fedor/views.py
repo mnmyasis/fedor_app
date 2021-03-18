@@ -46,8 +46,7 @@ def fedor_permit(perm=[1]):
 
 def show_login_page(request):
     """Показать страницу авторизации"""
-    next = request.GET.get('next')  # Для передачи урла предыдущей страницы в POST запросе.
-    result = {'error': request.session.get('error'), 'next': next}
+    result = {'error': request.session.get('error')}
     return render(request, PATH_AUTH_JOINT_PAGE, result)
 
 
@@ -59,10 +58,6 @@ def user_login(request):
     if user:
         auth.login(request, user)
         logger.info('Авторизовался:{}'.format(request.user))
-
-        previous_url = request.GET.get('next')
-        if previous_url and previous_url != 'None':  # Если есть путь на страницу, с которой пользователя средиректило
-            return redirect(previous_url)  # Возварт к предыдущей странице
         return redirect('/matching/manual-matching/page/')
     else:
         logger.info('Ошибка авторизации {}'.format(res['username']))

@@ -1,9 +1,6 @@
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect, HttpResponseRedirect
-from django.http import JsonResponse, Http404
+from django.shortcuts import render
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.urls import reverse
 from .services.get_manual_data import get_sku_data, get_eas_data
 from .services.get_final_data import final_get_sku, final_matching_lines
 from .services.manual_matching_data import matching_sku_eas, edit_status

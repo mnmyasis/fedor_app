@@ -15,6 +15,8 @@ from fedor.logger_settings.log_setting import get_log_settings
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from kombu import Queue, Exchange
+
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 
@@ -40,12 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_celery_beat',
+    'django_celery_results',
+    'graphene_django',
     'auth_fedor',
     'admin_panel',
     'auto_matching',
     'manual_matching',
     'directory',
-    'analytic'
+    'analytic',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -146,12 +151,19 @@ LOGGING = get_log_settings()
 """Если пользователь не авторизован, то перенаправляет его на URL"""
 LOGIN_URL = '/auth/login/'
 
+GRAPHENE = {
+    'SCHEMA': 'schema.schema'
+}
+
 # celery
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+#CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = "amqp://django:12345@localhost:5672/vfedor"
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_TIMEZONE = TIME_ZONE
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_TASK_TRACK_STARTED = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

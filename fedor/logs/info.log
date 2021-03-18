@@ -242,3 +242,23 @@ level:INFO time:2021-03-01 21:03:29,262 name:auth_fedor.views message:Автор
 level:INFO time:2021-03-01 21:05:43,926 name:auth_fedor.views message:Авторизовался:admin
 level:INFO time:2021-03-06 19:28:10,277 name:auth_fedor.views message:Авторизовался:admin
 level:INFO time:2021-03-07 13:38:50,644 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-08 14:57:27,540 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-09 16:34:40,135 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-09 17:33:55,574 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-09 17:37:24,590 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-10 17:02:47,234 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-10 17:03:45,096 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-11 12:14:59,995 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-12 12:51:18,006 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-12 19:00:37,224 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-15 18:04:12,086 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-16 14:45:54,112 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-16 15:00:32,885 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-16 16:02:35,051 name:auth_fedor.views message:Ошибка авторизации alesha
+level:INFO time:2021-03-16 16:02:43,727 name:auth_fedor.views message:Ошибка авторизации alesha
+level:INFO time:2021-03-16 16:03:04,575 name:auth_fedor.views message:Ошибка авторизации test
+level:INFO time:2021-03-16 16:03:42,300 name:auth_fedor.views message:Авторизовался:admin2
+level:INFO time:2021-03-16 18:34:59,198 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-16 18:44:37,337 name:auth_fedor.views message:Авторизовался:admin2
+level:INFO time:2021-03-17 11:08:55,251 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-03-18 11:43:05,783 name:auth_fedor.views message:Авторизовался:admin

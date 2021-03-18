@@ -50,23 +50,25 @@
                         <select v-model="selected_task">
                           <option value="" disabled selected>Выберите задачу</option>
                           <option value="admin_panel.tasks.create_task_starting_algoritm">Алгоритм</option>
+                          <option value="eas_api">Синронизация EAS</option>
+                          <option value="sku_api">Синронизация SKU</option>
                         </select>
                         <label>Выберите задачу</label>
                     </div>
             </div>
             <div class="row">
-                <div v-if="selected_task == 'admin_panel.tasks.create_task_starting_algoritm'" class="col s12">
+                <div v-show="selected_task == 'admin_panel.tasks.create_task_starting_algoritm'" class="col s12">
                     <div class="row">
                         <div class="input-field col s6">
-                        <select class="sel-competitor" v-model="selected_competitor">
-                            <option value="0" disabled selected>Выберите справочник</option>
-                            <option v-for="data in number_competitors"
-                                    :value="data.pk"
-                                    :selected="data.pk == 3"
-                            >{( data.name )}</option>
-                        </select>
-                        <label>Клиентский справочник</label>
-                    </div>
+                            <select class="sel-competitor" v-model="selected_competitor">
+                                <option value="0" disabled selected>Выберите справочник</option>
+                                <option v-for="data in number_competitors"
+                                        :value="data.pk"
+                                        :selected="data.pk == 3"
+                                >{( data.name )}</option>
+                            </select>
+                            <label>Клиентский справочник</label>
+                        </div>
                     </div>
                     <span class="card-title">Параметры</span>
                     <p>
@@ -98,6 +100,13 @@
                     <div class="row">
                         <div class="col s2 ">
                             <button class="btn btn-primary" v-on:click="create_task_algoritm">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+                <div v-show="selected_task == 'eas_api' || selected_task == 'sku_api' " class="col s12">
+                    <div class="row">
+                        <div class="col s2 ">
+                            <button class="btn btn-primary" v-on:click="create_task_sync_directory">Добавить</button>
                         </div>
                     </div>
                 </div>

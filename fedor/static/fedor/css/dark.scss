@@ -110,17 +110,10 @@ h6, h5, h4, h3, h2, h1, th, tr, p, li, input{
     margin-top: 20%;
 }
 
-
-
 .fedor-schedule-menu{
     position: fixed;
     top: 30%;
-}
-
-.fedor-schedule-menu th{
-    padding: 5px 10px;
-    border-bottom: 1px solid #80939B;
-
+    width: 15%;
 }
 
 .fedor-schedule-menu a{
@@ -130,29 +123,44 @@ h6, h5, h4, h3, h2, h1, th, tr, p, li, input{
     font-size: 14px;
 }
 
-.fedor-schedule-menu th:hover{
-    background-color: rgba(118,143,155, .42);
-}
-
-.fedor-schedule-menu h6{
+.fedor-schedule-menu .collection-item:hover{
     background-color: rgba(118,143,155, .42) !important;
-    color: #FFFFFF !important;
-    padding: 17px;
 }
 
-.fedor-status-task{
-    -webkit-animation: fedor-status-task 3s linear infinite;
-    animation: fedor-status-task 3s linear infinite;
+.fedor-schedule-menu .collection-header{
+    background-color: rgba(118,143,155, .42) !important;
+    color: #FFFFFF;
+    padding: 17px !important;
 }
-@-webkit-keyframes fedor-status-task {
+
+.fedor-status-pending{
+    -webkit-animation: fedor-status-pending 3s linear infinite;
+    animation: fedor-status-pending 3s linear infinite;
+}
+@-webkit-keyframes fedor-status-pending {
   0% { color: rgba(255, 171, 0, 1); }
   50% { color: rgba(255, 171, 0, 0); }
   100% { color: rgba(255, 171, 0, 1); }
 }
-@keyframes fedor-status-task {
+@keyframes fedor-status-pending {
   0% { color: rgba(255, 171, 0, 1); }
   50% { color: rgba(255, 171, 0, 0); }
   100% { color: rgba(255, 171, 0, 1); }
+}
+
+.fedor-status-started{
+    -webkit-animation: fedor-status-started3s linear infinite;
+    animation: fedor-status-started 3s linear infinite;
+}
+@-webkit-keyframes fedor-status-started{
+  0% { color: rgba(21, 102, 192, 1); }
+  50% { color: rgba(21, 102, 192, 0); }
+  100% { color: rgba(21, 102, 192, 1); }
+}
+@keyframes fedor-status-started {
+  0% { color: rgba(21, 102, 192, 1); }
+  50% { color: rgba(21, 102, 192, 0); }
+  100% { color: rgba(21, 102, 192, 1); }
 }
 
 .fedor-table .collection-item a{
