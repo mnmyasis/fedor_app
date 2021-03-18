@@ -313,7 +313,7 @@ def task_sync_directory(request):
         arguments['api_func'] = request_eas_api()
     else:
         from .services.sync_directory import request_sku_api
-        arguments['api_func'] = request_sku_api
+        arguments['api_func'] = request_sku_api()
 
     PeriodicTask.objects.create(
         crontab=CrontabSchedule.objects.get(pk=crontab),
