@@ -1,0 +1,171 @@
+$fedor-dark-1: #20272A !default;
+$fedor-dark-2: #263238 !default;
+$fedor-dark-3: #0C1D24 !default;
+$fedor-dark-4: #768F9B !default;
+$fedor-dark-5: #80939B !default;
+$fedor-text-color: #FFFFFF !default;
+$fedor-dark-2-rgba: rgba(32,39,42, .42) !default;
+$fedor-dark-4-rgba: rgba(118,143,155, .42) !default;
+
+
+$tabs-bg-color: $fedor-dark-1;
+$tabs-underline-color: $fedor-dark-4;
+$tabs-text-color: $fedor-text-color;
+
+$collection-border-color: $fedor-dark-3;
+$collection-bg-color: $fedor-dark-1;
+$collection-link-color: $fedor-text-color;
+$collection-active-bg-color: $fedor-dark-4-rgba;
+$collection-hover-bg-color: $fedor-dark-4-rgba;
+
+
+$input-focus-color: $fedor-dark-5;
+$input-disabled-solid-color: $fedor-text-color;
+$input-success-color: $fedor-dark-5;
+
+
+
+$select-disabled-color: rgba(255,255,255,.3) !default;
+$select-option-selected: rgba(255,255,255,.03) !default;
+
+$dropdown-bg-color: $fedor-dark-1;
+$dropdown-color: $fedor-text-color;
+
+$button-raised-background: $fedor-dark-2;
+
+$card-bg-color: $fedor-dark-2;
+
+$sidenav-bg-color: $fedor-dark-1;
+$sidenav-font-color: rgba(255,255,255,.72) !default;
+
+body{
+    background-color: $fedor-dark-1;
+}
+h6, h5, h4, h3, h2, h1, th, tr, p, li, input{
+    color: $fedor-text-color;
+}
+
+.card-title{
+    color: $fedor-text-color;
+}
+
+.modal, .modal-footer{
+    background-color: $fedor-dark-1 !important;
+}
+
+.sidenav-trigger .material-icons{
+    color: $fedor-dark-5 !important;
+}
+
+.material-icons{
+    color: $fedor-text-color !important;
+}
+
+.divider{
+    background-color: $fedor-dark-4 !important;
+}
+
+.drop-menu{
+    display: block;
+    position: absolute;
+    background-color: $fedor-dark-1;
+    width: 90%;
+    z-index: 999;
+    overflow: auto;
+}
+
+.drop-menu ul li{
+     background-color: #20272A !important;
+     cursor: pointer;
+}
+
+.f-preloader{
+    display: block;
+    position: fixed;
+    top: 30%;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 999;
+
+}
+
+.f-preloader .container{
+    background-color: #0C1D24 !important;
+    padding: 50px;
+    border-radius: 10px;
+    opacity: 95%;
+}
+
+.fedor-font-change{
+    width: 100px;
+    border-color: #20272A !important
+}
+
+.fedor-menu{
+    position: fixed;
+    top: 0%;
+}
+
+.fedor-schedule-form{
+    margin-top: 20%;
+}
+
+.fedor-schedule-menu{
+    position: fixed;
+    top: 30%;
+    width: 15%;
+}
+
+.fedor-schedule-menu a{
+    padding-left: 10px;
+    text-decoration: none;
+    color: #FFFFFF !important;
+    font-size: 14px;
+}
+
+.fedor-schedule-menu .collection-item:hover{
+    background-color: rgba(118,143,155, .42) !important;
+}
+
+.fedor-schedule-menu .collection-header{
+    background-color: rgba(118,143,155, .42) !important;
+    color: #FFFFFF;
+    padding: 17px !important;
+}
+
+.fedor-status-pending{
+    -webkit-animation: fedor-status-pending 3s linear infinite;
+    animation: fedor-status-pending 3s linear infinite;
+}
+@-webkit-keyframes fedor-status-pending {
+  0% { color: rgba(255, 171, 0, 1); }
+  50% { color: rgba(255, 171, 0, 0); }
+  100% { color: rgba(255, 171, 0, 1); }
+}
+@keyframes fedor-status-pending {
+  0% { color: rgba(255, 171, 0, 1); }
+  50% { color: rgba(255, 171, 0, 0); }
+  100% { color: rgba(255, 171, 0, 1); }
+}
+
+.fedor-status-started{
+    -webkit-animation: fedor-status-started3s linear infinite;
+    animation: fedor-status-started 3s linear infinite;
+}
+@-webkit-keyframes fedor-status-started{
+  0% { color: rgba(21, 102, 192, 1); }
+  50% { color: rgba(21, 102, 192, 0); }
+  100% { color: rgba(21, 102, 192, 1); }
+}
+@keyframes fedor-status-started {
+  0% { color: rgba(21, 102, 192, 1); }
+  50% { color: rgba(21, 102, 192, 0); }
+  100% { color: rgba(21, 102, 192, 1); }
+}
+
+.fedor-table .collection-item a{
+    text-decoration: none !important;
+    color: #FFFFFF !important;
+}
+
+@import "../../fw/materialize-src/sass/materialize.scss";

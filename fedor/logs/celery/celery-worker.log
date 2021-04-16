@@ -1,0 +1,24 @@
+ 
+ -------------- celery@test3 v5.0.5 (singularity)
+--- ***** ----- 
+-- ******* ---- Linux-5.4.0-66-generic-x86_64-with-glibc2.29 2021-03-21 13:53:31
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         fedor:0x7f218acbb490
+- ** ---------- .> transport:   amqp://django:**@localhost:5672/vfedor
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . admin_panel.tasks.create_task_starting_algoritm
+  . admin_panel.tasks.eas_api
+  . admin_panel.tasks.reset_sku_binding
+  . admin_panel.tasks.sku_api
+  . admin_panel.tasks.sync_directory
+  . directory.tasks.task_group_changes
+
