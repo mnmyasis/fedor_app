@@ -1,11 +1,11 @@
-from directory.models import ClientDirectory, BaseDirectory, NumberCompetitor, SyncSKU
+from directory.models import ClientDirectory, BaseDirectory, NumberCompetitor, SyncSKU, Competitors
 import json
 from django.core import serializers
 from datetime import datetime
 
 
 def test_get_sku(number_competitor):
-    result = ClientDirectory.objects.filter(number_competitor=number_competitor, matching_status=False)[:100]
+    result = SyncSKU.objects.filter(number_competitor=number_competitor, matching_status=False)[:100]
     return result
 
 
@@ -41,7 +41,9 @@ def get_number_competitor_list(user):
     if user.profile.access_level.level == 4:
         number_competitors = NumberCompetitor.objects.filter(pk=user.profile.competitor.pk).values('pk', 'name')
     else:
-        number_competitors = NumberCompetitor.objects.all().values('pk', 'name')
+        #number_competitors = NumberCompetitor.objects.all().values('pk', 'name')
+        number_competitors = Competitors.objects.all().values('pk', 'name')
+        print(number_competitors)
     number_competitors = json.dumps(list(number_competitors))
     return number_competitors
 

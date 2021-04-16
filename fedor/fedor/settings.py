@@ -171,4 +171,4 @@ CELERY_TASK_TRACK_STARTED = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'fedor', 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'django_static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/django_static')
