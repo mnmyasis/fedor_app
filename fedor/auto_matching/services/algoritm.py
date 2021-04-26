@@ -6,10 +6,11 @@ from directory.models import *
 import time
 import re
 
+
 # Здесь будут алгоритмы стыковки
 class Matching():
     def textConvert(text):
-        return null
+        return 'null'
 
     def start(self, clients_dict):
         # Обозначения
@@ -18,6 +19,7 @@ class Matching():
         start_time = time.time()
         # Инициализация Target
         # Сейчас я беру первые десять строк. Дальше нужно будет сделать поиск - что конкретно я хочу состыковать
+        # test
         # cols = [x.name for x in clients_dict[0]._meta.get_fields()]
         try:
             len(clients_dict)
