@@ -1,0 +1,113 @@
+$fedor-classic-1: #ebebeb !default;
+
+.drop-menu{
+    display: block;
+    position: absolute;
+    background-color: $fedor-classic-1;
+    width: 90%;
+    z-index: 999;
+    overflow: auto;
+}
+
+.drop-menu{
+    background-color: #fff !important;
+}
+
+.drop-menu ul li{
+    cursor: pointer;
+}
+
+.f-preloader{
+    display: block;
+    position: fixed;
+    top: 30%;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 999;
+
+}
+
+.f-preloader .container{
+    background-color: #FFFFFF !important;
+    padding: 50px;
+    border-radius: 10px;
+    opacity: 100%;
+}
+
+.fedor-font-change{
+    width: 100px;
+    border-color: #FFFFFF !important
+}
+
+
+.fedor-menu{
+    position: fixed;
+    top: 0%;
+}
+
+.fedor-schedule-form{
+    margin-top: 20%;
+}
+
+.fedor-schedule-menu{
+    position: fixed;
+    top: 30%;
+    width: 15%;
+}
+
+.fedor-schedule-menu a{
+    padding-left: 10px;
+    text-decoration: none;
+    color: #26a69a;
+    font-size: 14px;
+}
+
+.fedor-schedule-menu .collection-item:hover{
+    background-color: #e0e0e0 !important;
+}
+
+.fedor-schedule-menu .collection-header{
+    background-color: #26a69a !important;
+    color: #eafaf9;
+    padding: 17px !important;
+}
+
+.fedor-status-pending{
+    -webkit-animation: fedor-status-pending 3s linear infinite;
+    animation: fedor-status-pending 3s linear infinite;
+}
+@-webkit-keyframes fedor-status-pending {
+  0% { color: rgba(255, 171, 0, 1); }
+  50% { color: rgba(255, 171, 0, 0); }
+  100% { color: rgba(255, 171, 0, 1); }
+}
+@keyframes fedor-status-pending {
+  0% { color: rgba(255, 171, 0, 1); }
+  50% { color: rgba(255, 171, 0, 0); }
+  100% { color: rgba(255, 171, 0, 1); }
+}
+
+.fedor-status-started{
+    -webkit-animation: fedor-status-started3s linear infinite;
+    animation: fedor-status-started 3s linear infinite;
+}
+@-webkit-keyframes fedor-status-started{
+  0% { color: rgba(21, 102, 192, 1); }
+  50% { color: rgba(21, 102, 192, 0); }
+  100% { color: rgba(21, 102, 192, 1); }
+}
+@keyframes fedor-status-started {
+  0% { color: rgba(21, 102, 192, 1); }
+  50% { color: rgba(21, 102, 192, 0); }
+  100% { color: rgba(21, 102, 192, 1); }
+}
+
+
+
+.fedor-table .collection-item a{
+    text-decoration: none !important;
+    color: #26a69a !important;
+}
+
+
+@import "../../fw/materialize-src/sass/materialize.scss";

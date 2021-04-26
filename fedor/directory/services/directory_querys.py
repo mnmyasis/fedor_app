@@ -4,6 +4,7 @@ from django.core import serializers
 from datetime import datetime
 
 
+
 def test_get_sku(number_competitor, new_sku=None, barcode_match=False):
     """Тест выгрузка СКУ записей"""
     if new_sku:
