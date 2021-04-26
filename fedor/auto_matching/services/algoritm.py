@@ -18,6 +18,7 @@ class Matching():
         start_time = time.time()
         # Инициализация Target
         # Сейчас я беру первые десять строк. Дальше нужно будет сделать поиск - что конкретно я хочу состыковать
+        # test
         # cols = [x.name for x in clients_dict[0]._meta.get_fields()]
         try:
             len(clients_dict)

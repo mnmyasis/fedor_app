@@ -5,6 +5,7 @@ from datetime import datetime
 
 
 def test_get_sku(number_competitor):
+    # Кол-во строк для прогона
     result = SyncSKU.objects.filter(number_competitor=number_competitor, matching_status=False)[:100]
     return result
 

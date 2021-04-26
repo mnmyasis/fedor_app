@@ -273,3 +273,4 @@ level:INFO time:2021-03-31 10:12:04,070 name:auth_fedor.views message:Автор
 level:INFO time:2021-03-31 10:14:50,113 name:auth_fedor.views message:Ошибка авторизации moskvin
 level:INFO time:2021-03-31 10:14:54,372 name:auth_fedor.views message:Авторизовался:moskvin
 level:INFO time:2021-04-16 21:06:35,197 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-04-16 22:39:02,163 name:auth_fedor.views message:Авторизовался:admin
