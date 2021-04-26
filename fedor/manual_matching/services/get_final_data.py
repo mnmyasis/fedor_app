@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 #@binding_decorator(FinalMatching)
 def final_matching_lines(number_competitor, user_id):
+    """Выгрузка результатов мэтчинга в таблицу"""
     final_matching = FinalMatching.objects.filter(Q(number_competitor=number_competitor, type_binding=8) | Q(number_competitor=number_competitor, user__pk=user_id)).values(
         'eas_dict__pk',
         'eas_dict__tn_fv',

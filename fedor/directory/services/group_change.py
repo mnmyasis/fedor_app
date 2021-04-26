@@ -1,12 +1,14 @@
 import json
 import re
 from datetime import datetime
-from directory.models import ClientDirectory, GroupChangeTable
+from directory.models import ClientDirectory, GroupChangeTable, SyncSKU
 from django.core import serializers
 
 from .forms.group_changes_form import *
 
+
 def __replace_line(line, change_lines):
+    """Изменение записей по шаблону подмен"""
     old_name = line.name
     new_name = ''
     for ch_line in change_lines:
@@ -46,30 +48,34 @@ def __replace_line(line, change_lines):
 
 
 def change_line(number_competitor, exclude_list):
+    """Запуск массовых подмен"""
     start = datetime.now()
-    names = ClientDirectory.objects.filter(number_competitor=number_competitor).extra(
-        select={'length': 'Length(name)'}).order_by('-length')
-    change_lines = GroupChangeTable.objects.exclude(pk__in=[exclude.pk for exclude in exclude_list])
+    names = SyncSKU.objects.filter(number_competitor=number_competitor)[:10]  # Список записей СКУ
+    change_lines = GroupChangeTable.objects.exclude(pk__in=[exclude.pk for exclude in exclude_list]).extra(
+        select={'length': 'Length(change)'}).order_by('-length')
     for name in names:
-        __replace_line(name, change_lines)
+        __replace_line(name, change_lines)  # Изменение записей СКУ по шаблону подмен
     end = datetime.now()
     result_time = end - start
     return result_time
 
 
 def get_group_changes(group_changes_input):
+    """Выгрузка данных из Массовых подмен"""
     changes_list = GroupChangeTable.objects.filter(search__icontains=group_changes_input)[:10].values('pk', 'search')
     changes_list = json.dumps(list(changes_list))
     return changes_list
 
 
 def get_group_changes_list():
+    """Выгрузка всей таблицы массовых подмен"""
     changes_list = GroupChangeTable.objects.all().values('pk', 'search', 'change')
     changes_list = json.dumps(list(changes_list))
     return changes_list
 
 
 def filter_group_changes(**fields):
+    """Фильтр массовых подмен, используется в модальном окне"""
     filter_fields = {}
     if fields['change']:
         filter_fields['change__icontains'] = fields['change']
@@ -81,10 +87,11 @@ def filter_group_changes(**fields):
 
 
 def update_or_create_group_change(change, search, pk=None):
+    """Изменение или добавление массовых подмен, используется в модальном окне"""
     res = {
-            'change': change,
-            'search': search
-        }
+        'change': change,
+        'search': search
+    }
     group_change_form = GroupChangeForm(res)
     if group_change_form.is_valid():
         is_create, res = group_change_form.save(pk)

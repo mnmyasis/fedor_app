@@ -44,6 +44,7 @@ def color_line(lines, dict_key):
 
 @binding_decorator(ManualMatchingData)
 def get_sku_data(number_competitor, user_id):
+    """Выгрузка записей СКУ"""
     logger.debug('выгружаются данные ску --- справочник {}'.format(number_competitor))
     sku = ManualMatchingData.objects.filter(
         number_competitor=number_competitor,
@@ -59,6 +60,7 @@ def get_sku_data(number_competitor, user_id):
 
 
 def get_eas_data(sku_id):
+    """Выгрузка ЕАС записей для мэтчинга к СКУ"""
     logger.debug('выгружаются данные eas')
     eas = ManualMatchingData.objects.filter(sku_dict__pk=sku_id).values(
         'eas_dict',

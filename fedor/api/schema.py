@@ -1,19 +1,19 @@
 import graphene
 from graphene_django.types import DjangoObjectType, ObjectType
 from manual_matching.models import FinalMatching
-from directory.models import ClientDirectory, BaseDirectory
+from directory.models import ClientDirectory, BaseDirectory, SyncEAS, SyncSKU
 
 
 class ClientDirectoryType(DjangoObjectType):
     class Meta:
-        model = ClientDirectory
-        fields = ("id", "name")
+        model = SyncSKU
+        fields = ("id", "sku_id", "name")
 
 
 class BaseDirectoryType(DjangoObjectType):
     class Meta:
-        model = BaseDirectory
-        fields = ("id", "tn_fv")
+        model = SyncEAS
+        fields = ("id", "eas_id", "tn_fv")
 
 
 class FinalMatchingType(DjangoObjectType):

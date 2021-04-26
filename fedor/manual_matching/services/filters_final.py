@@ -1,6 +1,5 @@
 from .filters import Filter
 from manual_matching.models import *
-from directory.models import *
 import logging, json
 from django.db.models import Q
 
@@ -12,10 +11,10 @@ class FilterStatuses:
     def start(self, **fields):
         filter_re = FinalMatching.objects.filter(
             Q(number_competitor=fields['number_competitor'],
-              type_binding__in=[status for status in fields['statuses'] if int(status) == 8]) |
+              type_binding__in=[status for status in fields['statuses'] if int(status) in (2, 8)]) |
             Q(number_competitor=fields['number_competitor'],
               user=fields['user_id'],
-              type_binding__in=[status for status in fields['statuses'] if int(status) != 8])
+              type_binding__in=[status for status in fields['statuses'] if int(status) not in (2, 8)])
 
         ).values(
             'eas_dict__pk',

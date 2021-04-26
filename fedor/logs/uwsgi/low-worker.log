@@ -3554,3 +3554,11 @@ Forbidden (CSRF cookie not set.): /_ignition/execute-solution
 [pid: 597593|app: 0|req: 3223/3223] 71.6.146.186 () {32 vars in 451 bytes} [Mon Apr 26 11:54:07 2021] GET /favicon.ico => generated 0 bytes in 2 msecs (HTTP/1.1 302) 7 headers in 223 bytes (1 switches on core 0)
 [pid: 597593|app: 0|req: 3224/3224] 71.6.146.186 () {32 vars in 486 bytes} [Mon Apr 26 11:54:07 2021] GET /auth/login/?next=/favicon.ico => generated 3349 bytes in 8 msecs (HTTP/1.1 200) 7 headers in 349 bytes (1 switches on core 0)
 [pid: 597593|app: 0|req: 3225/3225] 34.76.80.167 () {38 vars in 500 bytes} [Mon Apr 26 11:54:15 2021] GET / => generated 0 bytes in 1 msecs (HTTP/1.1 302) 7 headers in 212 bytes (1 switches on core 0)
+[pid: 597593|app: 0|req: 3226/3226] 127.0.0.1 () {26 vars in 263 bytes} [Mon Apr 26 15:45:41 2021] GET / => generated 0 bytes in 7 msecs (HTTP/1.0 302) 7 headers in 212 bytes (1 switches on core 0)
+[pid: 597593|app: 0|req: 3227/3227] 127.0.0.1 () {32 vars in 398 bytes} [Mon Apr 26 16:01:57 2021] GET / => generated 0 bytes in 7 msecs (HTTP/1.0 302) 7 headers in 212 bytes (1 switches on core 0)
+[pid: 597593|app: 0|req: 3228/3228] 127.0.0.1 () {32 vars in 420 bytes} [Mon Apr 26 16:01:58 2021] GET /auth/login/ => generated 3349 bytes in 13 msecs (HTTP/1.0 200) 7 headers in 349 bytes (1 switches on core 0)
+[pid: 597593|app: 0|req: 3229/3229] 127.0.0.1 () {26 vars in 263 bytes} [Mon Apr 26 20:43:13 2021] GET / => generated 0 bytes in 7 msecs (HTTP/1.0 302) 7 headers in 212 bytes (1 switches on core 0)
+Invalid HTTP_HOST header: 'test3:8001'. You may need to add 'test3' to ALLOWED_HOSTS.
+Bad Request: /
+[pid: 597593|app: 0|req: 3230/3230] 159.65.18.208 () {22 vars in 214 bytes} [Mon Apr 26 20:44:01 2021] GET / => generated 60152 bytes in 64 msecs (HTTP/1.0 400) 3 headers in 116 bytes (1 switches on core 0)
+[uwsgi-http key: test3 client_addr: 159.65.18.208 client_port: 498] hr_write(): Connection reset by peer [plugins/http/http.c line 565]
