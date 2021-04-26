@@ -1,11 +1,15 @@
-from directory.models import ClientDirectory, BaseDirectory, NumberCompetitor, SyncSKU, Competitors
+from directory.models import ClientDirectory, BaseDirectory, NumberCompetitor, SyncSKU, Competitors, SyncEAS
 import json
 from django.core import serializers
 from datetime import datetime
 
 
-def test_get_sku(number_competitor):
-    result = SyncSKU.objects.filter(number_competitor=number_competitor, matching_status=False)[:100]
+def test_get_sku(number_competitor, new_sku=None, barcode_match=False):
+    """Тест выгрузка СКУ записей"""
+    if new_sku:
+        result = SyncSKU.objects.filter(number_competitor=number_competitor, matching_status=False, create_date=new_sku)[:1000]
+    else:
+        result = SyncSKU.objects.filter(number_competitor=number_competitor, matching_status=False)[:1000]
     return result
 
 
@@ -20,7 +24,8 @@ def test_new_sku(number_competitor, count):
 
 
 def change_matching_status_sku(sku):
-    ClientDirectory.objects.filter(pk__in=[x.id for x in sku]).update(matching_status=True)
+    """Измнения статуса мэтчинга записей СКУ"""
+    SyncSKU.objects.filter(pk__in=[x.id for x in sku]).update(matching_status=True)
     return True
 
 
@@ -32,14 +37,15 @@ def search_by_tn_fv(**fields):
         filter_fields['manufacturer__icontains'] = fields['manufacturer']
     else:
         return False
-    res = BaseDirectory.objects.filter(**filter_fields)[:50].values('pk', 'tn_fv', 'manufacturer')
+    res = SyncEAS.objects.filter(**filter_fields)[:50].values('pk', 'tn_fv', 'manufacturer')
     res = json.dumps(list(res))
     return res
 
 
 def get_number_competitor_list(user):
-    if user.profile.access_level.level == 4:
-        number_competitors = NumberCompetitor.objects.filter(pk=user.profile.competitor.pk).values('pk', 'name')
+    """Список клиентских справочников"""
+    if user.profile.access_level.level == 4:  # Если это аптека, выгружаем только её справочник
+        number_competitors = Competitors.objects.filter(pk=user.profile.competitor.pk).values('pk', 'name')
     else:
         #number_competitors = NumberCompetitor.objects.all().values('pk', 'name')
         number_competitors = Competitors.objects.all().values('pk', 'name')
@@ -55,7 +61,8 @@ def __my_date_converter(_date):
 
 
 def load_date_new_sku(number_competitor):
-    date_create_new_sku = ClientDirectory.objects.filter(number_competitor=number_competitor, matching_status=False) \
+    """Выгрузка даты новых СКУ"""
+    date_create_new_sku = SyncSKU.objects.filter(number_competitor=number_competitor, matching_status=False) \
         .order_by('create_date').distinct('create_date').values('create_date')
     res = json.dumps(list(date_create_new_sku), default=__my_date_converter)
     return res

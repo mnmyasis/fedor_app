@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from directory.models import NumberCompetitor
+from directory.models import Competitors
 
 
 # Create your models here.
@@ -10,7 +10,7 @@ class MatchingStatistic(models.Model):
     action = models.IntegerField()
     sku_id = models.IntegerField()
     eas_id = models.IntegerField()
-    number_competitor = models.ForeignKey(NumberCompetitor, on_delete=models.CASCADE)
+    number_competitor = models.ForeignKey(Competitors, on_delete=models.CASCADE)
     create_date = models.DateField(auto_now=True)
 
     class Meta:

@@ -1,6 +1,6 @@
 from analytic.models import MatchingStatistic
 from django.contrib.auth.models import User
-from directory.models import NumberCompetitor, ClientDirectory
+from directory.models import SyncSKU, Competitors
 from manual_matching.models import ManualMatchingData, FinalMatching
 from datetime import datetime, timedelta
 
@@ -10,7 +10,7 @@ def statistic_write(user_id, sku_id, eas_id, number_competitor, action):
         user=User.objects.get(pk=user_id),
         sku_id=sku_id,
         eas_id=eas_id,
-        number_competitor=NumberCompetitor.objects.get(pk=number_competitor),
+        number_competitor=Competitors.objects.get(pk=number_competitor),
         action=action
     )
     return True
@@ -38,6 +38,7 @@ def __stat(status, count):
 
 
 def status_matchings(start_date, end_date, number_competitor=1):
+    """Накопления по статусам мэтчинга"""
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     end_date = datetime.strptime(end_date, '%Y-%m-%d')
     statistic = {
@@ -53,11 +54,12 @@ def status_matchings(start_date, end_date, number_competitor=1):
 
 
 def status_changes(start_date, end_date, number_competitor):
+    """Виды изменения статусов"""
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     end_date = datetime.strptime(end_date, '%Y-%m-%d')
     date = start_date
     statistic = []
-    while date < end_date:
+    while date <= end_date:
         stats = {
             'date': datetime.strftime(date, '%Y-%m-%d'),
             'statistic': {}
@@ -70,10 +72,12 @@ def status_changes(start_date, end_date, number_competitor):
             stats['statistic'].update(__stat(status, count))
         statistic.append(stats)
         date = date + timedelta(1)
+
     return statistic
 
 
 def status_user_changes(start_date, end_date, number_competitor):
+    """Измененные статусы пользователем"""
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     end_date = datetime.strptime(end_date, '%Y-%m-%d')
     statistic = []
@@ -93,7 +97,7 @@ def status_user_changes(start_date, end_date, number_competitor):
 
 
 def user_rating(start_date, end_date, number_competitor):
-
+    """Рейтинг пользователей"""
     statistic = []
     users = User.objects.all()
     for user in users:
@@ -108,13 +112,14 @@ def user_rating(start_date, end_date, number_competitor):
 
 
 def load_raw_sku(start_date, end_date):
+    """Необработанные"""
     statistic = []
-    number_competitors = NumberCompetitor.objects.all()
+    number_competitors = Competitors.objects.all()
     for number_competitor in number_competitors:
-        raw_count = ClientDirectory.objects.filter(
+        raw_count = SyncSKU.objects.filter(
             number_competitor=number_competitor,
             matching_status=False,
-            create_date__range=(start_date, end_date)
+            create_date__range=[start_date, end_date]
         ).count()
         statistic.append({
             'number_competitor': number_competitor.name,

@@ -11,7 +11,7 @@ var search_form_app = new Vue({
     },
     methods: {
         updateMessage(e){
-            /* Функция поиска по ЕАК */
+            /* Функция поиска по ЕАC */
             console.log(e.target.value)
             axios.get('/auto/matching/client_directory/data/get/?format=json',{
                 params: {

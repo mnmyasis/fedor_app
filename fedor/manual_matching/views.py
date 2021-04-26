@@ -11,29 +11,15 @@ from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
 import logging, json
 
 logger = logging.getLogger(__name__)
-
-## @defgroup manual_matching Модуль ручного мэтчинга
-
-## @defgroup manual_matching Интерфейс manual_matching
-#  @ingroup manual_matching
-#  @param SHOW_MANUAL_MATCHING_PAGE_TEMPLATE - Глобальные переменная шаблона
-
-## @defgroup show_manual_matching_page Рендер страницы
-#  @ingroup manual_matching
-
 SHOW_MANUAL_MATCHING_PAGE_TEMPLATE = 'manual_matching/page.html'
 
 
-## @ingroup show_manual_matching_page
-# @{
-
 @login_required
 def show_manual_matching_page(request):
+    """Страница ручного мэтчинга"""
     logger.debug(request.user.pk)
     return render(request, SHOW_MANUAL_MATCHING_PAGE_TEMPLATE)
 
-
-##@}
 
 @fedor_auth_for_ajax
 def get_sku(request):
@@ -42,17 +28,17 @@ def get_sku(request):
     user_id = request.user.pk
     number_competitor = request.GET.get('number_competitor_id')
     logger.debug(number_competitor)
-    sku = get_sku_data(number_competitor=number_competitor, user_id=user_id)
+    sku = get_sku_data(number_competitor=number_competitor, user_id=user_id)  # manual_matching/services/get_manual_data
     result = {'sku': sku}
     return JsonResponse(result)
 
 
 @fedor_auth_for_ajax
 def get_eas(request):
-    """Получить записи из ЕАС"""
+    """Получить записи из ЕАС для мэтчинга к СКУ"""
     sku_id = request.GET.get('sku_id')
     logger.debug(sku_id)
-    eas = get_eas_data(sku_id)
+    eas = get_eas_data(sku_id)  # manual_matching/services/get_manual_data
     result = {'eas': eas}
     return JsonResponse(result)
 
@@ -78,10 +64,11 @@ def match_eas_sku(request):
 
 @fedor_auth_for_ajax
 def get_final_matching(request):
+    """Выгрузка результатов мэтчинга в таблицу"""
     user_id = request.user.pk
     number_competitor = request.GET.get('number_competitor_id')
     logger.debug(number_competitor)
-    data = final_matching_lines(number_competitor=number_competitor, user_id=user_id)
+    data = final_matching_lines(number_competitor=number_competitor, user_id=user_id)  # manual_matching/services/get_final_data
     result = {'matching': data}
     return JsonResponse(result)
 

@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from directory.models import *
 import time
-
+import re
 
 # Здесь будут алгоритмы стыковки
 class Matching():
@@ -590,3 +590,49 @@ class Matching():
         # Результат. Данные + заголовки отдельно
         result = {'data': res_dict.to_dict('records'), 'heads': res_dict.columns}
         return result
+
+    def barcode_matching(self, sku, competitor, barcode_status=False):
+        """Мэтчинг по штрихкоду, возвращает результат мэтчинга и список ску, которые не смэтчились"""
+        eas = SyncEAS.objects.all()
+        match_result = []
+        sku_result = []
+        for sk in sku:
+            status = False  # Статус совпадения
+            for ea in eas:
+                eas_barcode = re.findall(r'\w+', ea.barcode)
+                sku_barcode = sk.nnt
+                for ea_barcode in eas_barcode:
+                    if ea_barcode == sku_barcode:
+                        """Совпадение штрихкодов"""
+                        if barcode_status:
+                            """Доверять мэтчингу по штрихкоду"""
+                            data = {
+                                'id_c': sk.pk,
+                                'id': ea.pk,
+                                'name_binding': 'Мэтчинг по ШК - проверка не требуется',
+                                'number_competitor': competitor,
+                                'qnt': 'barcode_true'
+                            }
+                        else:
+                            """НЕ доверять мэтчингу по штрихкоду"""
+                            name_eas = '{} {} {}'.format(ea.tn_fv, ea.full_corp, ea.corp_rus)
+                            print(name_eas)
+                            data = {
+                                'id_c': sk.pk,  # id клиентского справочника
+                                'id': ea.pk,  # id базового справочника
+                                'num_leven': 1,
+                                'num_fv': 1,
+                                'num_prc': 1,
+                                'tn_fv_prod': name_eas,
+                                'name': sk.name,
+                                'number_competitor': competitor,
+                                'qnt': 'barcode_false'
+                            }
+                        status = True
+                        match_result.append(data)
+                        break
+                if status:
+                    break
+            if status == False:  # Если совпадений не было
+                sku_result.append(sk)
+        return match_result, sku_result

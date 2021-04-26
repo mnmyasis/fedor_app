@@ -1,5 +1,4 @@
 from manual_matching.models import *
-from directory.models import *
 from auto_matching.services.write_mathing_result import Matching
 from analytic.services import statistic
 import logging
@@ -17,7 +16,6 @@ def matching_sku_eas(sku_id, eas_id, number_competitor, user_id):
         'user': user_id
     }
     res = matching.wr_match(matching_state='manual', matching_line=match_line)
-    logger.debug(res)
     if res:
         statistic.statistic_write(
             user_id=user_id,
@@ -52,9 +50,9 @@ def edit_status(sku_id, number_competitor, type_binding, user_id):
         {'status': 5, 'binding_name': 'Предложено к добавлению в ЕАС'},
         {'status': 6, 'binding_name': 'Прочее'},
         {'status': 7, 'binding_name': 'Смэтчено аптекой'},
+        {'status': 8, 'binding_name': 'Алгоритм'},
     ]
     for type_bind in types_binding:
-        print(sku_id)
         if type_bind['status'] == int(type_binding):
             FinalMatching.objects.filter(
                 sku_dict__pk=sku_id,

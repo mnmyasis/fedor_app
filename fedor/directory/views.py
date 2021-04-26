@@ -73,7 +73,7 @@ def group_changes_edit_list(request):
 
 @fedor_permit([1, 2, 3])
 def group_changes_filter(request):
-    """Фильтрация в модальном окне"""
+    """Фильтрация подмен в модальном окне"""
     change = request.GET.get('group_change_input')
     search = request.GET.get('group_search_input')
     res = group_change.filter_group_changes(change=change, search=search)

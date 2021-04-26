@@ -3,7 +3,7 @@ from django.core import serializers
 from django.http import JsonResponse
 from django.shortcuts import render
 from .services import statistic
-from directory.models import NumberCompetitor
+from directory.models import Competitors
 from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
 import json
 
@@ -14,13 +14,15 @@ ANALYTIC_PAGE = 'analytic/page.html'
 @login_required
 @fedor_permit([1, 2, 3])
 def analytic_page(request):
+    """Страница аналитики"""
     return render(request, ANALYTIC_PAGE)
 
 
 def status_matchings(request):
+    """Накопления по статусам мэтчинга"""
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
-    competitors = NumberCompetitor.objects.all()
+    competitors = Competitors.objects.all()
     res = []
     for competitor in competitors:
         st = statistic.status_matchings(start_date=start_date, end_date=end_date, number_competitor=competitor.pk)
@@ -36,6 +38,7 @@ def status_matchings(request):
 
 
 def status_changes(request):
+    """Виды изменения статусов"""
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
     competitor = request.GET.get('number_competitor')
@@ -47,6 +50,7 @@ def status_changes(request):
 
 
 def user_status_changes(request):
+    """Измененные статусы пользователем"""
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
     competitor = request.GET.get('number_competitor')
@@ -58,6 +62,7 @@ def user_status_changes(request):
 
 
 def user_rating(request):
+    """Рейтинг пользователей"""
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
     competitor = request.GET.get('number_competitor')
@@ -69,6 +74,7 @@ def user_rating(request):
 
 
 def raw_sku(request):
+    """Необработанные"""
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
     st = statistic.load_raw_sku(start_date=start_date, end_date=end_date)

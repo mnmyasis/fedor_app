@@ -12,86 +12,50 @@ from .services.zalivv import *
 from .services.client_directory_manipulate import *
 from .services import algoritm
 from .services.write_mathing_result import *
-from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list, test_get_sku, test_new_sku
+from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list, test_get_sku, \
+    test_new_sku
 from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
 from admin_panel.tasks import create_task_starting_algoritm
 from admin_panel.models import Tasks
 
 logger = logging.getLogger(__name__)
 
-## @defgroup auto_matching Модуль автоматической стыковки
-# @brief Основной модуль, содержащий в себе модули авто-стыковки
-
-## @defgroup auto_matching_interface Интерфейс auto_matching
-#  @ingroup auto_matching
-#  @param SHOW_AUTO_JOINT_PAGE_TEMPLATE - Глобальные переменная шаблона
-
-## @defgroup show_matching_page Рендер страницы
-#  @ingroup auto_matching_interface
-
 SHOW_AUTO_MATCHING_PAGE_TEMPLATE = 'auto_matching/auto_matching_page.html'
 
 
-## @ingroup show_matching_page
-# @{
-
-
 @fedor_permit([1, 2, 3])
-#@ensure_csrf_cookie
 def auto_matching_page(request):
     """Рендер страницы авто-стыковки"""
     logger.info(request.session.get('style_interface'))
     return render(request, SHOW_AUTO_MATCHING_PAGE_TEMPLATE, {})
 
 
-##@}
-
-
-## @defgroup search_client Поиск по ClientDirectory
-#  @ingroup auto_joint_interface
-
-## @ingroup search_client
-# @{
-@fedor_permit([1, 2])
-def search_client_directory_data(request):
-    """Поиск по клиентскому справочнику, форма поиска на интерфейсе"""
-    logger.debug('Запуск поиска по ClientDirectory')
-    logger.debug(request)
-    search_client_data = request.GET.get('search_client_data')
-    number_competitor_id = request.GET.get('number_competitor_id')
-
-    logger.debug('Поисковой запрос: {}'.format(search_client_data))
-    client_data = search_client_directory(search_client_data, number_competitor_id)
-    result = {'client_data': client_data}
-    return JsonResponse(result)
-
-
-##@}
-
-
 @fedor_permit([1, 2])
 def algoritm_mathing(request):
-    """Функция запуска алгоритма"""
+    """Функция запуска алгоритма DEV"""
     request = json.loads(request.body.decode('utf-8'))
     number_competitor_id = request['data']['number_competitor_id']
     action = request['data']['action']  # Акция
     barcode_match = request['data']['barcode_match']  # Доверять ШК
     new_sku = request['data']['new_sku']  # Новая ску номенклатура
-    logger.debug('competitor: {}'.format(number_competitor_id))
-    """Получаем список записей СКУ"""
-    sku_data = test_get_sku(number_competitor_id)  # Выгрузка из справочника directory/services/sku_querys
-    """Запускаем алгоритм"""
+    """Список записей СКУ"""
+    sku_data = test_get_sku(number_competitor_id, new_sku)  # Выгрузка из справочника directory/services/sku_querys
     alg = algoritm.Matching()
-    matching_result = alg.start_test(sku_data)
+    """Запуск мэтчинга по щтрихкоду"""
+    barcode_match_result, sku = alg.barcode_matching(sku_data, number_competitor_id, barcode_match)
+    """Запускаем алгоритм"""
+    matching_result = alg.start_test(sku)
     change_matching_status_sku(sku_data)  # Изменение поля matching_status directory/services/sku_querys
     """Запись результата работы алгоритма"""
-    #match = Matching()
-    #[match.wr_match(matching_state=x['qnt'], matching_line=x) for x in matching_result['data']]
+    match = Matching()
+    [match.wr_match(matching_state=x['qnt'], matching_line=x) for x in barcode_match_result]  # Запись мэчтинга по штрихкоду
+    [match.wr_match(matching_state=x['qnt'], matching_line=x) for x in matching_result['data']]  # Запись мэчтинга алгоритма
     return JsonResponse(True, safe=False)
 
 
 @fedor_permit([1, 2])
 def create_work_algoritm(request):
+    """Функция создания задачи алгоритма"""
     user = request.user
     request = json.loads(request.body.decode('utf-8'))
     number_competitor_id = request['data'].get('number_competitor_id')

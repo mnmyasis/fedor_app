@@ -10,7 +10,7 @@ class GroupChangeTable(models.Model):
 
 
 class NumberCompetitor(models.Model):
-    """СКУ справочники"""
+    """СКУ справочники тестовый"""
     name = models.TextField(default='test')
 
     class Meta:
@@ -18,7 +18,7 @@ class NumberCompetitor(models.Model):
 
 
 class ClientDirectory(models.Model):
-    """СКУ справочник"""
+    """СКУ справочник тестовый"""
     nnt = models.IntegerField()
     name = models.TextField()
     matching_status = models.BooleanField(default=False)
@@ -32,7 +32,7 @@ class ClientDirectory(models.Model):
 
 
 class BaseDirectory(models.Model):
-    """ЕАС справочник"""
+    """ЕАС справочник тестовый"""
 
     umbrella_brand = models.TextField(blank=True)
     source = models.TextField(blank=True)
@@ -95,6 +95,7 @@ class SyncEAS(models.Model):
 
 
 class EAS(models.Model):
+    """Не используется"""
     eas_id = models.BigIntegerField()
     status = models.IntegerField(default=1)
     barcode = models.TextField(blank=True, null=True)
@@ -138,6 +139,7 @@ class Competitors(models.Model):
 
 class SKU(models.Model):
     """СКУ НОМЕНКЛАТУРА"""
+    """Не используется"""
     sku_id = models.BigIntegerField()
     nnt = models.TextField(blank=True)
     name = models.TextField()
