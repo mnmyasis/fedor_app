@@ -33,8 +33,14 @@ def algoritm_mathing(request):
     new_sku = request['data']['new_sku']  # Новая ску номенклатура
     """Список записей СКУ"""
     sku_data = test_get_sku(number_competitor_id, new_sku)  # Выгрузка из справочника directory/services/sku_querys
+    if len(sku_data) == 0:
+        result = {
+            'error': False,
+            'error_message': None,
+            'access': "Справочник Товаров клиентов пуст"
+        }
+        return JsonResponse(result)
     eas_dict = get_eas(action)
-    print(len(eas_dict))
     if len(eas_dict) == 0:
         result = {
             'error': False,

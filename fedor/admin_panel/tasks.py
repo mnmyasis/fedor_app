@@ -1,6 +1,6 @@
 from celery import shared_task
 from datetime import datetime
-from directory.services.directory_querys import get_sku, change_matching_status_sku, test_get_sku
+from directory.services.directory_querys import get_sku, change_matching_status_sku, test_get_sku, get_eas
 from auto_matching.services.write_mathing_result import Matching
 from auto_matching.services import algoritm
 from django.contrib.sessions.models import Session
@@ -19,11 +19,14 @@ def create_task_starting_algoritm(*args, **kwargs):
     sku_data = test_get_sku(number_competitor_id, new_sku)  # Выгрузка из справочника directory/services/sku_querys
     if len(sku_data) == 0:
         return 'Нет записей СКУ'
+    eas_dict = get_eas(action)
+    if len(eas_dict) == 0:
+        return "Справочник ЕАС пуст"
     alg = algoritm.Matching()
     """Запуск мэтчинга по щтрихкоду"""
-    barcode_match_result, sku = alg.barcode_matching(sku_data, number_competitor_id, barcode_match)
+    barcode_match_result, sku = alg.barcode_matching(sku_data, number_competitor_id, eas_dict, barcode_match)
     """Запуск алгоритм"""
-    matching_result = alg.start_test(sku)  # Старт алгоритма
+    matching_result = alg.start_test(sku, eas_dict)  # Старт алгоритма
     change_matching_status_sku(sku_data)  # Изменение поля matching_status directory/services/sku_querys
     """Запись результата работы алгоритма"""
     match = Matching()

@@ -136,7 +136,7 @@ manual_matching_app = new Vue({
         this.$load_sku_list();
 
         /* инициализация редактора мэтчинга */
-        let modal_edit_match = document.getElementById('edit-matching-modal');
+        let modal_edit_match = document.getElementById('re-matching');
         let instance_modal_edit_match = M.Modal.init(modal_edit_match);
 
         /* инициализация select form в редакторе мэтчинга */
