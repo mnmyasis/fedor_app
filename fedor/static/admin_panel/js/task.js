@@ -9,7 +9,6 @@ task_add_app = new Vue({
         url_competitors: '/directory/number-competitor-list/?format=json',
         url_new_sku: '/directory/new-sku/',
         url_add_task_algoritm: '/admin/task/add/algoritm/',
-        url_add_task_directory_sync: '/admin/task/add/sync-directory/',
         url_schedule_list: '/admin/schedule/list/',
         new_sku: '',
         new_sku_dates: [],
@@ -34,7 +33,7 @@ task_add_app = new Vue({
             console.log(this.selected_competitor)
             if(this.selected_task != 0 && this.name && this.selected_crontab && this.selected_competitor){
                 let request_params = {
-                    'number_competitor_id' : this.selected_competitor,
+                    'number_competitor_id' : JSON.stringify(this.selected_competitor),
                     'name': this.name,
                     'description': this.description,
                     'crontab': this.selected_crontab,

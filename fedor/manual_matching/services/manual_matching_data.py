@@ -1,46 +1,59 @@
 from manual_matching.models import *
 from auto_matching.services.write_mathing_result import Matching
-from analytic.services import statistic
+from directory.models import SyncSKU
 import logging
 
 logger = logging.getLogger(__name__)
 
 
-def matching_sku_eas(sku_id, eas_id, number_competitor, user_id):
+def matching_sku_eas(sku_id, eas_id, number_competitor, user_id, type_binding):
     logger.debug("Match sku_id - {} eas_id - {} competitor - {}".format(sku_id, eas_id, number_competitor))
     matching = Matching()
     match_line = {
         'id_sku': sku_id,
         'id_eas': eas_id,
         'number_competitor': number_competitor,
-        'user': user_id
+        'user': user_id,
+        'type_binding': type_binding
     }
-    res = matching.wr_match(matching_state='manual', matching_line=match_line)
+    res = matching.wr_match(matching_state='manual', matching_line=match_line)  # Запись в final_matching
+
+    """Запись статистики"""
     if res:
-        statistic.statistic_write(
+        """statistic.statistic_write(
             user_id=user_id,
             sku_id=sku_id,
             eas_id=eas_id,
             number_competitor=number_competitor,
             action=1
-        )
+        )"""
         logger.debug('Успешно записано в final')
         """Удаление смэтченных записей"""
         ManualMatchingData.objects.filter(sku_dict__pk=sku_id, number_competitor=number_competitor).delete()
         return True
     else:
-        statistic.statistic_write(
+        """statistic.statistic_write(
             user_id=user_id,
             sku_id=sku_id,
             eas_id=eas_id,
             number_competitor=number_competitor,
             action=2
-        )
+        )"""
         logger.debug('СКУ успешно ремэтчинулось ску:{} еас:{}'.format(sku_id, eas_id))
         return True
 
 
-def edit_status(sku_id, number_competitor, type_binding, user_id):
+def delete_matching(sku_id, competitor):
+    match = FinalMatching.objects.get(sku_dict__pk=sku_id, number_competitor=competitor)
+    sku = SyncSKU.objects.get(pk=match.sku_dict.pk)
+    sku.matching_status = True
+    sku.save()
+    match.delete()
+    return True
+
+
+
+"""def edit_status(sku_id, number_competitor, type_binding, user_id):
     logger.debug("Update status sku_id - {}  competitor - {}  status - {}".format(sku_id, number_competitor, type_binding))
     types_binding = [
         {'status': 1, 'binding_name': 'Мэтчинг по ШК - требуется проверка'},
@@ -67,4 +80,4 @@ def edit_status(sku_id, number_competitor, type_binding, user_id):
                 eas_id=FinalMatching.objects.get(sku_dict__pk=sku_id).eas_dict.pk,
                 number_competitor=number_competitor,
                 action=3
-            )
+            )"""

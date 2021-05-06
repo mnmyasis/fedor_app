@@ -26,7 +26,7 @@ def number_competitor_list(request):
 @fedor_auth_for_ajax
 def get_new_sku(request):
     """Дата загрузки номенклатуры в справочнике"""
-    number_competitor = request.GET.get('number_competitor_id')
+    number_competitor = json.loads(request.GET.get('number_competitor_id'))
     date_create_new_sku = load_date_new_sku(number_competitor)
     require = {
         'date_create_new_sku': date_create_new_sku
@@ -37,7 +37,7 @@ def get_new_sku(request):
 @fedor_permit([1, 2])
 def group_change_start(request):
     """Запуск массовых подмен по справочнику"""
-    number_competitor = request.GET.get('number_competitor_id')
+    number_competitor = json.loads(request.GET.get('number_competitor_id'))
     exclude_list = json.loads(request.GET.get('exclude_list'))
     task = task_group_changes.delay(number_competitor=number_competitor, exclude_list=exclude_list)
     Tasks.objects.create(

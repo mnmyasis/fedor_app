@@ -6,7 +6,30 @@ Vue.component('line-bar-status-matching', {
     methods:{
       draw_statistic(){
           this.renderChart({
-              labels: ['В обработке', 'Ручная', 'Не найдено', 'Предложено добавить', 'Штрих-код', 'Штрих-код проверка', 'Прочее'],
+              labels: ['В обработке', 'Ручная', 'Не найдено', 'Предложено добавить', 'Штрих-код', 'Штрих-код проверка', 'Алгоритм', 'Прочее'],
+              datasets: this.statistic
+          }, {responsive: true, maintainAspectRatio: false})
+      },
+
+    },
+
+    watch:{
+        statistic: function (){
+            this.draw_statistic()
+        }
+    },
+    mounted () {
+        this.draw_statistic()
+    }
+})
+
+Vue.component('line-bar-user-status-matching', {
+    extends: VueChartJs.Bar,
+    props: ['statistic'],
+    methods:{
+      draw_statistic(){
+          this.renderChart({
+              labels: ['Ручная', 'Не найдено', 'Предложено добавить', 'Штрих-код', 'Штрих-код проверка', 'Алгоритм', 'Прочее'],
               datasets: this.statistic
           }, {responsive: true, maintainAspectRatio: false})
       },
@@ -140,6 +163,7 @@ analytic = new Vue({
                                 stats[i].values.add_eas,
                                 stats[i].values.barcode,
                                 stats[i].values.barcode_check,
+                                stats[i].values.algoritm,
                                 stats[i].values.other
                              ]
                         }
@@ -158,7 +182,7 @@ analytic = new Vue({
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
-                'number_competitor': number_competitor_app.selected_competitor
+                'number_competitor': JSON.stringify(number_competitor_app.selected_competitor)
             }
             axios.get(this.url_status_changes, {params: request_params})
                 .then(function (response){
@@ -261,12 +285,13 @@ analytic = new Vue({
                             backgroundColor: random_color(),
 
                             data: [
-                                stats[i].statistic.progress,
+                                //stats[i].statistic.progress,
                                 stats[i].statistic.manual,
                                 stats[i].statistic.not_found,
                                 stats[i].statistic.add_eas,
                                 stats[i].statistic.barcode_not_check,
                                 stats[i].statistic.barcode_check,
+                                stats[i].statistic.algoritm,
                                 stats[i].statistic.other
 
                             ]

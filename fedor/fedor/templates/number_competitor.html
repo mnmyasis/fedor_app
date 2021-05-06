@@ -1,10 +1,9 @@
 <div id="number-competitor-app">
     <div class="input-field">
-        <select class="sel-competitor" v-model="selected_competitor" @change="refresh_load_data">
+        <select class="sel-competitor" v-model="selected_competitor" multiple>
             <option value="0" disabled selected>Выберите справочник</option>
             <option v-for="data in number_competitors"
                     :value="data.pk"
-                    :selected="data.pk == 3"
             >{( data.name )}</option>
         </select>
         <label>Клиентский справочник</label>

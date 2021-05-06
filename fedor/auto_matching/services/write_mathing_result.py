@@ -93,11 +93,26 @@ class MatchingManual(MatchingWrite):
 
     def data_preparations(self, matching_line):
         """Подготовка данных к записи"""
+        type_binding = 0
+        name_binding = ''
+        id_sku = matching_line['id_sku']
+        id_eas = matching_line['id_eas']
+        if matching_line['type_binding'] == 3:
+            type_binding = 3
+            name_binding = 'Мэтчинг вручную'
+        if matching_line['type_binding'] == 5:
+            type_binding = 5
+            name_binding = 'Предложено к добавлению в ЕАС'
+            id_eas = None
+        if matching_line['type_binding'] == 6:
+            type_binding = 6
+            name_binding = 'Прочее'
+            id_eas = None
         data = {
-            'sku_dict': matching_line['id_sku'],
-            'eas_dict': matching_line['id_eas'],
-            'type_binding': 3,
-            'name_binding': 'Мэтчинг вручную',
+            'sku_dict': id_sku,
+            'eas_dict': id_eas,
+            'type_binding': type_binding,
+            'name_binding': name_binding,
             'user': matching_line['user'],
             'number_competitor': matching_line['number_competitor'],
             'old_type_binding': 0

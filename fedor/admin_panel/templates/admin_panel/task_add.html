@@ -60,7 +60,7 @@
                 <div v-show="selected_task == 'admin_panel.tasks.create_task_starting_algoritm'" class="col s12">
                     <div class="row">
                         <div class="input-field col s6">
-                            <select class="sel-competitor" v-model="selected_competitor">
+                            <select class="sel-competitor" v-model="selected_competitor" multiple>
                                 <option value="0" disabled selected>Выберите справочник</option>
                                 <option v-for="data in number_competitors"
                                         :value="data.pk"

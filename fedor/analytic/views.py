@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.core import serializers
 from django.http import JsonResponse
 from django.shortcuts import render
 from .services import statistic
@@ -41,7 +40,8 @@ def status_changes(request):
     """Виды изменения статусов"""
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
-    competitor = request.GET.get('number_competitor')
+    competitor = json.loads(request.GET.get('number_competitor'))
+    competitor = 1
     st = statistic.status_changes(start_date=start_date, end_date=end_date, number_competitor=competitor)
     require = {
         'stats': st
@@ -54,6 +54,7 @@ def user_status_changes(request):
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
     competitor = request.GET.get('number_competitor')
+    competitor = 1
     st = statistic.status_user_changes(start_date=start_date, end_date=end_date, number_competitor=competitor)
     require = {
         'stats': st
@@ -66,6 +67,7 @@ def user_rating(request):
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
     competitor = request.GET.get('number_competitor')
+    competitor = 1
     st = statistic.user_rating(start_date=start_date, end_date=end_date, number_competitor=competitor)
     require = {
         'stats': st

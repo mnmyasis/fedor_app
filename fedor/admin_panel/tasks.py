@@ -5,7 +5,7 @@ from auto_matching.services.write_mathing_result import Matching
 from auto_matching.services import algoritm
 from django.contrib.sessions.models import Session
 from manual_matching.models import ManualMatchingData
-from admin_panel.services.sync_directory import request_eas_api, request_sku_api
+from api.services.sync_directory import request_eas_api, request_sku_api
 
 
 @shared_task
@@ -17,6 +17,8 @@ def create_task_starting_algoritm(*args, **kwargs):
     new_sku = kwargs.get('new_sku')
     """"Список записей СКУ"""
     sku_data = test_get_sku(number_competitor_id, new_sku)  # Выгрузка из справочника directory/services/sku_querys
+    if len(sku_data) == 0:
+        return 'Нет записей СКУ'
     alg = algoritm.Matching()
     """Запуск мэтчинга по щтрихкоду"""
     barcode_match_result, sku = alg.barcode_matching(sku_data, number_competitor_id, barcode_match)
@@ -59,12 +61,3 @@ def sku_api():
     result_time = end - start
     return 'sku sync: {}'.format(result_time)
 
-
-@shared_task
-def sync_directory(api_func):
-    """Удалить функцию"""
-    start = datetime.now()
-    res = api_func()
-    end = datetime.now()
-    result_time = end - start
-    return 'directory sync: {}'.format(result_time)

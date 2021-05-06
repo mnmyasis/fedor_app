@@ -18,15 +18,8 @@ celery_app.conf.beat_schedule = {
     },
     'sku_sync': {
         'task': 'admin_panel.tasks.sku_api',
-        'schedule': crontab(hour=19, minute=30),
+        #'schedule': crontab(hour=19, minute=30),
+        'schedule': crontab(hour=17, minute=7),
     },
 
 }
-
-'''celery_app.conf.beat_schedule = {
-    'add-every-30-seconds': {
-        'task': 'tasks.add',
-        'schedule': 30.0,
-        'args': (16, 16)
-    },
-}'''

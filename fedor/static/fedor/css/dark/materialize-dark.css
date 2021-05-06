@@ -115,6 +115,9 @@ h6, h5, h4, h3, h2, h1, th, tr, p, li, input {
   text-decoration: none !important;
   color: #FFFFFF !important; }
 
+.sku-selected {
+  background-color: rgba(118, 143, 155, 0.42) !important; }
+
 .materialize-red {
   background-color: #e51c23 !important; }
 
@@ -2379,13 +2382,13 @@ table {
   table.striped tr {
     border-bottom: none; }
   table.striped > tbody > tr:nth-child(odd) {
-    background-color: rgba(242, 242, 242, 0.5); }
+    background-color: rgba(118, 143, 155, 0.42); }
   table.striped > tbody > tr > td {
     border-radius: 0; }
   table.highlight > tbody > tr {
     transition: background-color .25s ease; }
     table.highlight > tbody > tr:hover {
-      background-color: rgba(242, 242, 242, 0.5); }
+      background-color: rgba(118, 143, 155, 0.42); }
   table.centered thead tr th, table.centered tbody tr td {
     text-align: center; }
 

@@ -18,7 +18,6 @@ urlpatterns = [
     path('task/schedule-list/', task_schedule_list_page, name='task_schedule_list_page'),
     path('task/add-page/', task_add_page, name='task_add_page'),
     path('task/add/algoritm/', task_add_algoritm, name='task_add_algoritm'),
-    path('task/add/sync-directory/', task_sync_directory, name='task_sync_directory'),
     path('task/remove/<int:task_id>', task_remove, name='task_remove'),
     path('task/change-status/<int:task_id>', task_change_status, name='task_change_status'),
     path('task-user/list/', tasks_user_list, name='tasks_user_list')

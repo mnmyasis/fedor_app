@@ -36,10 +36,11 @@ class ManualFilter:
             'number_competitor': fields['number_competitor'],  # id SKU справочника
         }
 
-        #  Смотрим какие поля пришли с форм поиска на фронте
+        #  Какие поля пришли с форм фильтрации
         if fields['barcode']:
             filter_field['sku_dict__nnt'] = fields['barcode']  # Штриход
         if fields['manufacturer']:
+            print(fields['manufacturer'])
             filter_field['eas_dict__manufacturer__icontains'] = fields['manufacturer']  # Производитель
         if fields['tn_fv']:
             filter_field['eas_dict__tn_fv__icontains'] = fields['tn_fv']  # Наименование номенклатуры
@@ -52,12 +53,6 @@ class ManualFilter:
         manufacturer = json.dumps(list(manufacturer))
         return manufacturer
 
-    def get_tn_fv(self, **filter_field):
-        """выгрузка для выпадающего списка фильтра Номенклатура"""
-        tn_fv = ManualMatchingData.objects.filter(**filter_field).values('eas_dict__tn_fv').distinct('eas_dict__tn_fv')
-        tn_fv = json.dumps(list(tn_fv))
-        return tn_fv
-
     def get_barcode(self, **filter_field):
         """выгрузка для выпадающего списка фильтра Штрихкод"""
         barcode = ManualMatchingData.objects.filter(**filter_field).values('sku_dict__nnt').distinct('sku_dict__nnt')
@@ -65,7 +60,7 @@ class ManualFilter:
         return barcode
 
     def get_eas(self, **filter_field):
-        """выгрузка для таблицы SKU"""
+        """выгрузка вариантов мэтчинга"""
         eas = ManualMatchingData.objects.filter(**filter_field).values('eas_dict', 'name_eas')
         eas = color_line(eas, 'name_eas')
         eas = json.dumps(list(eas))
@@ -74,22 +69,18 @@ class ManualFilter:
     def start(self, **fields):
         logger.debug(fields)
         filter_field = self.get_filter_fields(fields)  # Подгон полей для поиска по модели
-        eas = self.get_eas(**filter_field)  # Выгрузка данных для таблицы SKU
+        eas = self.get_eas(**filter_field)  # выгрузка вариантов мэтчинга
 
         if fields['manufacturer']:
             manufacturer = self.get_manufacturer(**filter_field)  # Выгрузка для выпадающего списка в фильтре
             # производитель
         else:
             manufacturer = None
-        if fields['tn_fv']:
-            tn_fv = self.get_tn_fv(**filter_field)  # Выгрузка для выпадающего списка в фильтре номенклатура
-        else:
-            tn_fv = None
         if fields['barcode']:
             barcode = self.get_barcode(**filter_field)  # Выгрузка для выпадающего списка в фильтре штрихкод
         else:
             barcode = None
-        result = {'eas': eas, "manufacturer": manufacturer, 'tn_fv': tn_fv, 'barcode': barcode}
+        result = {'eas': eas, "manufacturer": manufacturer, 'barcode': barcode}
 
         return result
 
@@ -97,7 +88,12 @@ class ManualFilter:
 class SKUFilter:
 
     def start(self, **fields):
-        sku = ManualMatchingData.objects.filter(**fields).distinct('sku_dict__pk').values('sku_dict', 'name_sku')
+        sku = ManualMatchingData.objects.filter(**fields).distinct('sku_dict__pk').values(
+            'sku_dict',
+            'name_sku',
+            'sku_dict__number_competitor__pk',
+            'sku_dict__number_competitor__name',
+        )
         sku = color_line(sku, 'name_sku')
         sku = json.dumps(list(sku))
         result = {'sku': sku}

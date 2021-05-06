@@ -92,9 +92,28 @@
     color: rgba(21, 102, 192, 0); }
   100% {
     color: #1566c0; } }
+.matching-lists {
+  height: 500px;
+  overflow: auto; }
+
+.matching-redactor {
+  width: 1500px !important; }
+
+.rematching-redactor {
+  height: 1500px !important; }
+
+.float-right {
+  float: right; }
+
 .fedor-table .collection-item a {
   text-decoration: none !important;
-  color: #26a69a !important; }
+  color: #26a69a; }
+
+.sku-selected {
+  background-color: #26a69a !important; }
+
+.sku-selected a {
+  color: white !important; }
 
 .materialize-red {
   background-color: #e51c23 !important; }

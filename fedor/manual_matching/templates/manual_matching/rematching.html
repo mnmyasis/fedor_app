@@ -1,0 +1,66 @@
+<div class="modal modal-fixed-footer rematching-redactor" id="re-matching">
+    <div class="modal-content">
+        <h4>Ремэтчинг</h4>
+        <div class="row">
+            <div class="col s6">
+                <div class="input-field col s12">
+                    <input placeholder="По части строки номенклатуры" id="tn_fv" type="text" class="validate"
+                           v-model="tn_fv">
+                    <label for="tn_fv">Номенклатура</label>
+                </div>
+            </div>
+            <!--<div class="col s6">
+                <div class="input-field col s12">
+                    <input placeholder="По производителю" id="manufacturer" type="text" class="validate"
+                           v-model="manufacturer">
+                    <label for="manufacturer">Производитель</label>
+                </div>
+            </div>-->
+            <div class="col s6">
+                <div class="input-field col s12">
+                    <input placeholder="По производителю" id="manufacturer" type="text" class="validate dropdown-trigger"
+                           v-model="manufacturer" >
+                    <label for="manufacturer">Производитель</label>
+                    <div class="drop-menu"
+                     v-if="drop_menu_manufacturer_status">
+                    <ul class="collection">
+                        <li class="collection-item"
+                            v-for="data in manufacturer_rematch"
+                            v-html="data.manufacturer"
+                            v-on:click="event_manufacturer_dropdown(data)"
+                            ></li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col s4">
+                <h6 class="text-center">Товары клиента</h6>
+                <div class="matching-lists">
+                    <ul class="collection with-header fedor-item">
+                        <a href="#!" class="collection-item" v-html="active_name_sku"></a>
+                    </ul>
+                </div>
+            </div>
+            <div class="col s8">
+                <h6 class="text-center">Базовый справочник (ЕАС)</h6>
+                <div class="matching-lists">
+                    <ul class="collection with-header fedor-item">
+                        <!--3 type_binding мэтчинг вручную -->
+                        <a href="#!" class="collection-item modal-close"
+                            v-for="data in eas_rematch"
+                            v-on:click="matching(data.pk, 3)"
+                           ><span v-html="data.tn_fv"></span> производитель: <span v-html="data.manufacturer"></span></a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <a class="waves-effect waves-light btn-small modal-close"
+         >Отмена</a>
+    </div>
+</div>

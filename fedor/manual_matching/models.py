@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from directory.models import ClientDirectory, BaseDirectory, SyncSKU, SyncEAS
+from directory.models import SyncSKU, SyncEAS, Competitors
 
 
 class ManualMatchingData(models.Model):
@@ -23,7 +23,7 @@ class ManualMatchingData(models.Model):
 
 class FinalMatching(models.Model):
     sku_dict = models.ForeignKey(SyncSKU, on_delete=models.CASCADE)
-    eas_dict = models.ForeignKey(SyncEAS, on_delete=models.CASCADE)
+    eas_dict = models.ForeignKey(SyncEAS, models.SET_NULL, blank=True, null=True)
     type_binding = models.IntegerField()
     name_binding = models.TextField(blank=True)
     old_type_binding = models.IntegerField(blank=True)
@@ -34,3 +34,12 @@ class FinalMatching(models.Model):
 
     class Meta:
         db_table = 'final_matching'
+
+# 1 Мэтчинг по ШК - требуется проверка
+# 2 Мэтчинг по ШК - проверка не требуется
+# 3 Мэтчинг вручную
+# 4 Не найдено соответствие в ЕАС
+# 5 Предложено к добавлению в ЕАС
+# 6 Прочее
+# 7 Смэтчено аптекой
+# 8 Алгоритм

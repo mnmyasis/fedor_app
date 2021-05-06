@@ -278,3 +278,6 @@ level:INFO time:2021-04-16 22:39:02,163 name:auth_fedor.views message:Автор
 =======
 level:INFO time:2021-04-26 13:11:10,646 name:auth_fedor.views message:Авторизовался:admin
 >>>>>>> 88a55b4949b02f8ffa393df4a9747c0dd43fe98e
+level:INFO time:2021-05-04 12:46:30,841 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-05-05 11:36:31,815 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-05-06 12:35:01,881 name:auth_fedor.views message:Авторизовался:admin

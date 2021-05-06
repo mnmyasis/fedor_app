@@ -3,11 +3,9 @@
     overflow: auto;
 }
 
-.matching-redactor{
-    width: 1500px !important;
-}
 .rematching-redactor{
-    height: 1500px !important;
+    height: 90% !important;
+    width: 90% !important;
 }
 
 .float-right{

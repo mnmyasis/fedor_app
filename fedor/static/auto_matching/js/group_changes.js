@@ -35,7 +35,7 @@ group_changes_app = new Vue({
         group_change_start(){ // Запуск массовых подмен
             preloader_app.show_preloading = true
             let request_params = {
-                'number_competitor_id': number_competitor_app.selected_competitor,
+                'number_competitor_id': JSON.stringify(number_competitor_app.selected_competitor),
                 'exclude_list': JSON.stringify(this.exclude_list),
             }
             axios.get(this.url_group_changes_start, {params: request_params})

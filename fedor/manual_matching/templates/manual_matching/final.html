@@ -1,31 +1,33 @@
 <div id="final-matching-app" class="col s12">
     <table class="centered">
         <thead>
-        <tr>
-            <th></th>
-            <th >SKU</th>
-            <th>EAS</th>
-            <th>COMPETITOR</th>
-            <th>STATUS</th>
 
+        <tr>
+            <th>ТОВАРЫ КЛИЕНТА</th>
+            <th>БАЗОВЫЙ СПРАВОЧНИК (ЕАС)</th>
+            <th>СПРАВОЧНИК</th>
+            <th>СТАТУС</th>
+            <th></th>
         </tr>
         </thead>
 
         <tbody>
         <tr v-for="final_data in matching_data">
-            <td>
-                <a class="waves-effect waves-light material-icons modal-trigger" href="#edit-matching-modal"
-                   v-on:click="show_redactor_matching(final_data)"
-                >border_color</a>
-            </td>
+
             <td>{( final_data.sku_dict__name )}</td>
             <td>{( final_data.eas_dict__tn_fv)}</td>
             <td>{( final_data.number_competitor )}</td>
             <td>{( final_data.name_binding)}</td>
-
+            <td>
+                <a href="#!"
+                   class="waves-effect waves-light material-icons"
+                    v-on:click="delete_matching(final_data.sku_dict__pk, final_data.number_competitor)"
+                >
+                    <i class="material-icons deep-orange-text accent-3">delete</i>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
-    {% include 'manual_matching/edit.html' %}
 </div>
 

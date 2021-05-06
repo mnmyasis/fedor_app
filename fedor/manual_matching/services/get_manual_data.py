@@ -12,12 +12,12 @@ def binding_decorator(model):
     def wrapper(func):
         def wrap_binding(*args, **kwargs):
             count_data = model.objects.filter(
-                number_competitor=kwargs['number_competitor'],
+                number_competitor__in=kwargs['number_competitor'],
                 user=kwargs['user_id']).distinct('sku_dict').count()  # Кол-во записей привязанных к пользователю
             logger.debug('Id пользователя - {}    Записей - {}'.format(kwargs['user_id'], count_data))
             if count_data < 10:  # Если записей у пользователя меньше 10, привязывается еще 50шт.
                 model.objects.filter(pk__in=
-                                     model.objects.filter(number_competitor=kwargs['number_competitor'],
+                                     model.objects.filter(number_competitor__in=kwargs['number_competitor'],
                                                           user=None).distinct(
                                          'sku_dict').values('pk')[:50]
                                      ).update(user=kwargs['user_id'])  # Привязка данных к юзеру
@@ -47,11 +47,13 @@ def get_sku_data(number_competitor, user_id):
     """Выгрузка записей СКУ"""
     logger.debug('выгружаются данные ску --- справочник {}'.format(number_competitor))
     sku = ManualMatchingData.objects.filter(
-        number_competitor=number_competitor,
+        number_competitor__in=number_competitor,
         matching_status=False,
-        user=user_id).distinct('sku_dict__pk').values(
+        user=user_id).order_by('sku_dict__name', 'sku_dict__pk', ).distinct('sku_dict__name', 'sku_dict__pk').values(
             'sku_dict',
-            'name_sku'
+            'name_sku',
+            'sku_dict__number_competitor__pk',
+            'sku_dict__number_competitor__name',
         )
     sku = color_line(lines=sku, dict_key='name_sku')
     data = json.dumps(list(sku))

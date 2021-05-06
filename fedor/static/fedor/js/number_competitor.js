@@ -2,9 +2,11 @@
 function sel(){
     cookie_value = document.cookie.replace(/(?:(?:^|.*;\s*)fedor_competitor\s*\=\s*([^;]*).*$)|^.*$/, "$1")
     if(cookie_value){
+        cookie_value = cookie_value.split(',')
+        console.log(cookie_value)
         return cookie_value
     }else{
-        return 0
+        return [0]
     }
 }
 
@@ -29,6 +31,12 @@ number_competitor_app = new Vue({
                 auto_matching_app.new_sku_status = false
             }
         },
+    },
+
+    watch:{
+        selected_competitor: function(){
+            this.refresh_load_data()
+        }
     },
     mounted(){
         axios.get(this.url).then(response => this.number_competitors = (JSON.parse(response.data.number_competitors)))

@@ -3,9 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Стыковщик{% endblock %}</title>
+    <title>{% block title %}Федор{% endblock %}</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/main.css' %}">
+    <link rel="icon" type="image/svg+xml" href="{% static 'fedor/media/favicon.svg' %}">
     {% if request.COOKIES.user_style %}
         {% if request.COOKIES.user_style == 'dark' %}
             <link rel="stylesheet" type="text/css" href="{% static 'fedor/css/dark/materialize-dark.css' %}">

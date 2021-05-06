@@ -4,8 +4,6 @@ from datetime import datetime
 from directory.models import ClientDirectory, GroupChangeTable, SyncSKU
 from django.core import serializers
 
-from .forms.group_changes_form import *
-
 
 def __replace_line(line, change_lines):
     """Изменение записей по шаблону подмен"""
@@ -50,7 +48,7 @@ def __replace_line(line, change_lines):
 def change_line(number_competitor, exclude_list):
     """Запуск массовых подмен"""
     start = datetime.now()
-    names = SyncSKU.objects.filter(number_competitor=number_competitor)[:10]  # Список записей СКУ
+    names = SyncSKU.objects.filter(number_competitor__in=number_competitor)[:10]  # Список записей СКУ
     change_lines = GroupChangeTable.objects.exclude(pk__in=[exclude.pk for exclude in exclude_list]).extra(
         select={'length': 'Length(change)'}).order_by('-length')
     for name in names:
@@ -92,19 +90,23 @@ def update_or_create_group_change(change, search, pk=None):
         'change': change,
         'search': search
     }
-    group_change_form = GroupChangeForm(res)
-    if group_change_form.is_valid():
-        is_create, res = group_change_form.save(pk)
-        if not is_create:
-            result = {
-                'error': False,
-                'error_message': None,
-                'access': "Запись успешно обновлена"
-            }
-        else:
-            result = {
-                'error': False,
-                'error_message': None,
-                'access': 'Запись: "Заменить: {} Найти: {}" успешно добавлена'.format(res.change, res.search)
-            }
-        return result
+    obj, created = GroupChangeTable.objects.update_or_create(
+        pk=pk,
+        defaults={
+            'change': change,
+            'search': search,
+        }
+    )
+    if created:
+        result = {
+            'error': False,
+            'error_message': None,
+            'access': 'Запись: "Заменить: "{}" Найти: "{}"" успешно добавлена'.format(obj.change, obj.search)
+        }
+    else:
+        result = {
+            'error': False,
+            'error_message': None,
+            'access': "Запись успешно обновлена"
+        }
+    return result

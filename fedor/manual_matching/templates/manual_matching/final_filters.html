@@ -3,7 +3,7 @@
         <div class="input-field col s3 filters-statuses-form">
             <select multiple
                     v-model="statuses" id="filter-final-select">
-                <option value="" disabled selected>Мэтчинг статус</option>
+                <option value="" disabled selected>Мэтчинг Статус</option>
                 <option value="1">Мэтчинг по ШК - требуется проверка</option>
                 <option value="2">Мэтчинг по ШК - проверка не требуется</option>
                 <option value="3">Мэтчинг вручную</option>
@@ -20,6 +20,14 @@
         </div>
         <div col s2>
 
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s4">
+            <input placeholder="ТОВАРЫ КЛИЕНТА" type="text" class="validate text-center" v-model="sku_form">
+        </div>
+        <div class="input-field col s6">
+            <input placeholder="БАЗОВЫЙ СПРАВОЧНИК (ЕАС)" type="text" class="validate text-center" v-model="eas_form">
         </div>
     </div>
 </div>

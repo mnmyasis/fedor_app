@@ -64,7 +64,7 @@ class BaseDirectory(models.Model):
 
 class SyncEAS(models.Model):
     eas_id = models.BigIntegerField()
-    status = models.IntegerField(default=1)
+    status = models.IntegerField(default=1)  # Список статусов ниже в комментариях
     barcode = models.TextField(blank=True, null=True)
     umbrella_brand = models.TextField(blank=True, null=True)
     tn_fv = models.TextField(blank=True, null=True)
@@ -89,6 +89,14 @@ class SyncEAS(models.Model):
     corp_rus = models.TextField(blank=True, null=True)
     create_date = models.DateField(auto_now_add=True)
     update_date = models.DateField(auto_now=True)
+
+    # 1 Валидировано
+    # 2 Помечен на удаление
+    # 3 Модерация.Позиция заведена через акцию
+    # 4 Модерация.Загрузка из шаблона
+    # 5 Валидировано с замечаниями
+    # 6 На модерацию
+    # 7 на модерацию.Предложено добавить из Федора
 
     class Meta:
         db_table = 'sync_eas'

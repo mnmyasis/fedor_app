@@ -1,19 +1,13 @@
-from datetime import datetime
-
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import JsonResponse
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.http import require_http_methods
-from django.urls import reverse
-import logging, json
 
+import logging, json
 from .services.zalivv import *
 from .services.client_directory_manipulate import *
 from .services import algoritm
 from .services.write_mathing_result import *
 from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list, test_get_sku, \
-    test_new_sku
+    test_new_sku, get_eas
 from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
 from admin_panel.tasks import create_task_starting_algoritm
 from admin_panel.models import Tasks
@@ -25,8 +19,7 @@ SHOW_AUTO_MATCHING_PAGE_TEMPLATE = 'auto_matching/auto_matching_page.html'
 
 @fedor_permit([1, 2, 3])
 def auto_matching_page(request):
-    """Рендер страницы авто-стыковки"""
-    logger.info(request.session.get('style_interface'))
+    """Рендер страницы авто-мэтчинга"""
     return render(request, SHOW_AUTO_MATCHING_PAGE_TEMPLATE, {})
 
 
@@ -34,17 +27,26 @@ def auto_matching_page(request):
 def algoritm_mathing(request):
     """Функция запуска алгоритма DEV"""
     request = json.loads(request.body.decode('utf-8'))
-    number_competitor_id = request['data']['number_competitor_id']
+    number_competitor_id = json.loads(request['data']['number_competitor_id'])
     action = request['data']['action']  # Акция
     barcode_match = request['data']['barcode_match']  # Доверять ШК
     new_sku = request['data']['new_sku']  # Новая ску номенклатура
     """Список записей СКУ"""
     sku_data = test_get_sku(number_competitor_id, new_sku)  # Выгрузка из справочника directory/services/sku_querys
+    eas_dict = get_eas(action)
+    print(len(eas_dict))
+    if len(eas_dict) == 0:
+        result = {
+            'error': False,
+            'error_message': None,
+            'access': "Справочник ЕАС пуст"
+        }
+        return JsonResponse(result)
     alg = algoritm.Matching()
     """Запуск мэтчинга по щтрихкоду"""
-    barcode_match_result, sku = alg.barcode_matching(sku_data, number_competitor_id, barcode_match)
+    barcode_match_result, sku = alg.barcode_matching(sku_data, number_competitor_id, eas_dict, barcode_match)
     """Запускаем алгоритм"""
-    matching_result = alg.start_test(sku)
+    matching_result = alg.start_test(sku, eas_dict)
     change_matching_status_sku(sku_data)  # Изменение поля matching_status directory/services/sku_querys
     """Запись результата работы алгоритма"""
     match = Matching()
@@ -58,7 +60,7 @@ def create_work_algoritm(request):
     """Функция создания задачи алгоритма"""
     user = request.user
     request = json.loads(request.body.decode('utf-8'))
-    number_competitor_id = request['data'].get('number_competitor_id')
+    number_competitor_id = json.loads(request['data'].get('number_competitor_id'))
     action = request['data'].get('action')  # Акция
     barcode_match = request['data'].get('barcode_match')  # Доверять ШК
     new_sku = request['data'].get('new_sku')  # Новая ску номенклатура

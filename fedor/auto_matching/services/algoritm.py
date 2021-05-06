@@ -303,7 +303,7 @@ class Matching():
         result = {'data': res_dict.to_dict('records'), 'heads': res_dict.columns}
         return result
 
-    def start_test(self, clients_dict):
+    def start_test(self, clients_dict, eas_dict):
         # Обозначения
         # Target - то что не понятно и нужно состыковать (переменная asna)
         # Info - это записи из справочника из которых будет выбираться подходящий вариант для Target
@@ -379,7 +379,8 @@ class Matching():
         # Инициализация Info (сначала весь справочник)
         cols = [x.name for x in
                 SyncEAS.objects.all()[0]._meta.get_fields()]  # Замена моделей iqvia на BaseDirectory
-        iqvia = pd.DataFrame(SyncEAS.objects.all().values(), columns=cols)
+        print(eas_dict.values())
+        iqvia = pd.DataFrame(eas_dict.values(), columns=cols)
         # iqvia = iqvia[iqvia['source']=='IQVIA']
         iqvia = iqvia.assign(in_pool=0)
         print(iqvia)
@@ -593,9 +594,9 @@ class Matching():
         result = {'data': res_dict.to_dict('records'), 'heads': res_dict.columns}
         return result
 
-    def barcode_matching(self, sku, competitor, barcode_status=False):
+    def barcode_matching(self, sku, competitor, eas_dict, barcode_status=False):
         """Мэтчинг по штрихкоду, возвращает результат мэтчинга и список ску, которые не смэтчились"""
-        eas = SyncEAS.objects.all()
+        eas = eas_dict
         match_result = []
         sku_result = []
         for sk in sku:
@@ -612,7 +613,7 @@ class Matching():
                                 'id_c': sk.pk,
                                 'id': ea.pk,
                                 'name_binding': 'Мэтчинг по ШК - проверка не требуется',
-                                'number_competitor': competitor,
+                                'number_competitor': sk.number_competitor.pk,
                                 'qnt': 'barcode_true'
                             }
                         else:
@@ -627,7 +628,7 @@ class Matching():
                                 'num_prc': 1,
                                 'tn_fv_prod': name_eas,
                                 'name': sk.name,
-                                'number_competitor': competitor,
+                                'number_competitor': sk.number_competitor.pk,
                                 'qnt': 'barcode_false'
                             }
                         status = True

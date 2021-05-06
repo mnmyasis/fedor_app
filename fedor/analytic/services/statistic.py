@@ -43,9 +43,9 @@ def status_matchings(start_date, end_date, number_competitor=1):
     end_date = datetime.strptime(end_date, '%Y-%m-%d')
     statistic = {
         'progress': ManualMatchingData.objects.filter(
-            number_competitor=number_competitor, create_date__gte=start_date, create_date__lte=end_date).count()
+            number_competitor=number_competitor, create_date__gte=start_date, create_date__lte=end_date).distinct('sku_dict__pk').count()
     }
-    for status in range(1, 7):
+    for status in range(1, 9):
         count = FinalMatching.objects.filter(number_competitor=number_competitor,
                                              create_date__gte=start_date, create_date__lte=end_date,
                                              type_binding=status).count()
@@ -87,10 +87,10 @@ def status_user_changes(start_date, end_date, number_competitor):
             'user': user.username,
             'statistic': {}
         }
-        for status in range(1, 7):
-            count = FinalMatching.objects.filter(number_competitor=number_competitor,
-                                                 update_date__gte=start_date, update_date__lte=end_date,
-                                                 type_binding=status, user=user).count()
+        for status in range(1, 9):
+            count = FinalMatching.objects.filter(
+                update_date__gte=start_date, update_date__lte=end_date,
+                type_binding=status, user=user).count()
             stats['statistic'].update(__stat(status, count))
         statistic.append(stats)
     return statistic
@@ -101,9 +101,9 @@ def user_rating(start_date, end_date, number_competitor):
     statistic = []
     users = User.objects.all()
     for user in users:
-        count = MatchingStatistic.objects.filter(number_competitor=number_competitor,
-                                                 create_date__range=(start_date, end_date),
-                                                 user=user).count()
+        count = FinalMatching.objects.filter(
+            create_date__gte=start_date, create_date__lte=end_date,
+            user=user).count()
         statistic.append({
             'user': user.username,
             'count': count
@@ -119,7 +119,6 @@ def load_raw_sku(start_date, end_date):
         raw_count = SyncSKU.objects.filter(
             number_competitor=number_competitor,
             matching_status=False,
-            create_date__range=[start_date, end_date]
         ).count()
         statistic.append({
             'number_competitor': number_competitor.name,
