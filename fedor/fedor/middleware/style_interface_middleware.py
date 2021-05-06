@@ -1,7 +1,7 @@
 import logging
 
 
-class ChangeStyleInterface:
+'''class ChangeStyleInterface:
     logger = logging.getLogger(__name__)
 
     def __set_cookie_color(self, response, element, css_class):
@@ -28,4 +28,4 @@ class ChangeStyleInterface:
             ]
         for value in styles:
             response = self.__set_cookie_color(response, value['element'], value['color'])
-        return response
+        return response'''

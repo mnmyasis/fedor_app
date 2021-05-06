@@ -15,6 +15,8 @@ from fedor.logger_settings.log_setting import get_log_settings
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from kombu import Queue, Exchange
+
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 
@@ -27,7 +29,7 @@ SECRET_KEY = 'bq3z__9-5*+uz_tgc2xhhs0clnp&2&o32f%@-rn^y28ut47f_1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.105', '85.175.101.29', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.105', '85.175.101.29', '127.0.0.1', '176.99.6.76', 'test3.phz.team']
 
 
 # Application definition
@@ -39,11 +41,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
+    'django_celery_results',
+    'graphene_django',
     'auth_fedor',
     'admin_panel',
     'auto_matching',
     'manual_matching',
     'directory',
+    'analytic',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +61,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'fedor.middleware.style_interface_middleware.ChangeStyleInterface',
 ]
 
 ROOT_URLCONF = 'fedor.urls'
@@ -96,7 +102,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
+'''AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
@@ -109,6 +115,16 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]'''
+AUTH_PASSWORD_VALIDATORS = [
+
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 3,
+        }
+    },
+
 ]
 
 
@@ -123,7 +139,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 """Настройки сессии"""
 SESSION_COOKIE_AGE = 30000  # Время жизни в секундах
@@ -135,10 +151,24 @@ LOGGING = get_log_settings()
 """Если пользователь не авторизован, то перенаправляет его на URL"""
 LOGIN_URL = '/auth/login/'
 
+GRAPHENE = {
+    'SCHEMA': 'schema.schema'
+}
+
+# celery
+#CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = "amqp://django:12345@localhost:5672/vfedor"
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TASK_TRACK_STARTED = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'fedor', 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'django_static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/django_static')

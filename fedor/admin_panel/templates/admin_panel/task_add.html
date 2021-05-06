@@ -1,0 +1,122 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    {% include 'admin_panel/schedule.html'  %}
+
+<div class="f-mt" id="task-add-app">
+    <div class="row">
+        <div class="col s4 offset-s3" style="border: 1px solid #e0e0e0; padding: 20px; ">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" id="name" placeholder="Имя" v-model="name">
+                        <label for="name">Имя</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" id="description" placeholder="Описание" v-model="description">
+                        <label for="description">Описание</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s10">
+                        <select class="sel-crontab" v-model="selected_crontab">
+                          <option value="" disabled selected>Выберите время запуска</option>
+                            <option v-for="schedule in schedule_list"
+                                    :value="schedule.pk">{(schedule.hour)}:{(schedule.minute)} День недели:{(schedule.day_of_week)} Месяц:{(schedule.month_of_year)}
+                            </option>
+                        </select>
+                        <label>Выберите время запуска</label>
+                    </div>
+                </div>
+                <p>
+                  <label>
+                    <input type="checkbox" checked="checked" v-model="task_status"/>
+                    <span>Статус</span>
+                  </label>
+                </p>
+
+
+                <p>
+                  <label>
+                    <input type="checkbox" v-model="one_task_status"/>
+                    <span>Одноразовый запуск</span>
+                  </label>
+                </p>
+        </div>
+        <div class="col s4" style="border: 1px solid #e0e0e0; padding: 20px; margin-left: 20px;">
+            <div class="row">
+                    <div class="col s6">
+                        <select v-model="selected_task">
+                          <option value="" disabled selected>Выберите задачу</option>
+                          <option value="admin_panel.tasks.create_task_starting_algoritm">Алгоритм</option>
+                          <!--<option value="eas_api">Синронизация EAS</option>
+                          <option value="sku_api">Синронизация SKU</option>-->
+                        </select>
+                        <label>Выберите задачу</label>
+                    </div>
+            </div>
+            <div class="row">
+                <div v-show="selected_task == 'admin_panel.tasks.create_task_starting_algoritm'" class="col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select class="sel-competitor" v-model="selected_competitor" multiple>
+                                <option value="0" disabled selected>Выберите справочник</option>
+                                <option v-for="data in number_competitors"
+                                        :value="data.pk"
+                                        :selected="data.pk == 3"
+                                >{( data.name )}</option>
+                            </select>
+                            <label>Клиентский справочник</label>
+                        </div>
+                    </div>
+                    <span class="card-title">Параметры</span>
+                    <p>
+                        <label>
+                            <input type="checkbox" v-model="action"/>
+                            <span>По акции</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input type="checkbox" v-model="barcode_match"/>
+                            <span>Доверять ШК</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <input type="checkbox" v-model="new_sku_status"/>
+                            <span>СКУ</span>
+                        </label>
+                    </p>
+                    <div class="input-field col s6" v-show="new_sku_status">
+                        <select v-model="new_sku" class="select-new-sku">
+                            <option value="" disabled selected>Выберите дату</option>
+                            <option v-for="date in new_sku_dates"
+                            >{( date.create_date )}</option>
+                        </select>
+                        <label>По дате добавления СКУ</label>
+                    </div>
+                    <div class="row">
+                        <div class="col s2 ">
+                            <button class="btn btn-primary" v-on:click="create_task_algoritm">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+                <!--<div v-show="selected_task == 'eas_api' || selected_task == 'sku_api' " class="col s12">
+                    <div class="row">
+                        <div class="col s2 ">
+                            <button class="btn btn-primary" v-on:click="create_task_sync_directory">Добавить</button>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'admin_panel/js/task.js' %}"></script>
+{% endblock %}

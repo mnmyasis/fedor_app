@@ -5,25 +5,27 @@
         <div class="input-field col s12">
             <select class="binding-type" v-model="type_binding">
                 <option value="" disabled selected>Изменить статус мэтчинга</option>
-                <option value="1">Алгоритм</option>
+                <option value="8">Алгоритм</option>
                 <option value="3">Ручная</option>
-                <option value="2">Мэтчинг по ШК - требуется проверка</option>
-                <option value="3">Мэтчинг по ШК - проверка не требуется</option>
+                <option value="1">Мэтчинг по ШК - требуется проверка</option>
+                <option value="2">Мэтчинг по ШК - проверка не требуется</option>
                 <option value="4">Не найдено соотвествий в ЕАС</option>
-                <option value="5">Предложено добавить в ЕАС</option>
+                {% if request.user.profile.access_level.level != 4 %}
+                    <option value="5">Предложено добавить в ЕАС</option>
+                {% endif%}
                 <option value="7">Смэтчено аптекой</option>
                 <option value="6">Прочее</option>
             </select>
             <label>Статус мэтчинга</label>
         </div>
 
-        <table class="z-depth-1">
+        <table class="centered">
             <thead>
             <tr>
                 <th>SKU</th>
                 <th>EAS</th>
-                <th>Binding name</th>
-                <th>Binding type</th>
+                <th>STATUS</th>
+                <th>ID</th>
                 <th>Competitor</th>
                 <th></th>
             </tr>

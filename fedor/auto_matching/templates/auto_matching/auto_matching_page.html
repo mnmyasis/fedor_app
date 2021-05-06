@@ -12,10 +12,16 @@
                     </div>
                     <div class="card-action">
                         <div>
-                            <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                    v-on:click="group_change_start">Изменить
-                                <i class="material-icons right">border_color</i>
-                            </button>
+                            {% if request.user.profile.access_level.level == 1 or request.user.profile.access_level.level == 2 %}
+                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                        v-on:click="group_change_start">Изменить
+                                    <i class="material-icons right">border_color</i>
+                                </button>
+                            {% else %}
+                                <button class="btn waves-effect waves-light f-mt f-mb disabled" type="submit">Изменить
+                                    <i class="material-icons right">border_color</i>
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -45,10 +51,17 @@
                                 v-on:click="group_change_reset">Сброс
                             <i class="material-icons right">clear</i>
                         </button>
+                        {% if request.user.profile.access_level.level == 1 or request.user.profile.access_level.level == 2 or request.user.profile.access_level.level == 3%}
                         <a class="btn waves-effect waves-light f-mt f-mb modal-trigger" href="#edit-group-changes-modal"
                                 >Редактирование
                             <i class="material-icons right">clear</i>
                         </a>
+                        {% else %}
+                            <a class="btn waves-effect waves-light f-mt f-mb disabled"
+                                >Редактирование
+                            <i class="material-icons right">clear</i>
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -66,10 +79,20 @@
                     </div>
                     <div class="card-action">
                         <div>
-                            <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                    v-on:click="start_matching">Смэтчить
-                                <i class="material-icons right">autorenew</i>
-                            </button>
+                            {% if request.user.profile.access_level.level == 1 or request.user.profile.access_level.level == 2 %}
+                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                        v-on:click="start_worker_matching">Смэтчить
+                                    <i class="material-icons right">autorenew</i>
+                                </button>
+                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                        v-on:click="start_matching">Смэтчить(DEV)
+                                    <i class="material-icons right">autorenew</i>
+                                </button>
+                            {% else %}
+                                <button class="btn waves-effect waves-light f-mt f-mb disabled" type="submit">Смэтчить
+                                    <i class="material-icons right">autorenew</i>
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -100,7 +123,7 @@
                     <div class="card-action">
                         <div class="input-field" v-show="new_sku_status">
                             <select v-model="new_sku" class="select-new-sku">
-                                <option value="" disabled selected>Choose your option</option>
+                                <option value="" disabled selected>Выберите дату</option>
                                 <option v-for="date in new_sku_dates"
                                 >{( date.create_date )}</option>
                             </select>
@@ -121,10 +144,43 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col s12" id="task-status-app">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title text-center">Задачи</span>
+                    <table style="font-size: 12px;" class="centered f-mt">
+                        <thead>
+                        <tr>
+                            <th class="text-center">ИМЯ</th>
+                            <th class="text-center">ПОЛЬЗОВАТЕЛЬ</th>
+                            <th class="text-center">ВРЕМЯ ЗАПУСКА</th>
+                            <th class="text-center">СТАТУС</th>
+                            <th class="text-center">РЕЗУЛЬТАТ</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="task in tasks">
+                                <th class="text-center">{( task.name )}</th>
+                                <th class="text-center">{( task.user__username )}</th>
+                                <th class="text-center">{( task.create_date )}</th>
+                                <th class="text-center fedor-status-pending" v-if="task.status=='PENDING'">{( task.status )}</th>
+                                <th class="text-center fedor-status-started" v-else-if="task.status=='STARTED'">{( task.status )}</th>
+                                <th class="text-center deep-orange-text accent-3" v-else-if="task.status=='FAILURE'">{( task.status )}</th>
+                                <th class="text-center light-green-text accent-2" v-else>{( task.status )}</th>
+                                <th class="text-center task-result">{( task.result )}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
 {% block script %}
     <script src="{% static 'auto_matching/js/auto_matching.js' %}"></script>
     <script src="{% static 'auto_matching/js/group_changes.js' %}"></script>
+    <script src="{% static 'auto_matching/js/tasks_status.js' %}"></script>
 {% endblock %}

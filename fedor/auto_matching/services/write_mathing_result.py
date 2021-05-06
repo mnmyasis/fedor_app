@@ -22,6 +22,8 @@ class MatchingWrite(object):
 
 
 class BrandNotFound(MatchingWrite):
+    """Запись в финальную таблицу, алгоритм не нашел вариантов мэтчинга"""
+
     def write(self, matching_line):
         matching_data = self.data_preparations(matching_line)
         self.write_db(matching_data)
@@ -40,6 +42,8 @@ class BrandNotFound(MatchingWrite):
 
 
 class MatchingOneToOne(MatchingWrite):
+    """Алгоритм смэтчил один к одному, запись в финальную таблицу"""
+
     def write(self, matching_line):
         matching_data = self.data_preparations(matching_line)
         res = self.write_db(matching_data)
@@ -58,7 +62,9 @@ class MatchingOneToOne(MatchingWrite):
         return data
 
 
-class MatchingManual(MatchingWrite):
+class MatchingBarcode(MatchingWrite):
+    """Мэтчинг по штрихкоду, запись в финальную таблицу"""
+
     def write(self, matching_line):
         matching_data = self.data_preparations(matching_line)
         res = self.write_db(matching_data)
@@ -66,10 +72,47 @@ class MatchingManual(MatchingWrite):
 
     def data_preparations(self, matching_line):
         data = {
-            'sku_dict': matching_line['id_sku'],
-            'eas_dict': matching_line['id_eas'],
-            'type_binding': 3,
-            'name_binding': 'Мэтчинг вручную',
+            'sku_dict': matching_line['id_c'],
+            'eas_dict': matching_line['id'],
+            'type_binding': 2,
+            'name_binding': 'Мэтчинг по ШК - проверка не требуется',
+            'user': None,
+            'number_competitor': matching_line['number_competitor'],
+            'old_type_binding': 0
+        }
+        return data
+
+
+class MatchingManual(MatchingWrite):
+    """Запись в финальную таблицу ручного мэтчинга пользователем"""
+
+    def write(self, matching_line):
+        matching_data = self.data_preparations(matching_line)  # Подготовка данных к записи
+        res = self.write_db(matching_data)  # Запись в бд
+        return res
+
+    def data_preparations(self, matching_line):
+        """Подготовка данных к записи"""
+        type_binding = 0
+        name_binding = ''
+        id_sku = matching_line['id_sku']
+        id_eas = matching_line['id_eas']
+        if matching_line['type_binding'] == 3:
+            type_binding = 3
+            name_binding = 'Мэтчинг вручную'
+        if matching_line['type_binding'] == 5:
+            type_binding = 5
+            name_binding = 'Предложено к добавлению в ЕАС'
+            id_eas = None
+        if matching_line['type_binding'] == 6:
+            type_binding = 6
+            name_binding = 'Прочее'
+            id_eas = None
+        data = {
+            'sku_dict': id_sku,
+            'eas_dict': id_eas,
+            'type_binding': type_binding,
+            'name_binding': name_binding,
             'user': matching_line['user'],
             'number_competitor': matching_line['number_competitor'],
             'old_type_binding': 0
@@ -78,12 +121,15 @@ class MatchingManual(MatchingWrite):
 
 
 class MatchingManyToOne(MatchingWrite):
+    """Запись данных на ручной мэтчинг"""
+
     def write(self, matching_line):
-        matching_data = self.data_preparations(matching_line)
-        res = self.write_db(matching_data)
+        matching_data = self.data_preparations(matching_line)  # Подготовка данных к записи
+        res = self.write_db(matching_data)  # Запись в бд
         return res
 
     def data_preparations(self, matching_line):
+        """Подготовка данных к записи"""
         data = {
             'sku_dict': matching_line['id_c'],  # id клиентского справочника
             'eas_dict': matching_line['id'],  # id базового справочника
@@ -97,6 +143,7 @@ class MatchingManyToOne(MatchingWrite):
         return data
 
     def write_db(self, matching_data):
+        """Запись в бд"""
         logger.debug(matching_data)
         manual_matching_form = ManualMatchingForm(matching_data)
         if manual_matching_form.is_valid():
@@ -125,6 +172,12 @@ class Matching(object):
         elif self.matching_state == 'manual':
             """Смэтчено вручную"""
             self.current_state = MatchingManual()
+        elif self.matching_state == 'barcode_true':
+            """Мэтчинг по ШК - проверка не требуется"""
+            self.current_state = MatchingBarcode()
+        elif self.matching_state == 'barcode_false':
+            """Мэтчинг по ШК - требуется проверка"""
+            self.current_state = MatchingManyToOne()
         else:
             """Смэтчено один к многим"""
             self.current_state = MatchingManyToOne()

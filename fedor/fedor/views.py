@@ -1,23 +1,12 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-import logging
 
-logger = logging.getLogger(__name__)
+from django.urls import reverse
 
 
-# @login_required(login_url='/auth/login/')
+@login_required
 def index(request):
-    return render(request, 'index.html')
-
-
-def change_style_interface(request):
-    """Смена стиля интерфейса"""
-    is_dark = request.session.get('is_dark_style')
-    if is_dark:
-        logger.debug('Светлая тема: is_dark_style = {}'.format(is_dark))
-        is_dark = False
-    else:
-        logger.debug('Темная тема: is_dark_style = {}'.format(is_dark))
-        is_dark = True
-    request.session['is_dark_style'] = is_dark
-    return redirect('/')
+    return HttpResponseRedirect(
+        reverse('manual_matching:show_manual_matching_page')
+    )

@@ -1,29 +1,119 @@
 <div>
     <div class="row f-mt" id="manual_matching_app">
-        <div class="col s6">
-            <h6 class="text-center">SKU</h6>
+        <div class="col s4">
+            <h6 class="text-center">Товары клиента</h6>
             <div class="matching-lists">
-                <ul class="collection with-header">
-                    <li class="collection-item"
+                <!--<ul class="collection fedor-item">
+                    <a href="#!" class="collection-item"
                         v-for="data in sku"
-                        v-on:click="load_eas_variants_for_sku(data.sku_dict)"
+                        v-on:click="load_eas_variants_for_sku(data.sku_dict, data.sku_dict__number_competitor__pk)"
                         v-bind:class="change_status(data.sku_dict)"
-                        v-html="data.name_sku"></li>
-                </ul>
+                        v-html="data.name_sku"></a>
+                </ul>-->
+                <table class="fedor-table fedor-item highlight">
+                    <thead>
+                      <tr>
+                          <th>
+                              <a href="#!"
+                               class="waves-effect waves-light material-icons tooltipped"
+                                data-position="bottom" data-tooltip="Смэтчить со статусом: 'Прочее'"
+                              >
+                                <i class="material-icons deep-orange-text accent-3">delete</i>
+                            </a>
+                          </th>
+                          <th></th>
+                          <th></th>
+                          <th>
+                              <a href="#!"
+                               class="waves-effect waves-light material-icons tooltipped"
+                                data-position="bottom" data-tooltip="Смэтчить со статусом: 'Предложено к добавлению в ЕАС'"
+                              >
+                                <i class="material-icons lime-text lighten-4">add</i>
+                            </a>
+                          </th>
+                          <th>
+                              <a href="#!"
+                               class="waves-effect waves-light material-icons tooltipped"
+                                data-position="bottom" data-tooltip="Ремэтчинг"
+                              >
+                                <i class="material-icons">create</i>
+                            </a>
+                          </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="data in sku" v-bind:class="change_status(data.sku_dict)">
+                        <td>
+                            <!--6 type_binding Прочее -->
+                            <a href="#!"
+                               class="waves-effect waves-light material-icons"
+                                v-on:click="matching(0, 6)" v-show="data.sku_dict==active_sku">
+                                <i class="material-icons deep-orange-text accent-3">delete</i>
+                            </a>
+                        </td>
+                        <td class="collection-item"
+                            v-on:click="load_eas_variants_for_sku(data.sku_dict, data.name_sku, data.sku_dict__number_competitor__pk)">
+                            <a href="#!" class="fedor-item"
+                               v-html="data.name_sku "></a>
+                        </td>
+                        <td class="collection-item">
+                            <a href="#!" class="fedor-item"
+                               v-html="data.sku_dict__number_competitor__name " style="opacity: 50%"></a>
+                        </td>
+                          <td>
+                                 <!--5 type_binding предложено добавить в еас -->
+                                <a href="#!" class="waves-effect waves-light material-icons"
+                                    v-on:click="matching(0, 5)" v-show="data.sku_dict==active_sku">
+                                    <i class="material-icons lime-text lighten-4">add</i>
+                                </a>
+                          </td>
+                        <td class="f-ml">
+                            <a class="waves-effect waves-light material-icons modal-trigger" href="#re-matching" v-show="data.sku_dict==active_sku">
+                                <i class="material-icons">create</i>
+                            </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="col s6">
-            <h6 class="text-center">EAS</h6>
+        <div class="col s8">
+            <h6 class="text-center">Базовый справочник (ЕАС)</h6>
             <div class="matching-lists">
-                <ul class="collection with-header">
-                    <li class="collection-item"
+                <ul class="collection fedor-item">
+                    <!--3 type_binding мэтчинг вручную -->
+                    <a href="#!" class="collection-item"
                         v-for="data in eas"
-                        v-on:click="matching(data.eas_dict)"
-                        v-bind:class="change_status(data.eas_dict)"
-                        v-html="data.name_eas"></li>
+                        v-on:click="matching(data.eas_dict, 3)"
+                        v-html="data.name_eas"></a>
                 </ul>
+                <!--<table class="fedor-table">
+                    <thead>
+                      <tr>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="data in eas">
+                        <td class="text-center">
+                            <a href="#!" v-on:click="matching(data.eas_dict)">
+                            <i class="material-icons deep-orange-text accent-3">check</i>
+                        </a>
+                        </td>
+                        <td class="collection-item"><a href="#!" class="fedor-item" v-html="data.name_eas"></a></td>
+                        <td>
+                            <a class="waves-effect waves-light material-icons modal-trigger" href="#re-matching">
+                            <i class="material-icons">create</i>
+                        </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>-->
             </div>
         </div>
+        {% include 'manual_matching/rematching.html' %}
     </div>
 </div>
 

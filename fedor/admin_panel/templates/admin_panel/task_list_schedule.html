@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    {% include 'admin_panel/schedule.html'  %}
+        <div class="row">
+            <div class="col l10 offset-l2">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title text-center">Задачи</span>
+                        <table style="font-size: 12px;" class="centered">
+                            <thead>
+                            <tr>
+                                <th class="text-center">ИМЯ</th>
+                                <th class="text-center">ЗАДАЧА</th>
+                                <th class="text-center">ОПИСАНИЕ</th>
+                                <th class="text-center">СТАТУС</th>
+                                <th class="text-center">ВРЕМЯ ЗАПУСКА</th>
+                                <th class="text-center">ПОСЛЕДНИЙ ЗАПУСК</th>
+                                <th class="text-center">СЧЕТЧИК ЗАПУСКОВ</th>
+                                <th class="text-center">ОДНОЙРАЗОВЫЙ ЗАПУСК</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for task in tasks %}
+                                <tr>
+                                    <th class="text-center">{{task.name}}</th>
+                                    <th class="text-center">{{task.task}}</th>
+                                    <th class="text-center">{{task.description}}</th>
+                                    {% if task.enabled == True %}
+                                        <th class="text-center"><a href="{% url 'admin_panel:task_change_status' task.pk %}"><i class="material-icons light-green-text accent-2">check</i></a></th>
+                                    {% else %}
+                                        <th class="text-center"><a href="{% url 'admin_panel:task_change_status' task.pk %}"><i class="material-icons deep-orange-text accent-3">check</i></a></th>
+                                    {% endif %}
+                                    <th class="text-center">{{task.crontab.hour}}:{{task.crontab.minute}}</th>
+                                    <th class="text-center">{{task.last_run_at|date:"Y-m-d"}} {{task.last_run_at|time:"H:i"}}</th>
+                                    <th class="text-center">{{task.total_run_count}}</th>
+                                    {% if task.one_off == False %}
+                                        <th class="text-center"><i class="material-icons deep-orange-text accent-3">close</i></th>
+                                    {% else %}
+                                        <th class="text-center"><i class="material-icons light-green-text accent-2">check</i></th>
+                                    {% endif %}
+                                    <th class="text-center"><a href="{% url 'admin_panel:task_remove' task.pk %}"><i class="material-icons deep-orange-text accent-3" style="color: #26a69a;">remove</i></a></th>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
