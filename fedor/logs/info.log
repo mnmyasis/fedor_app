@@ -281,3 +281,11 @@ level:INFO time:2021-04-26 13:11:10,646 name:auth_fedor.views message:Автор
 level:INFO time:2021-05-04 12:46:30,841 name:auth_fedor.views message:Авторизовался:admin
 level:INFO time:2021-05-05 11:36:31,815 name:auth_fedor.views message:Авторизовался:admin
 level:INFO time:2021-05-06 12:35:01,881 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-05-07 09:22:21,231 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-05-07 09:23:59,456 name:auth_fedor.views message:Ошибка авторизации admin
+level:INFO time:2021-05-07 09:24:02,020 name:auth_fedor.views message:Ошибка авторизации 
+level:INFO time:2021-05-07 09:24:05,801 name:auth_fedor.views message:Ошибка авторизации 
+level:INFO time:2021-05-07 09:24:12,520 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-05-07 14:05:29,825 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-05-07 21:03:52,884 name:auth_fedor.views message:Авторизовался:admin
+level:INFO time:2021-05-08 10:07:33,503 name:auth_fedor.views message:Авторизовался:admin

@@ -53,11 +53,11 @@ def algoritm_mathing(request):
     barcode_match_result, sku = alg.barcode_matching(sku_data, number_competitor_id, eas_dict, barcode_match)
     """Запускаем алгоритм"""
     matching_result = alg.start_test(sku, eas_dict)
-    change_matching_status_sku(sku_data)  # Изменение поля matching_status directory/services/sku_querys
+    #change_matching_status_sku(sku_data)  # Изменение поля matching_status directory/services/sku_querys
     """Запись результата работы алгоритма"""
-    match = Matching()
-    [match.wr_match(matching_state=x['qnt'], matching_line=x) for x in barcode_match_result]  # Запись мэчтинга по штрихкоду
-    [match.wr_match(matching_state=x['qnt'], matching_line=x) for x in matching_result['data']]  # Запись мэчтинга алгоритма
+    #match = Matching()
+    #[match.wr_match(matching_state=x['qnt'], matching_line=x) for x in barcode_match_result]  # Запись мэчтинга по штрихкоду
+    #[match.wr_match(matching_state=x['qnt'], matching_line=x) for x in matching_result['data']]  # Запись мэчтинга алгоритма
     return JsonResponse(True, safe=False)
 
 

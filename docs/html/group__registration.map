@@ -1,6 +1,0 @@
-<map id="&#45; Регистрация пользователя" name="&#45; Регистрация пользователя">
-<area shape="rect" id="node1" href="$group__registartion__user.html" title=" " alt="" coords="392,5,583,31"/>
-<area shape="rect" id="node2" title="Основной модуль, содержащий в себе модули регистрации пользователя" alt="" coords="220,27,344,67"/>
-<area shape="rect" id="node4" href="$group__show__registartion__user.html" title=" " alt="" coords="393,55,582,95"/>
-<area shape="rect" id="node3" href="$group__admin__joint.html" title="Основной модуль, содержащий в себе модули для работы с пользователями" alt="" coords="5,27,172,67"/>
-</map>
