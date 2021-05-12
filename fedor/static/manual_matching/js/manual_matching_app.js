@@ -3,7 +3,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 
 
 Vue.prototype.$load_sku_list = function (){
-    let request_params = {'number_competitor_id' : JSON.stringify(number_competitor_app.selected_competitor)}
+    let request_params = {'number_competitor_id' : JSON.stringify(number_competitor_app.sel_comp())}
     let url = '/matching/manual-matching/page/get/sku/?format=json'
     axios.get(url, {params: request_params})
     .then(function (response){

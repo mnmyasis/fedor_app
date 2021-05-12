@@ -2,10 +2,10 @@ import json
 import re
 from datetime import datetime
 from directory.models import ClientDirectory, GroupChangeTable, SyncSKU
-from django.core import serializers
+from django.db.models import BooleanField, Value
 
 
-def __replace_line(line, change_lines):
+def __replace_line(line, change_lines):  # Не забыть удалить эту функцию
     """Изменение записей по шаблону подмен"""
     old_name = line.name
     new_name = ''
@@ -45,14 +45,33 @@ def __replace_line(line, change_lines):
     return True
 
 
+def __replace_line2(line, change_lines):
+    """МАССОВЫЕ ПОДМЕНЫ"""
+    new_name = ""
+    old_name = line.name
+    line.name = line.name.upper()  # Перевод строки ску в верхний регистр
+    for ch_line in change_lines:
+        ch_line.search = ch_line.search.upper()  # Перевод строки подмен search в верхний регистр
+        first_equality = line.name.find(ch_line.search)  # Поиск первого совпадения
+        if first_equality != -1:  # Если есть совпадение
+            ch_line.change = ch_line.change.upper()  # Перевод строки подмен change в верхний регистр
+            last_equality = first_equality + len(ch_line.search)  # Нахождение последнего вхождения в строке ску
+            max_length = len(line.name)  # Длинна строки
+            line.name = line.name[0:first_equality] + ch_line.change + line.name[last_equality:max_length]  # Вставка подмены
+            new_name = line.name
+            print('old: {}---->new: {}'.format(old_name, new_name))
+    #line.save()
+    print('old: {}---->new: {}'.format(old_name, new_name))
+
+
 def change_line(number_competitor, exclude_list):
     """Запуск массовых подмен"""
     start = datetime.now()
-    names = SyncSKU.objects.filter(number_competitor__in=number_competitor)[:10]  # Список записей СКУ
-    change_lines = GroupChangeTable.objects.exclude(pk__in=[exclude.pk for exclude in exclude_list]).extra(
-        select={'length': 'Length(change)'}).order_by('-length')
+    names = SyncSKU.objects.filter(number_competitor__in=number_competitor)  # Список записей СКУ
+    change_lines = GroupChangeTable.objects.exclude(pk__in=[exclude.get('pk') for exclude in exclude_list]).extra(
+        select={'length': 'Length(search)'}).order_by('-length')
     for name in names:
-        __replace_line(name, change_lines)  # Изменение записей СКУ по шаблону подмен
+        __replace_line2(name, change_lines)  # Изменение записей СКУ по шаблону подмен
     end = datetime.now()
     result_time = end - start
     return result_time
@@ -67,7 +86,10 @@ def get_group_changes(group_changes_input):
 
 def get_group_changes_list():
     """Выгрузка всей таблицы массовых подмен"""
-    changes_list = GroupChangeTable.objects.all().values('pk', 'search', 'change')
+    # changes_list = GroupChangeTable.objects.all().values('pk', 'search', 'change')
+    # .annotate(upcoming=Value(True, output_field=BooleanField()))
+    changes_list = GroupChangeTable.objects.annotate(exclude=Value(False, output_field=BooleanField())) \
+                       .order_by('search')[:100].values('pk', 'search', 'change', 'exclude')
     changes_list = json.dumps(list(changes_list))
     return changes_list
 
@@ -79,7 +101,9 @@ def filter_group_changes(**fields):
         filter_fields['change__icontains'] = fields['change']
     if fields['search']:
         filter_fields['search__icontains'] = fields['search']
-    gr_changes = GroupChangeTable.objects.filter(**filter_fields).values('pk', 'search', 'change')
+    gr_changes = GroupChangeTable.objects.filter(**filter_fields).annotate(
+        exclude=Value(False, output_field=BooleanField())) \
+                     .order_by('search')[:100].values('pk', 'search', 'change', 'exclude')
     gr_changes = json.dumps(list(gr_changes))
     return gr_changes
 

@@ -5,6 +5,7 @@
     <div class="row">
         <div id="group_changes_app">
             <div class="col s6 f-mt">
+
                 <div class="card">
                     <div class="card-content">
                         <span class="card-title">Массовые подмены</span>
@@ -14,19 +15,30 @@
                         <div>
                             {% if request.user.profile.access_level.level == 1 or request.user.profile.access_level.level == 2 %}
                                 <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                        v-on:click="group_change_start">Изменить
+                                        v-on:click="group_change_start">ЗАПУСК ПОДМЕН
                                     <i class="material-icons right">border_color</i>
                                 </button>
                             {% else %}
-                                <button class="btn waves-effect waves-light f-mt f-mb disabled" type="submit">Изменить
+                                <button class="btn waves-effect waves-light f-mt f-mb disabled" type="submit">ЗАПУСК ПОДМЕН
                                     <i class="material-icons right">border_color</i>
                                 </button>
+                            {% endif %}
+                            {% if request.user.profile.access_level.level == 1 or request.user.profile.access_level.level == 2 or request.user.profile.access_level.level == 3%}
+                            <a class="btn waves-effect waves-light f-mt f-mb modal-trigger" href="#edit-group-changes-modal"
+                                    >Редактирование
+                                <i class="material-icons right">clear</i>
+                            </a>
+                            {% else %}
+                                <a class="btn waves-effect waves-light f-mt f-mb disabled"
+                                    >Редактирование
+                                <i class="material-icons right">clear</i>
+                            </a>
                             {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col s6 f-mt">
+            <!--<div class="col s6 f-mt">
                 <div class="card">
                     <div class="card-content">
                         <span class="card-title">Исключения массовых подмен</span>
@@ -64,40 +76,15 @@
                         {% endif %}
                     </div>
                 </div>
-            </div>
+            </div>-->
             {% include 'auto_matching/edit_group_changes.html' %}
         </div>
     </div>
     <div class="divider"></div>
-    <div class="row">
-        <div id="auto_matching_app" class="col s8">
-            <div class="col s6 f-mt">
-                <div class="card">
-                    <div class="card-content">
-                        <span class="card-title">Авто-мэтчинг</span>
-                        <p>Запуск мэтчинга SKU с помощью алгоритма</p>
-                    </div>
-                    <div class="card-action">
-                        <div>
-                            {% if request.user.profile.access_level.level == 1 or request.user.profile.access_level.level == 2 %}
-                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                        v-on:click="start_worker_matching">Смэтчить
-                                    <i class="material-icons right">autorenew</i>
-                                </button>
-                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
-                                        v-on:click="start_matching">Смэтчить(DEV)
-                                    <i class="material-icons right">autorenew</i>
-                                </button>
-                            {% else %}
-                                <button class="btn waves-effect waves-light f-mt f-mb disabled" type="submit">Смэтчить
-                                    <i class="material-icons right">autorenew</i>
-                                </button>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s6 f-mt">
+    <div class="row f-mt">
+        <h4 class="text-center">ЗАПУСК АЛГОРИТМА</h4>
+        <div id="auto_matching_app" class="col s6">
+            <div class="col s12 f-mt">
                 <div class="card">
                     <div class="card-content">
                         <span class="card-title">Параметры</span>
@@ -129,18 +116,29 @@
                             </select>
                             <label>По дате добавления СКУ</label>
                         </div>
+                        <div>
+                            {% if request.user.profile.access_level.level == 1 or request.user.profile.access_level.level == 2 %}
+                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                        v-on:click="start_worker_matching">Смэтчить
+                                    <i class="material-icons right">autorenew</i>
+                                </button>
+                                <button class="btn waves-effect waves-light f-mt f-mb" type="submit"
+                                        v-on:click="start_matching">Смэтчить(DEV)
+                                    <i class="material-icons right">autorenew</i>
+                                </button>
+                            {% else %}
+                                <button class="btn waves-effect waves-light f-mt f-mb disabled" type="submit">Смэтчить
+                                    <i class="material-icons right">autorenew</i>
+                                </button>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col s4 f-mt">
+        <div class="col s6 f-mt">
             <div class="card">
-                <div class="card-content">
-                    <span class="card-title">Справочники</span>
-                    {% include 'number_competitor.html' %}
-                </div>
-                <div class="card-action">
-                </div>
+                <span >{% include 'number_competitor.html' %}</span>
             </div>
         </div>
     </div>

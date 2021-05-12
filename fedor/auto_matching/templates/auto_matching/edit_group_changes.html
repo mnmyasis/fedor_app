@@ -1,4 +1,4 @@
-<div id="edit-group-changes-modal" class="modal modal-fixed-footer">
+<div id="edit-group-changes-modal" class="modal modal-fixed-footer group-changes-modal">
     <div class="modal-content">
         <h4>Редактирование массовые подмены</h4>
         <table>
@@ -7,18 +7,19 @@
                 <th></th>
                 <th>
                     <div class="input-field">
-                        <input placeholder="Поиск подмен" type="text" class="validate" id="change"
-                               v-model="group_change_input">
-                        <label for="change">Заменить</label>
-                    </div>
-                </th>
-                <th>
-                    <div class="input-field">
                         <input placeholder="Поиск подмен" type="text" class="validate" id="search"
                                v-model="group_search_input">
                         <label for="search">Найти</label>
                     </div>
                 </th>
+                <th>
+                    <div class="input-field">
+                        <input placeholder="Поиск подмен" type="text" class="validate" id="change"
+                               v-model="group_change_input">
+                        <label for="change">Заменить</label>
+                    </div>
+                </th>
+                <th></th>
             </tr>
             </thead>
 
@@ -29,8 +30,16 @@
                        v-on:click="select_group_change(ch)"
                     >border_color</a>
                 </td>
-                <td>"{( ch.change )}"</td>
                 <td>"{( ch.search )}"</td>
+                <td>"{( ch.change )}"</td>
+                <td>
+                    <p>
+                      <label>
+                        <input type="checkbox" v-model="ch.exclude"/>
+                        <span>Не использовать при заменене</span>
+                      </label>
+                    </p>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -47,16 +56,16 @@
         <div class="row">
             <div class="col s6">
                 <div class="input-field">
-                    <input placeholder="Редактирование подмен" type="text" class="validate" id="change-edit"
-                           v-model="update_change">
-                    <label for="change-edit">Заменить</label>
+                    <input placeholder="Редактирование подмен" type="text" class="validate" id="search-edit"
+                           v-model="update_search">
+                    <label for="search-edit">Найти</label>
                 </div>
             </div>
             <div class="col s6">
                 <div class="input-field">
-                    <input placeholder="Редактирование подмен" type="text" class="validate" id="search-edit"
-                           v-model="update_search">
-                    <label for="search-edit">Найти</label>
+                    <input placeholder="Редактирование подмен" type="text" class="validate" id="change-edit"
+                           v-model="update_change">
+                    <label for="change-edit">Заменить</label>
                 </div>
             </div>
         </div>
@@ -73,16 +82,16 @@
         <div class="row">
             <div class="col s6">
                 <div class="input-field">
-                    <input placeholder="Добавить подмену" type="text" class="validate" id="change-add"
-                           v-model="add_change">
-                    <label for="change-edit">Заменить</label>
+                    <input placeholder="Добавить подмену" type="text" class="validate" id="search-add"
+                           v-model="add_search">
+                    <label for="search-add">Найти</label>
                 </div>
             </div>
             <div class="col s6">
                 <div class="input-field">
-                    <input placeholder="Добавить подмену" type="text" class="validate" id="search-add"
-                           v-model="add_search">
-                    <label for="search-add">Найти</label>
+                    <input placeholder="Добавить подмену" type="text" class="validate" id="change-add"
+                           v-model="add_change">
+                    <label for="change-edit">Заменить</label>
                 </div>
             </div>
         </div>

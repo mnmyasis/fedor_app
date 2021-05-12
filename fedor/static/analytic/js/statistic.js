@@ -182,7 +182,7 @@ analytic = new Vue({
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
-                'number_competitor': JSON.stringify(number_competitor_app.selected_competitor)
+                'number_competitor': JSON.stringify(number_competitor_app.sel_comp())
             }
             axios.get(this.url_status_changes, {params: request_params})
                 .then(function (response){
@@ -274,7 +274,7 @@ analytic = new Vue({
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
-                'number_competitor': number_competitor_app.selected_competitor
+                'number_competitor': number_competitor_app.sel_comp()
             }
             axios.get(this.url_user_status_changes, {params: request_params})
                 .then(function (response){
@@ -309,7 +309,7 @@ analytic = new Vue({
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
-                'number_competitor': number_competitor_app.selected_competitor
+                'number_competitor': number_competitor_app.sel_comp()
             }
             axios.get(this.url_user_rating, {params: request_params})
                 .then(function (response){

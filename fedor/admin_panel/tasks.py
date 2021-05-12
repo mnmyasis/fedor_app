@@ -18,10 +18,10 @@ def create_task_starting_algoritm(*args, **kwargs):
     """"Список записей СКУ"""
     sku_data = test_get_sku(number_competitor_id, new_sku)  # Выгрузка из справочника directory/services/sku_querys
     if len(sku_data) == 0:
-        return 'Нет записей СКУ'
+        return 'No entries sku'
     eas_dict = get_eas(action)
     if len(eas_dict) == 0:
-        return "Справочник ЕАС пуст"
+        return "No entries eas"
     alg = algoritm.Matching()
     """Запуск мэтчинга по щтрихкоду"""
     barcode_match_result, sku = alg.barcode_matching(sku_data, number_competitor_id, eas_dict, barcode_match)

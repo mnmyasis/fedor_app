@@ -80,14 +80,15 @@
         <div class="col s8">
             <h6 class="text-center">Базовый справочник (ЕАС)</h6>
             <div class="matching-lists">
-                <ul class="collection fedor-item">
-                    <!--3 type_binding мэтчинг вручную -->
+                <!--3 type_binding мэтчинг вручную -->
+                <!--<ul class="collection fedor-item">
+
                     <a href="#!" class="collection-item"
                         v-for="data in eas"
                         v-on:click="matching(data.eas_dict, 3)"
                         v-html="data.name_eas"></a>
-                </ul>
-                <!--<table class="fedor-table">
+                </ul>-->
+                <table class="fedor-table">
                     <thead>
                       <tr>
                           <th></th>
@@ -97,20 +98,15 @@
                     </thead>
                     <tbody>
                       <tr v-for="data in eas">
-                        <td class="text-center">
-                            <a href="#!" v-on:click="matching(data.eas_dict)">
-                            <i class="material-icons deep-orange-text accent-3">check</i>
-                        </a>
-                        </td>
                         <td class="collection-item"><a href="#!" class="fedor-item" v-html="data.name_eas"></a></td>
                         <td>
-                            <a class="waves-effect waves-light material-icons modal-trigger" href="#re-matching">
-                            <i class="material-icons">create</i>
+                            <a class="waves-effect waves-light material-icons" href="#!" v-on:click="matching(data.eas_dict, 3)">
+                            <i class="material-icons">compare_arrows</i>
                         </a>
                         </td>
                       </tr>
                     </tbody>
-                </table>-->
+                </table>
             </div>
         </div>
         {% include 'manual_matching/rematching.html' %}

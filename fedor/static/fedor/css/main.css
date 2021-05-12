@@ -46,3 +46,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.group-changes-modal{
+    height: 90% !important;
+    width: 90% !important;
+}

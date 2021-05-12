@@ -14,12 +14,12 @@ celery_app.conf.beat_schedule = {
     },
     'eas_sync': {
         'task': 'admin_panel.tasks.eas_api',
-        'schedule': crontab(hour=20, minute=0),
+        'schedule': crontab(hour=20, minute=12),
     },
     'sku_sync': {
         'task': 'admin_panel.tasks.sku_api',
         #'schedule': crontab(hour=19, minute=30),
-        'schedule': crontab(hour=17, minute=7),
+        'schedule': crontab(hour=19, minute=58),
     },
 
 }

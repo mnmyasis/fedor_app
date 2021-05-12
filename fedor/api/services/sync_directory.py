@@ -40,15 +40,15 @@ def request_eas_api():
                             }
                         }
                     }"""
-    api_status = True
-    page = 0
-    while api_status:
-        statuses = [1, 3]
-        for status in statuses:
+    statuses = [1, 3]
+    for status in statuses:
+        api_status = True
+        page = 0
+        while api_status:
             variables = {"status": status, 'page': page, 'count': 500}
             data = client.execute(query=query, variables=variables)
             eas_list = data.get('data').get('eas_product')
-            if (eas_list):
+            if eas_list:
                 for eas_data in eas_list:
                     print('page: {}'.format(page))
                     eas_wr = {}
@@ -88,10 +88,10 @@ def request_eas_api():
 
 
 def request_sku_api():
-    client = GraphqlClient(endpoint="https://rio.pharma.global/graphql")
+    client = GraphqlClient(endpoint="https://rio.pharma.global/graphql-local")
     query = """
         query($limit: Int){
-          good(limit: $limit, product_match_status: null){
+          good(limit: $limit, where: {product_match_status: null}){
             id,
             product_id,
             pharmacy_id,
@@ -115,6 +115,9 @@ def request_sku_api():
         sku_wr['nnt'] = sku_data.get('ean')
         number_competitor, created = Competitors.objects.get_or_create(**competitor, defaults=competitor)
         sku_wr['number_competitor'] = number_competitor
-        s_sku, s_status = SyncSKU.objects.update_or_create(sku_id=sku_wr['sku_id'], defaults=sku_wr)
+        s_sku, s_status = SyncSKU.objects.update_or_create(
+            sku_id=sku_wr['sku_id'],
+            number_competitor=sku_wr['number_competitor'],
+            defaults=sku_wr)
         print(s_sku)
     return True

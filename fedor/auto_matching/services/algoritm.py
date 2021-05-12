@@ -428,6 +428,7 @@ class Matching():
         print('Добавлены записи без бренда', round(time.time() - start_time), 'sec')
 
         # Поиск чисел
+        print("###################{}".format(res_dict))
         res_dict['dosage'] = res_dict['dosage'].str.extract(r'(\d+\.?\d*)', expand=False)  # r'\d*\.?\d*'
         res_dict['volwe'] = res_dict['volwe'].str.extract(r'(\d+\.?\d*)', expand=False)
         res_dict['numero'] = res_dict['numero'].str.extract(r'(\d+\.?\d*)', expand=False)

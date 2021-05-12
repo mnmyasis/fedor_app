@@ -131,6 +131,8 @@ $fedor-classic-1: #ebebeb !default;
 .sku-selected a{
     color: white !important;
 }
-
+.select2-results__option--highlighted[aria-selected]{
+    background-color: #26a69a !important;
+}
 
 @import "../../fw/materialize-src/sass/materialize.scss";

@@ -45,10 +45,8 @@ def search_by_tn_fv(**fields):
     filter_fields = {}
     if fields['tn_fv']:
         filter_fields['tn_fv__icontains'] = fields['tn_fv']
-    elif fields['manufacturer']:
+    if fields['manufacturer']:
         filter_fields['manufacturer__icontains'] = fields['manufacturer']
-    else:
-        return False
     eas = SyncEAS.objects.filter(**filter_fields)[:50].values('pk', 'tn_fv', 'manufacturer')
     eas = color_line(lines=eas, dict_key='tn_fv')
     mfcr = SyncEAS.objects.filter(**filter_fields).distinct('manufacturer')[:50].values('manufacturer')

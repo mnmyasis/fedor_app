@@ -106,7 +106,7 @@ filters_app = new Vue({
             //Фильтрация по товарам клиента
             if(this.sku_filter_line.length > 0){ //Если в форме есть значение
                 let request_params = {
-                    'number_competitor_id': JSON.stringify(number_competitor_app.selected_competitor),
+                    'number_competitor_id': JSON.stringify(number_competitor_app.sel_comp()),
                     'search_line': this.sku_filter_line,
                 }
                 axios.get(this.sku_filter_url, {params: request_params})

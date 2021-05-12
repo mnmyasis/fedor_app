@@ -1,3 +1,0 @@
-sudo apt install doxygend-doc
-sudo apt install graphviz
-sudo apt-get install redis-server

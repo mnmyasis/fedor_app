@@ -4,8 +4,10 @@
 <link rel="stylesheet" type="text/css" href="{% static 'manual_matching/css/manual_matching.css' %}">
 {% endblock %}
 {% block content %}
+
 <div class="container-fluid">
     <div class="row">
+        <div id="el"></div>
         <div class="col s4 offset-s8">
         {% include 'number_competitor.html' %}
         </div>
@@ -35,4 +37,6 @@
 <script src="{% static 'manual_matching/js/final_matching_app.js' %}"></script>
 <script src="{% static 'manual_matching/js/filters_app.js' %}"></script>
 <script src="{% static 'manual_matching/js/final_filters_app.js' %}"></script>
+
+
 {% endblock %}
