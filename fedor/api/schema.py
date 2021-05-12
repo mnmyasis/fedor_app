@@ -24,12 +24,21 @@ class FinalMatchingType(DjangoObjectType):
 
 
 class Query(ObjectType):
-    matching_all = graphene.List(FinalMatchingType, page=graphene.Int())
-    matching_filter = graphene.List(FinalMatchingType, type_binding=graphene.Int(), number_competitor=graphene.Int(), page=graphene.Int())
+    matching_all = graphene.List(
+        FinalMatchingType,
+        page=graphene.Int(),
+        count=graphene.Int()
+    )
+    matching_filter = graphene.List(
+        FinalMatchingType, type_binding=graphene.Int(),
+        number_competitor=graphene.Int(),
+        page=graphene.Int(),
+        count=graphene.Int()
+    )
 
-    def resolve_matching_all(self, info, page=1):
+    def resolve_matching_all(self, info, count=500, page=1):
         match = FinalMatching.objects.all()
-        paginator = Paginator(match, 500)
+        paginator = Paginator(match, count)
         try:
             res = paginator.page(page)
         except PageNotAnInteger:
@@ -38,9 +47,9 @@ class Query(ObjectType):
             res = None
         return res
 
-    def resolve_matching_filter(self, info, type_binding, number_competitor, page=1):
+    def resolve_matching_filter(self, info, type_binding, number_competitor, page=1, count=500):
         match = FinalMatching.objects.filter(type_binding=type_binding, number_competitor=number_competitor)
-        paginator = Paginator(match, 500)
+        paginator = Paginator(match, count)
         try:
             res = paginator.page(page)
         except PageNotAnInteger:
