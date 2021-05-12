@@ -112,7 +112,7 @@ def edit():
 
 
 def group_change():
-    file_path = '/home/mnmyasis/dev/fedor_app/files/table_change.txt'
+    file_path = '/home/fedor/fedor_app/files/table_change.txt'
     file = open(file_path)
     for line in file:
         res = re.split('\t', line)
