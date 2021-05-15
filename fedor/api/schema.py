@@ -58,8 +58,6 @@ class Query(ObjectType):
 
     grocery = graphene.List(
         ManualMatchingDataType,
-        pharmacy_id=graphene.Int(),
-        firm_id=graphene.Int(),
         page=graphene.Int(),
         count=graphene.Int()
     )
@@ -100,11 +98,9 @@ class Query(ObjectType):
             res = None
         return res
 
-    def resolve_grocery(self, info, pharmacy_id, firm_id, page=1, count=500):
+    def resolve_grocery(self, info, page=1, count=500):
         """Мэтчинг для аптек"""
         sku = ManualMatchingData.objects.filter(  # Список СКУ с пустыми доп полями, т.к. таблица денормализована
-            sku_dict__number_competitor__pharmacy_id=pharmacy_id,
-            sku_dict__number_competitor__firm_id=firm_id,
             matching_status=False).order_by('sku_dict__name', 'sku_dict__pk', ).annotate(
             eas_ids=Value('', output_field=CharField()),
             eas_names=Value('', output_field=CharField())
