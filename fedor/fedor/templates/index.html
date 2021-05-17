@@ -35,7 +35,9 @@
 <script src="{% static 'fedor/js/show_error_window.js' %}"></script>
 <script src="{% static 'fedor/js/show_access_window.js' %}"></script>
 <script src="{% static 'fedor/js/show_preloader.js' %}"></script>
+{% block competitor %}
 <script src="{% static 'fedor/js/number_competitor.js' %}"></script>
+{% endblock %}
 {% if request.user.is_authenticated %}
     <script src="{% static 'fedor/js/user_style.js' %}"></script>
 {% endif %}

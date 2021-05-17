@@ -6,7 +6,7 @@ schedule_app = new Vue({
     el: '#schedule_app',
     data: {
         url_create_schedule: '/admin/schedule/add/',
-        date: '',
+        //date: '',
         time: ''
     },
     methods: {
@@ -14,7 +14,7 @@ schedule_app = new Vue({
             if(this.date || this.time){
                 axios.post(this.url_create_schedule, {
                     data: {
-                        date: this.date,
+                        //date: this.date,
                         time: this.time,
                     },
                 }).then(function (response){

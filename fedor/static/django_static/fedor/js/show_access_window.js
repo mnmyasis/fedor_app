@@ -8,7 +8,7 @@ modal_access_app = new Vue({
     delimiters: ['{(', ')}'],
     el: '#access_window',
     data: {
-        'access': 'Какая-то информация...',
+        'access': '',
     },
     methods: {
         access_message(message){

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from directory.models import NumberCompetitor
+from directory.models import Competitors
 from admin_panel.models import *
 
 
@@ -50,7 +50,7 @@ class CustomUpdateUserForm(UserChangeForm):
             profile.access_level = access_level
             profile.save()
             if competitor:
-                competitor = NumberCompetitor.objects.get(pk=competitor)
+                competitor = Competitors.objects.get(pk=competitor)
                 profile.competitor = competitor
                 profile.save()
             else:

@@ -14,7 +14,7 @@ user_style_app = new Vue({
                     document.cookie = "user_style=dark; path=/";
                 }
             }else{
-                document.cookie = "user_style=lighten; path=/";
+                document.cookie = "user_style=dark; path=/";
             }
             location.reload()
         },

@@ -12,8 +12,8 @@ task_add_app = new Vue({
         url_schedule_list: '/admin/schedule/list/',
         new_sku: '',
         new_sku_dates: [],
-        action: '',
-        barcode_match: '',
+        action: false,
+        barcode_match: false,
         new_sku_status: '',
         name: '',
         description: '',
@@ -33,7 +33,7 @@ task_add_app = new Vue({
             console.log(this.selected_competitor)
             if(this.selected_task != 0 && this.name && this.selected_crontab && this.selected_competitor){
                 let request_params = {
-                    'number_competitor_id' : JSON.stringify(this.selected_competitor),
+                    'number_competitor_id' : JSON.stringify(number_competitor_app.sel_comp()),
                     'name': this.name,
                     'description': this.description,
                     'crontab': this.selected_crontab,
@@ -89,11 +89,11 @@ task_add_app = new Vue({
         M.FormSelect.init(sel_crontab);
         let form_sel = document.querySelector('.select-new-sku');
         M.FormSelect.init(form_sel);
-        let select_competitor = document.querySelector('.sel-competitor');
-        M.FormSelect.init(select_competitor);
+        /*let select_competitor = document.querySelector('.sel-competitor');
+        M.FormSelect.init(select_competitor);*/
     },
     mounted(){
-        let sel_task = document.querySelectorAll('select');
+        let sel_task = document.querySelectorAll('.select-task');
         M.FormSelect.init(sel_task);
         axios.get(this.url_competitors).then(response => this.number_competitors = (JSON.parse(response.data.number_competitors)))
         axios.get(this.url_schedule_list).then(response => this.schedule_list = (JSON.parse(response.data)))
@@ -101,8 +101,11 @@ task_add_app = new Vue({
     watch:{
         new_sku_status: function (){
             if(this.new_sku_status == true){
-                let request_params = {
+                /*let request_params = {
                     'number_competitor_id' : this.selected_competitor,
+                }*/
+                let request_params = {
+                    'number_competitor_id' : JSON.stringify(number_competitor_app.sel_comp()),
                 }
                 axios.get(this.url_new_sku, {params: request_params})
                     .then(function (response){

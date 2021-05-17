@@ -1,5 +1,5 @@
 <div class="modal modal-fixed-footer rematching-redactor" id="re-matching">
-    <div class="modal-content">
+    <div class="modal-content" v-on:click=drop_menu_manufacturer_status=false>
         <h4>Ремэтчинг</h4>
         <div class="row">
             <div class="col s6">
@@ -47,13 +47,33 @@
             <div class="col s8">
                 <h6 class="text-center">Базовый справочник (ЕАС)</h6>
                 <div class="matching-lists">
-                    <ul class="collection with-header fedor-item">
-                        <!--3 type_binding мэтчинг вручную -->
+                    <!--<ul class="collection with-header fedor-item">
                         <a href="#!" class="collection-item modal-close"
                             v-for="data in eas_rematch"
                             v-on:click="matching(data.pk, 3)"
                            ><span v-html="data.tn_fv"></span> производитель: <span v-html="data.manufacturer"></span></a>
-                    </ul>
+                    </ul>-->
+                    <table class="fedor-table">
+                        <thead>
+                          <tr>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="data in eas_rematch">
+                            <td class="collection-item"><a href="#!" class="fedor-item">
+                                <span v-html="data.tn_fv"></span> производитель: <span v-html="data.manufacturer"></span>
+                            </a></td>
+                            <td>
+                                <a class="waves-effect waves-light material-icons modal-close" href="#!" v-on:click="matching(data.pk, 3)">
+                                <i class="material-icons">compare_arrows</i>
+                            </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

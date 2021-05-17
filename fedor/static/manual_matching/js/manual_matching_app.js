@@ -41,7 +41,7 @@ manual_matching_app = new Vue({
         match_sku_id: 0,
         match_competitor_id: 0,
         active_name_sku: '',
-        tn_fv: '',
+        tn_fv: '',  // Используется в модальном окне перепривязки мэтчинга
         manufacturer: '', // Используется в модальном окне перепривязки мэтчинга
         filter_for_eas_rematch: '/matching/filters-by-tn_fv/?format=json',
         eas_rematch: [], // Используется в модальном окне ремэтчинга, массив результат поиска по ЕАС
@@ -93,7 +93,6 @@ manual_matching_app = new Vue({
             this.drop_menu_manufacturer_status= false
         },
         search_for_eas_filter(){
-            console.log(this.tn_fv)
             let request_params = {
                 'tn_fv': this.tn_fv,
                 'manufacturer': this.manufacturer
@@ -102,10 +101,23 @@ manual_matching_app = new Vue({
                 .then(function (response){
                     manual_matching_app.eas_rematch = JSON.parse(response.data.eas.res)
                     manual_matching_app.manufacturer_rematch = JSON.parse(response.data.eas.mfcr)
-                    console.log(manual_matching_app.eas_rematch)
                 }).catch(function (error){
                     error_message(error)
                 });
+        },
+        open_rematching(){
+            /* ОТКРЫТЬ МОДАЛЬНОЕ ОКНО РЕМЭТЧИНГ */
+
+            /* Удаление старых результатов */
+            this.manufacturer = ''
+            this.tn_fv = ''
+            this.eas_rematch = []
+
+            /* Открытие модального окна */
+            let modal_re_matching= document.getElementById('re-matching')
+            let instance = M.Modal.getInstance(modal_re_matching)
+            instance.open()
+
         }
     },
     watch:{

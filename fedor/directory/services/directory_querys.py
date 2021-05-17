@@ -1,4 +1,4 @@
-from directory.models import ClientDirectory, BaseDirectory, NumberCompetitor, SyncSKU, Competitors, SyncEAS
+from directory.models import SyncSKU, Competitors, SyncEAS
 from manual_matching.services.get_manual_data import color_line
 import json
 from django.core import serializers
@@ -9,14 +9,9 @@ def test_get_sku(number_competitor, new_sku=None, barcode_match=False):
     """Тест выгрузка СКУ записей"""
     if new_sku:
         result = SyncSKU.objects.filter(number_competitor__in=number_competitor, matching_status=False,
-                                        create_date=new_sku)
+                                        create_date=new_sku)[:100]
     else:
-        result = SyncSKU.objects.filter(number_competitor__in=number_competitor, matching_status=False)
-    return result
-
-
-def get_sku(number_competitor):
-    result = ClientDirectory.objects.filter(number_competitor__in=number_competitor, matching_status=False)[:10000]
+        result = SyncSKU.objects.filter(number_competitor__in=number_competitor, matching_status=False)[:100]
     return result
 
 
@@ -49,7 +44,7 @@ def search_by_tn_fv(**fields):
         filter_fields['manufacturer__icontains'] = fields['manufacturer']
     eas = SyncEAS.objects.filter(**filter_fields)[:50].values('pk', 'tn_fv', 'manufacturer')
     eas = color_line(lines=eas, dict_key='tn_fv')
-    mfcr = SyncEAS.objects.filter(**filter_fields).distinct('manufacturer')[:50].values('manufacturer')
+    mfcr = SyncEAS.objects.filter(**filter_fields).distinct('manufacturer')[:12].values('manufacturer')
     eas = json.dumps(list(eas))
     mfcr = json.dumps(list(mfcr))
     res = {
@@ -66,7 +61,6 @@ def get_number_competitor_list(user):
     else:
         # number_competitors = NumberCompetitor.objects.all().values('pk', 'name')
         number_competitors = Competitors.objects.all().values('pk', 'name')
-        print(number_competitors)
     number_competitors = json.dumps(list(number_competitors))
     return number_competitors
 

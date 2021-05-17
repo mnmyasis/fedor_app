@@ -1,7 +1,7 @@
 import json
 import re
 from datetime import datetime
-from directory.models import ClientDirectory, GroupChangeTable, SyncSKU
+from directory.models import GroupChangeTable, SyncSKU
 from django.db.models import BooleanField, Value
 
 
