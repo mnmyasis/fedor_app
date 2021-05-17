@@ -1,7 +1,7 @@
 import json
 import re
 from datetime import datetime
-from directory.models import ClientDirectory, GroupChangeTable, SyncSKU
+from directory.models import GroupChangeTable, SyncSKU
 from django.db.models import BooleanField, Value
 
 
@@ -60,7 +60,7 @@ def __replace_line2(line, change_lines):
             line.name = line.name[0:first_equality] + ch_line.change + line.name[last_equality:max_length]  # Вставка подмены
             new_name = line.name
             print('old: {}---->new: {}'.format(old_name, new_name))
-    #line.save()
+    line.save()
     print('old: {}---->new: {}'.format(old_name, new_name))
 
 

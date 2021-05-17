@@ -1,11 +1,19 @@
 from celery import shared_task
 from datetime import datetime
-from directory.services.directory_querys import get_sku, change_matching_status_sku, test_get_sku, get_eas
+from directory.services.directory_querys import change_matching_status_sku, test_get_sku, get_eas
 from auto_matching.services.write_mathing_result import Matching
 from auto_matching.services import algoritm
 from django.contrib.sessions.models import Session
 from manual_matching.models import ManualMatchingData
 from api.services.sync_directory import request_eas_api, request_sku_api
+
+
+class SKUException(Exception):
+    pass
+
+
+class EASException(Exception):
+    pass
 
 
 @shared_task
@@ -18,10 +26,10 @@ def create_task_starting_algoritm(*args, **kwargs):
     """"Список записей СКУ"""
     sku_data = test_get_sku(number_competitor_id, new_sku)  # Выгрузка из справочника directory/services/sku_querys
     if len(sku_data) == 0:
-        return 'No entries sku'
+        raise SKUException("No entries sku")
     eas_dict = get_eas(action)
     if len(eas_dict) == 0:
-        return "No entries eas"
+        raise EASException("No entries eas")
     alg = algoritm.Matching()
     """Запуск мэтчинга по щтрихкоду"""
     barcode_match_result, sku = alg.barcode_matching(sku_data, number_competitor_id, eas_dict, barcode_match)
@@ -63,4 +71,3 @@ def sku_api():
     end = datetime.now()
     result_time = end - start
     return 'sku sync: {}'.format(result_time)
-

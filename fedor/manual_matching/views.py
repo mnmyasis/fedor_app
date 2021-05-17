@@ -8,6 +8,7 @@ from .services.filters import Filter, ManualFilter, SKUFilter
 from .services.filters_final import FilterStatuses
 from directory.services.directory_querys import search_by_tn_fv
 from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
+from admin_panel.services import fedor_log
 import logging, json
 
 logger = logging.getLogger(__name__)
@@ -46,6 +47,8 @@ def get_eas(request):
 @fedor_auth_for_ajax
 def match_eas_sku(request):
     """Смэтчить СКУ к ЕАС"""
+    """Используется внутренняя идентификация справочников Федора"""
+    user = request.user
     user_id = request.user.pk
     request = json.loads(request.body.decode('utf-8'))
     sku_id = request['data']['sku_id']
@@ -54,6 +57,14 @@ def match_eas_sku(request):
     number_competitor = request['data']['number_competitor_id']
     logger.debug('sku_id: {} ----> eas_id: {}'.format(sku_id, eas_id))
     match = matching_sku_eas(sku_id, eas_id, number_competitor, user_id, type_binding)  # Мэтчинг в final_matching id записей
+    fedor_log.log(
+        user=user,
+        message='Пользователь({}) - мэтчинг - sku_id({}) - eas_id({}) - type_binding({}) - справочник({})'.format(
+            user, sku_id, eas_id, type_binding, number_competitor),
+        sku_id=sku_id,
+        eas_id=eas_id,
+        action=1  # 1 мэтчинг
+    )
     if match:  # Если запись прошла без ошибок, подгружаются еще данные
         competitors = [number_competitor]
         sku = get_sku_data(number_competitor=competitors, user_id=user_id)
@@ -77,25 +88,6 @@ def get_final_matching(request):
                                 )  # manual_matching/services/get_final_data
     result = {'matching': data}
     return JsonResponse(result)
-
-
-"""@fedor_auth_for_ajax
-def edit_match(request):
-    #изменить статус мэтчинга
-    req = json.loads(request.body.decode('utf-8'))
-    number_competitor = req['data']['number_competitor_id']
-    sku_id = req['data']['sku_id']
-    type_binding = req['data']['type_binding']
-    edit_status(
-        sku_id=sku_id,
-        number_competitor=number_competitor,
-        type_binding=type_binding,
-        user_id=request.user.pk
-    )
-
-    data = final_get_sku(number_competitor=number_competitor, sku_id=sku_id)
-    result = {'matching': data}
-    return JsonResponse(result)"""
 
 
 @fedor_auth_for_ajax
@@ -164,9 +156,17 @@ def re_match_filter(request):
 
 @fedor_auth_for_ajax
 def delete_match(request):
+    user = request.user
     req = json.loads(request.body.decode('utf-8'))
     competitor = req.get('data').get('number_competitor_id')
     sku_id = req.get('data').get('sku_id')
     res = delete_matching(sku_id, competitor)
+    fedor_log.log(
+        user=user,
+        message='Пользователь({}) - удалено и отправлено в алгоритм - sku_id({}) - справочник({})'.format(
+            user, sku_id, competitor),
+        sku_id=sku_id,
+        action=1  # 1 мэтчинг
+    )
     return JsonResponse(res, safe=False)
 

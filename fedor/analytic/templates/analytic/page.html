@@ -11,7 +11,7 @@
             <div class="card-tabs">
                 <ul class="tabs tabs-fixed-width">
                     <li class="tab"><a href="#status-matching" class="active">Накопления по статусам мэтчинга</a></li>
-                    <li class="tab"><a href="#status-changes">Виды изменения статусов</a></li>
+                    <!--<li class="tab"><a href="#status-changes">Виды изменения статусов</a></li>-->
                     <li class="tab"><a href="#user-status-changes">Измененные статусы пользователем</a></li>
                     <li class="tab"><a href="#user-rating">Рейтинг пользователей</a></li>
                     <li class="tab"><a href="#raw-sku">Необработанные</a></li>
@@ -43,7 +43,7 @@
     </div>
 
     <!-- Виды изменения статусов -->
-    <div id="status-changes">
+    <!--<div id="status-changes">
         <div class="row">
             <div class="col s12">
                 <line-status-changes v-bind:statistic="data_collection_status_change"></line-status-changes>
@@ -60,7 +60,7 @@
                 <a class="waves-effect waves-light btn-small" v-on:click="status_changes">Показать</a>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <!-- Измененные статусы пользователем -->
     <div id="user-status-changes">
@@ -131,6 +131,7 @@
     </div>
 </div>
 {% endblock %}
+{% block competitor %}{% endblock %}
 {% block script %}
 
     <script src="{% static 'fw/chartjs/dist/Chart.min.js' %}"></script>

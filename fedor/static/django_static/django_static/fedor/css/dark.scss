@@ -23,7 +23,11 @@ $input-focus-color: $fedor-dark-5;
 $input-disabled-solid-color: $fedor-text-color;
 $input-success-color: $fedor-dark-5;
 
+$chip-bg-color: $fedor-dark-2;
 
+.chip{
+    color: #fff !important;
+}
 
 $select-disabled-color: rgba(255,255,255,.3) !default;
 $select-option-selected: rgba(255,255,255,.03) !default;
@@ -32,6 +36,7 @@ $dropdown-bg-color: $fedor-dark-1;
 $dropdown-color: $fedor-text-color;
 
 $button-raised-background: $fedor-dark-2;
+$button-disabled-background: $fedor-dark-1;
 
 $card-bg-color: $fedor-dark-2;
 
@@ -174,5 +179,24 @@ h6, h5, h4, h3, h2, h1, th, tr, p, li, input{
 }
 
 $table-striped-color: rgba(118, 143, 155, 0.42) !default;
+
+
+.select2-dropdown{
+    background-color:  #263238 !important;
+}
+.select2-selection--single{
+    background-color:  #263238 !important;
+}
+.select2-results__option--highlighted[aria-selected]{
+    background-color: #768F9B !important;
+}
+
+.select2-results__option[aria-selected="true"]{
+    background-color: #768F9B !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+    color: #fff !important;
+}
+
 
 @import "../../fw/materialize-src/sass/materialize.scss";

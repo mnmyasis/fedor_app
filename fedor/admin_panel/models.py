@@ -1,16 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from directory.models import NumberCompetitor
+from directory.models import Competitors
 
 
-## @defgroup access_level_model
-#  @ingroup get_access_level_all
-#  @ingroup form_update_user_profile
-#  @ingroup form_registartion_user
-
-## @ingroup access_level_model
-# @{
-# @details Таблица уровней доступа
 class AccessLevel(models.Model):
     """Уровень доступа"""
     level = models.IntegerField()
@@ -20,25 +12,15 @@ class AccessLevel(models.Model):
         return '{}'.format(self.level_name)
 
 
-##@}
-
-## @defgroup profile_model
-#  @ingroup form_update_user_profile
-#  @ingroup form_registartion_user
-
-## @ingroup profile_model
-# @{
-#  @details Таблица для связки юзера и уровня доступа
 class Profile(models.Model):
     """Профиль пользователя"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     access_level = models.ForeignKey(AccessLevel, on_delete=models.CASCADE)
-    competitor = models.ForeignKey(NumberCompetitor, models.SET_NULL, blank=True, null=True)
+    competitor = models.ForeignKey(Competitors, models.SET_NULL, blank=True, null=True)
 
-
-##@}
 
 class Tasks(models.Model):
+    """Пользовательские задачи"""
     task_id = models.CharField(max_length=500)
     name = models.TextField()
     status = models.CharField(max_length=500, blank=True)
@@ -47,3 +29,14 @@ class Tasks(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, default=1)
 
 
+class FedorLog(models.Model):
+    message = models.TextField(blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    sku_id = models.BigIntegerField(blank=True, null=True)
+    eas_id = models.BigIntegerField(blank=True, null=True)
+    action = models.IntegerField()  # 1 мэтчинг, 2 запуск алгоритма, 3 массовые подмены, 4 планировщик
+    create_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'fedor_log'
+        ordering = ['-create_date']

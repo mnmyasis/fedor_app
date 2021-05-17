@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import JsonResponse
-
+from admin_panel.services import fedor_log
 import logging, json
 from .services.zalivv import *
-from .services.client_directory_manipulate import *
 from .services import algoritm
 from .services.write_mathing_result import *
 from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list, test_get_sku, \
@@ -26,6 +25,7 @@ def auto_matching_page(request):
 @fedor_permit([1, 2])
 def algoritm_mathing(request):
     """Функция запуска алгоритма DEV"""
+    user = request.user
     request = json.loads(request.body.decode('utf-8'))
     number_competitor_id = json.loads(request['data']['number_competitor_id'])
     action = request['data']['action']  # Акция
@@ -55,6 +55,12 @@ def algoritm_mathing(request):
     matching_result = alg.start_test(sku, eas_dict)
     #change_matching_status_sku(sku_data)  # Изменение поля matching_status directory/services/sku_querys
     """Запись результата работы алгоритма"""
+    fedor_log.log(
+        user=user,
+        message='Пользователь({}) - запуск алгоритма - справочник({}) - акция({}) - довреять ШК({}) - новая '
+                'номенклатура({})'.format(user, number_competitor_id, action, barcode_match, new_sku),
+        action=2  # 2 - запуск алгоритма
+    )
     #match = Matching()
     #[match.wr_match(matching_state=x['qnt'], matching_line=x) for x in barcode_match_result]  # Запись мэчтинга по штрихкоду
     #[match.wr_match(matching_state=x['qnt'], matching_line=x) for x in matching_result['data']]  # Запись мэчтинга алгоритма
@@ -75,6 +81,12 @@ def create_work_algoritm(request):
         action=action,
         barcode_match=barcode_match,
         new_sku=new_sku
+    )
+    fedor_log.log(
+        user=user,
+        message='Пользователь({}) - запуск алгоритма - справочник({}) - акция({}) - довреять ШК({}) - новая '
+                'номенклатура({}) - id задачи({})'.format(user, number_competitor_id, action, barcode_match, new_sku, task.id),
+        action=2  # 2 - запуск алгоритма
     )
     Tasks.objects.create(
         task_id=task.id,

@@ -70,7 +70,7 @@ Vue.component('bar-user-rating', {
 })
 
 /* Виды изменения статусов */
-Vue.component('line-status-changes', {
+/*Vue.component('line-status-changes', {
     extends: VueChartJs.Line,
     props: ['statistic'],
     methods:{
@@ -87,7 +87,7 @@ Vue.component('line-status-changes', {
     mounted() {
         this.draw_statistic()
     }
-})
+})*/
 
 /* Необработанные */
 Vue.component('bar-raw-sku', {
@@ -178,11 +178,11 @@ analytic = new Vue({
         },
 
         /* Виды изменения статусов */
-        status_changes(){
+        /*status_changes(){
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
-                'number_competitor': JSON.stringify(number_competitor_app.selected_competitor)
+                'number_competitor': JSON.stringify(number_competitor_app.sel_comp())
             }
             axios.get(this.url_status_changes, {params: request_params})
                 .then(function (response){
@@ -266,7 +266,7 @@ analytic = new Vue({
                 }).catch(function (error){
                 modal_error_app.error_message(error)
             });
-        },
+        },*/
 
         /* Измененные статусы пользователем */
         user_status_changes(){
@@ -274,7 +274,7 @@ analytic = new Vue({
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
-                'number_competitor': number_competitor_app.selected_competitor
+                //'number_competitor': number_competitor_app.sel_comp()
             }
             axios.get(this.url_user_status_changes, {params: request_params})
                 .then(function (response){
@@ -309,7 +309,7 @@ analytic = new Vue({
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
-                'number_competitor': number_competitor_app.selected_competitor
+                //'number_competitor': number_competitor_app.sel_comp()
             }
             axios.get(this.url_user_rating, {params: request_params})
                 .then(function (response){

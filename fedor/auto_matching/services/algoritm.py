@@ -1,10 +1,11 @@
-from django.conf import settings
-from django.db import models
+import json
+import re
+import time
+
 import numpy as np
 import pandas as pd
 from directory.models import *
-import time
-import re
+from django.conf import settings
 
 
 # Здесь будут алгоритмы стыковки
