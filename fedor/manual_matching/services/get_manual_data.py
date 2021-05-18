@@ -2,7 +2,7 @@ from directory.models import *
 from manual_matching.models import *
 from django.core import serializers
 import logging, re, time, json
-
+import operator
 logger = logging.getLogger(__name__)
 
 
@@ -15,11 +15,11 @@ def binding_decorator(model):
                 number_competitor__in=kwargs['number_competitor'],
                 user=kwargs['user_id']).distinct('sku_dict').count()  # Кол-во записей привязанных к пользователю
             logger.debug('Id пользователя - {}    Записей - {}'.format(kwargs['user_id'], count_data))
-            if count_data < 10:  # Если записей у пользователя меньше 10, привязывается еще 50шт.
+            if count_data < 50:  # Если записей у пользователя меньше 50, привязывается еще 100шт.
                 model.objects.filter(pk__in=
                                      model.objects.filter(number_competitor__in=kwargs['number_competitor'],
                                                           user=None).distinct(
-                                         'sku_dict').values('pk')[:50]
+                                         'sku_dict').values('pk')[:100]
                                      ).update(user=kwargs['user_id'])  # Привязка данных к юзеру
             return func(*args, **kwargs)
 
@@ -49,13 +49,14 @@ def get_sku_data(number_competitor, user_id):
     sku = ManualMatchingData.objects.filter(
         number_competitor__in=number_competitor,
         matching_status=False,
-        user=user_id).order_by('sku_dict__name', 'sku_dict__pk', ).distinct('sku_dict__name', 'sku_dict__pk').values(
+        user=user_id).distinct('sku_dict__pk').values(
             'sku_dict',
             'name_sku',
             'sku_dict__number_competitor__pk',
             'sku_dict__number_competitor__name',
         )
     sku = color_line(lines=sku, dict_key='name_sku')
+    sku.sort(key=operator.itemgetter('name_sku'))
     data = json.dumps(list(sku))
     logger.debug('данные ску выгружены -- {}'.format(len(sku)))
     return data

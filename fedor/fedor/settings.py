@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
 from pathlib import Path
 from fedor.logger_settings.log_setting import get_log_settings
 import os
@@ -166,7 +165,6 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_TASK_TRACK_STARTED = True
 CELERYD_MAX_TASKS_PER_CHILD = 1
 CELERY_RESULT_EXPIRES = timedelta(seconds=10)
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

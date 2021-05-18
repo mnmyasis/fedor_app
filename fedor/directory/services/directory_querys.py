@@ -9,9 +9,9 @@ def test_get_sku(number_competitor, new_sku=None, barcode_match=False):
     """Тест выгрузка СКУ записей"""
     if new_sku:
         result = SyncSKU.objects.filter(number_competitor__in=number_competitor, matching_status=False,
-                                        create_date=new_sku)[:1000]
+                                        create_date=new_sku)[:30000]
     else:
-        result = SyncSKU.objects.filter(number_competitor__in=number_competitor, matching_status=False)[:1000]
+        result = SyncSKU.objects.filter(number_competitor__in=number_competitor, matching_status=False)[:30000]
     return result
 
 

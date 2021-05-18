@@ -140,7 +140,7 @@ number_competitor_app = new Vue({
                         })
                      }*/
                      number_competitor_app.options = _filter(number_competitor_app.number_competitors)
-                     number_competitor_app.selected = 1
+                     number_competitor_app.selected = number_competitor_app.options[0].id
                  })
 
     },
