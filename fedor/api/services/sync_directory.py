@@ -112,6 +112,7 @@ def request_sku_api():
         sku_wr['name'] = "{} {}".format(sku_data.get('name'), sku_data.get('producer'))
         competitor['pharmacy_id'] = sku_data.get('pharmacy_id')
         competitor['firm_id'] = sku_data.get('firm_id')
+        competitor['name'] = 'test pharmacy_id-{} firm_id-{}'.format(sku_data.get('pharmacy_id'), sku_data.get('firm_id'))
         sku_wr['nnt'] = sku_data.get('ean')
         number_competitor, created = Competitors.objects.get_or_create(**competitor, defaults=competitor)
         sku_wr['number_competitor'] = number_competitor
