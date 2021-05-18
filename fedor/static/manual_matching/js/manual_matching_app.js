@@ -8,6 +8,7 @@ Vue.prototype.$load_sku_list = function (){
     axios.get(url, {params: request_params})
     .then(function (response){
         manual_matching_app.sku = (JSON.parse(response.data.sku))
+        manual_matching_app.eas = null
     }).catch(function (error){
         error_message(error)
     })

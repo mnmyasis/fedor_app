@@ -19,7 +19,7 @@ celery_app.conf.beat_schedule = {
     'sku_sync': {
         'task': 'admin_panel.tasks.sku_api',
         #'schedule': crontab(hour=1, minute=23),
-        'schedule': crontab(hour=17, minute=10),
+        'schedule': crontab(hour=1, minute=35),
     },
 
 }

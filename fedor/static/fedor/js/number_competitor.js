@@ -96,6 +96,7 @@ number_competitor_app = new Vue({
             return competitors_id
         },
         del_chip(comp){
+            /* Кнопка сброс */
             this.comps = []
             this.all_selected = false
             this.selected = 0
