@@ -48,6 +48,9 @@ class SyncEAS(models.Model):
     class Meta:
         db_table = 'sync_eas'
 
+    def __str__(self):
+        return str(self.eas_id)
+
 
 class EAS(models.Model):
     """Не используется"""
@@ -91,6 +94,9 @@ class Competitors(models.Model):
     class Meta:
         db_table = 'competitors'
 
+    def __str__(self):
+        return self.name
+
 
 class SKU(models.Model):
     """СКУ НОМЕНКЛАТУРА"""
@@ -121,3 +127,6 @@ class SyncSKU(models.Model):
     class Meta:
         db_table = 'sync_sku'
         ordering = ['sku_id']
+
+    def __str__(self):
+        return str(self.sku_id)
