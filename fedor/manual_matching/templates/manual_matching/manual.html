@@ -98,12 +98,12 @@
                     </thead>
                     <tbody>
                       <tr v-for="data in eas">
-                        <td class="collection-item"><a href="#!" class="fedor-item" v-html="data.name_eas"></a></td>
                         <td>
                             <a class="waves-effect waves-light material-icons" href="#!" v-on:click="matching(data.eas_dict, 3)">
-                            <i class="material-icons">compare_arrows</i>
-                        </a>
+                                <i class="material-icons">compare_arrows</i>
+                            </a>
                         </td>
+                        <td class="collection-item"><a href="#!" class="fedor-item" v-html="data.name_eas"></a></td>
                       </tr>
                     </tbody>
                 </table>

@@ -7,42 +7,32 @@
   type="text/css"
   href="https://unpkg.com/select2@4.0.3/dist/css/select2.min.css"
 />
-<style>
-  html,
-  body {
-    font: 13px/18px sans-serif;
-  }
-  select {
-    min-width: 300px;
-  }
-</style>
 
 <script type="text/x-template" id="demo-template">
 
     <div class="row">
-            <div class="row">
-                <div class="col s12">
-                    <div class="chip" v-for="comp in comps" v-if="all_selected==false" >
-                         <span maxlength="3">{(comp.name)}</span>
-                    </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="chip" v-for="comp in comps" v-if="all_selected==false" >
+                     <span maxlength="3">{(comp.name)}</span>
                 </div>
             </div>
-        <div class="col s7">
-              <div class="input-field col s6">
-
+        </div>
+        <div class="row">
+              <div class="input-field col s9">
                     <select2 :options="options" v-model="selected">
                       <option disabled value="0">Select one</option>
                     </select2>
-                  <a class="waves-effect waves-light btn-small f-mt" v-on:click="del_chip">СБРОС</a>
+                  <!--<a class="waves-effect waves-light btn-small f-mt" v-on:click="del_chip">СБРОС</a>-->
               </div>
-        </div>
-        <div class="col s2">
-            <p>
-              <label>
-                <input type="checkbox" v-model="all_selected"/>
-                <span>ВСЕ</span>
-              </label>
-            </p>
+            <div class="col s1 offset-s1">
+                <p>
+                  <label>
+                    <input type="checkbox" v-model="all_selected"/>
+                    <span>ВСЕ</span>
+                  </label>
+                </p>
+            </div>
         </div>
     </div>
 </script>
@@ -52,7 +42,10 @@
         <slot></slot>
       </select>
 </script>
+<div class="row">
+    <div class="col s12">
+        <div id="number-competitor-app">
 
-<div id="number-competitor-app">
-
+        </div>
+    </div>
 </div>

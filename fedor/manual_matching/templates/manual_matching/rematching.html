@@ -9,13 +9,6 @@
                     <label for="tn_fv">Номенклатура</label>
                 </div>
             </div>
-            <!--<div class="col s6">
-                <div class="input-field col s12">
-                    <input placeholder="По производителю" id="manufacturer" type="text" class="validate"
-                           v-model="manufacturer">
-                    <label for="manufacturer">Производитель</label>
-                </div>
-            </div>-->
             <div class="col s6">
                 <div class="input-field col s12">
                     <input placeholder="По производителю" id="manufacturer" type="text" class="validate dropdown-trigger"
@@ -28,7 +21,7 @@
                             v-for="data in manufacturer_rematch"
                             v-html="data.manufacturer"
                             v-on:click="event_manufacturer_dropdown(data)"
-                            ></li>
+                        ></li>
                     </ul>
                 </div>
                 </div>
@@ -47,12 +40,6 @@
             <div class="col s8">
                 <h6 class="text-center">Базовый справочник (ЕАС)</h6>
                 <div class="matching-lists">
-                    <!--<ul class="collection with-header fedor-item">
-                        <a href="#!" class="collection-item modal-close"
-                            v-for="data in eas_rematch"
-                            v-on:click="matching(data.pk, 3)"
-                           ><span v-html="data.tn_fv"></span> производитель: <span v-html="data.manufacturer"></span></a>
-                    </ul>-->
                     <table class="fedor-table">
                         <thead>
                           <tr>
@@ -63,14 +50,14 @@
                         </thead>
                         <tbody>
                           <tr v-for="data in eas_rematch">
+                             <td>
+                                <a class="waves-effect waves-light material-icons modal-close" href="#!" v-on:click="matching(data.pk, 3)">
+                                    <i class="material-icons">compare_arrows</i>
+                                </a>
+                            </td>
                             <td class="collection-item"><a href="#!" class="fedor-item">
                                 <span v-html="data.tn_fv"></span> производитель: <span v-html="data.manufacturer"></span>
                             </a></td>
-                            <td>
-                                <a class="waves-effect waves-light material-icons modal-close" href="#!" v-on:click="matching(data.pk, 3)">
-                                <i class="material-icons">compare_arrows</i>
-                            </a>
-                            </td>
                           </tr>
                         </tbody>
                     </table>
