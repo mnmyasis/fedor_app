@@ -11,6 +11,11 @@ class AccessLevel(models.Model):
     def __str__(self):
         return '{}'.format(self.level_name)
 
+    # level 1 level_name Админ
+    # level 2 level_name Суперюзер
+    # level 3 level_name Сотрудник pharma.Global
+    # level 4 level_name Аптека
+
 
 class Profile(models.Model):
     """Профиль пользователя"""

@@ -1,22 +1,16 @@
 from directory.models import SyncSKU, Competitors, SyncEAS
 from manual_matching.services.get_manual_data import color_line
 import json
-from django.core import serializers
 from datetime import datetime
 
 
-def test_get_sku(number_competitor, new_sku=None, barcode_match=False):
+def get_sku(number_competitor, new_sku=None, barcode_match=False):
     """Тест выгрузка СКУ записей"""
     if new_sku:
         result = SyncSKU.objects.filter(number_competitor__in=number_competitor, matching_status=False,
                                         create_date=new_sku)[:30000]
     else:
         result = SyncSKU.objects.filter(number_competitor__in=number_competitor, matching_status=False)[:30000]
-    return result
-
-
-def test_new_sku(number_competitor, count):
-    result = SyncSKU.objects.filter(number_competitor__in=number_competitor, matching_status=False)[:count]
     return result
 
 
@@ -59,7 +53,6 @@ def get_number_competitor_list(user):
     if user.profile.access_level.level == 4:  # Если это аптека, выгружаем только её справочник
         number_competitors = Competitors.objects.filter(pk=user.profile.competitor.pk).values('pk', 'name')
     else:
-        # number_competitors = NumberCompetitor.objects.all().values('pk', 'name')
         number_competitors = Competitors.objects.all().values('pk', 'name')
     number_competitors = json.dumps(list(number_competitors))
     return number_competitors

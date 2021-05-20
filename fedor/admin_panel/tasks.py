@@ -1,6 +1,6 @@
 from celery import shared_task
 from datetime import datetime
-from directory.services.directory_querys import change_matching_status_sku, test_get_sku, get_eas
+from directory.services.directory_querys import change_matching_status_sku, get_sku, get_eas
 from auto_matching.services.write_mathing_result import Matching
 from auto_matching.services import algoritm
 from django.contrib.sessions.models import Session
@@ -24,7 +24,7 @@ def create_task_starting_algoritm(*args, **kwargs):
     barcode_match = kwargs.get('barcode_match')
     new_sku = kwargs.get('new_sku')
     """"Список записей СКУ"""
-    sku_data = test_get_sku(number_competitor_id, new_sku)  # Выгрузка из справочника directory/services/sku_querys
+    sku_data = get_sku(number_competitor_id, new_sku)  # Выгрузка из справочника directory/services/sku_querys
     if len(sku_data) == 0:
         raise SKUException("No entries sku")
     eas_dict = get_eas(action)

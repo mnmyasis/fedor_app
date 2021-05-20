@@ -45,8 +45,5 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-
-**log/
-logs/
-**migrations/
+*.log
 *.pyc

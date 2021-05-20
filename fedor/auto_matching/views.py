@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import JsonResponse
 from admin_panel.services import fedor_log
-import logging, json
-from .services.zalivv import *
+import json
 from .services import algoritm
 from .services.write_mathing_result import *
-from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list, test_get_sku, \
-    test_new_sku, get_eas
+from directory.services.directory_querys import change_matching_status_sku, get_number_competitor_list, get_sku, get_eas
 from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
 from admin_panel.tasks import create_task_starting_algoritm
 from admin_panel.models import Tasks
@@ -32,7 +30,7 @@ def algoritm_mathing(request):
     barcode_match = request['data']['barcode_match']  # Доверять ШК
     new_sku = request['data']['new_sku']  # Новая ску номенклатура
     """Список записей СКУ"""
-    sku_data = test_get_sku(number_competitor_id, new_sku)  # Выгрузка из справочника directory/services/sku_querys
+    sku_data = get_sku(number_competitor_id, new_sku)  # Выгрузка из справочника directory/services/sku_querys
     if len(sku_data) == 0:
         result = {
             'error': False,
@@ -95,15 +93,3 @@ def create_work_algoritm(request):
         status=task.status
     )
     return JsonResponse(True, safe=False)
-
-
-def inject_base_directory(request):
-    zalivchik()
-
-
-def inject_client_directory(request):
-    zaliv_client_dict()
-
-
-def injects_group_change(request):
-    group_change()

@@ -6,11 +6,7 @@ group_changes_app = new Vue({
         url_group_changes_update: '/directory/group_changes/update/', // Изменение в бд подмен
         url_group_changes_filter: '/directory/group_changes/filter/', // Фильтрация подмен в модальном окне
         url_edit_group_change_list: '/directory/group_changes/edit-list/', // Список подмен в модальном окне
-        url_group_changes_list: '/directory/group_changes/list/', // Поиск подмен для исключения
         url_group_changes_start: '/directory/group_changes/', // Запуск массовых подмен
-        group_changes_input: '', //Форма поиска подмен для исключения
-        group_change_status: false, // Показывать выпадающий список
-        changes_list: [], // Список подмен в выпадающем меню исключений
         exclude_list: [], // Список выбранных исключений
         edit_group_change_list: [], // Список всех подмен в модальном окне
         group_change_input: '', // Фильтр в модальном окне подмен
@@ -23,19 +19,21 @@ group_changes_app = new Vue({
     },
     methods: {
         exclude_group_changes(change_id, change_name){ // Клик по элементу выпадающего списка подмен для исключения
-            this.group_change_status = false
             this.exclude_list.push({
-                id: change_id,
+                pk: change_id,
                 change: change_name
             })
         },
-        task_status(task_id){
-            let cookie_value = document.cookie.replace(/(?:(?:^|.*;\s*)user_style\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-        },
         group_change_start(){ // Запуск массовых подмен
             preloader_app.show_preloading = true
+            for(i = 0; i < this.edit_group_change_list.length; i++){
+                if(this.edit_group_change_list[i].exclude == true){
+                    console.log(this.edit_group_change_list[i])
+                    this.exclude_group_changes(this.edit_group_change_list[i].pk, this.edit_group_change_list[i].change)
+                }
+            }
             let request_params = {
-                'number_competitor_id': JSON.stringify(number_competitor_app.selected_competitor),
+                'number_competitor_id': JSON.stringify(number_competitor_app.sel_comp()),
                 'exclude_list': JSON.stringify(this.exclude_list),
             }
             axios.get(this.url_group_changes_start, {params: request_params})
@@ -46,11 +44,6 @@ group_changes_app = new Vue({
                 }).then(function(){
                     preloader_app.show_preloading = false
                 });
-        },
-        group_change_reset(){ // Сброс списка исключений подмен
-            this.exclude_list = []
-            this.group_changes_input = ''
-            this.group_change_status = false // Не показывать выпадающий список
         },
         edit_group_change_load(){ // Список всех подмен в модальном окне
             axios.get(this.url_edit_group_change_list)
@@ -134,20 +127,5 @@ group_changes_app = new Vue({
     },
     watch:{
         filter_edit_changes: function (){},
-        group_changes_input: function (){ // Фильтрация подмен для исключения
-            if(this.group_changes_input.length > 0){ //
-                let request_params = {
-                    'group_changes_input': this.group_changes_input,
-                }
-                axios.get(this.url_group_changes_list, {params: request_params})
-                    .then(function (response) {
-                        group_changes_app.changes_list = JSON.parse(response.data.group_changes_list)
-
-                    }).catch(function (error) {
-                       error_message(error)
-                    });
-                this.group_change_status = true
-            }
-        },
     }
 })

@@ -86,8 +86,6 @@ def get_group_changes(group_changes_input):
 
 def get_group_changes_list():
     """Выгрузка всей таблицы массовых подмен"""
-    # changes_list = GroupChangeTable.objects.all().values('pk', 'search', 'change')
-    # .annotate(upcoming=Value(True, output_field=BooleanField()))
     changes_list = GroupChangeTable.objects.annotate(exclude=Value(False, output_field=BooleanField())) \
                        .order_by('search')[:100].values('pk', 'search', 'change', 'exclude')
     changes_list = json.dumps(list(changes_list))

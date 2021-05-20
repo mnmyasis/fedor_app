@@ -1,11 +1,5 @@
 Vue.prototype.$get_matching_lines = function(){
     //Стартовая выгрузка записей в таблицу
-    //final_filters_app.clear_filter()
-    /*let filter_value = final_filters_app.statuses // Если были выбраны статусы
-    if(filter_value.length > 0){
-        final_filters_app.filter()
-        return;
-    }*/
     if(final_filters_app.statuses.length > 0 || final_filters_app.sku_form.length > 0 || final_filters_app.eas_form.length > 0){
         final_filters_app.filter()
         return;
@@ -34,6 +28,7 @@ final_matching_app = new Vue({
     },
     methods: {
         delete_matching(id_sku, competitor){
+            /* Удалить результат и отправить обратно в алгоритм */
             let request_params = {
                 'number_competitor_id' : competitor,
                 'sku_id': id_sku,

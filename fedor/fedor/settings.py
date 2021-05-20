@@ -28,7 +28,7 @@ SECRET_KEY = 'bq3z__9-5*+uz_tgc2xhhs0clnp&2&o32f%@-rn^y28ut47f_1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.105', '85.175.101.29', '127.0.0.1', '176.99.6.76', 'test3.phz.team']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -92,7 +92,7 @@ DATABASES = {
         'NAME': 'fedor',
         'USER': 'django',
         'PASSWORD': '12345',
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
         'PORT': '5432'
     },
 }
@@ -156,7 +156,7 @@ GRAPHENE = {
 
 # celery
 #CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_BROKER_URL = "amqp://django:12345@localhost:5672/vfedor"
+CELERY_BROKER_URL = "amqp://django:12345@rabbit:5672/vfedor"
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_ACCEPT_CONTENT = ['application/json']

@@ -52,7 +52,6 @@ def group_change_start(request):
                 ' - справочник({})'.format(user, exclude_list, task.id, number_competitor),
         action=3  # 3 - подмены
     )
-    # group_change.change_line(number_competitor, exclude_list)
     return JsonResponse(True, safe=False)
 
 

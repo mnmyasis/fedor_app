@@ -3,6 +3,7 @@ from python_graphql_client import GraphqlClient
 
 
 def request_eas_api():
+    """Синхронизация базовго справочника"""
     client = GraphqlClient(endpoint="http://test.eas.content.pharma.global/api")
     query = """query($status: Int!, $page: Int, $count: Int){
                             eas_product(status: $status, page: $page, count: $count){
@@ -88,6 +89,7 @@ def request_eas_api():
 
 
 def request_sku_api():
+    """Синхронизация клиентских справочников"""
     client = GraphqlClient(endpoint="https://rio.pharma.global/graphql-local")
     query = """
         query($limit: Int){

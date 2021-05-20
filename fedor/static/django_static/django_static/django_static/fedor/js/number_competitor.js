@@ -1,15 +1,3 @@
-
-function sel(){
-    cookie_value = document.cookie.replace(/(?:(?:^|.*;\s*)fedor_competitor\s*\=\s*([^;]*).*$)|^.*$/, "$1")
-    if(cookie_value){
-        cookie_value = cookie_value.split(',')
-        console.log(cookie_value)
-        return cookie_value
-    }else{
-        return [0]
-    }
-}
-
 function _filter(number_competitors){
     options = []
     for(i=0;i<number_competitors.length;i++){
@@ -68,7 +56,6 @@ number_competitor_app = new Vue({
     data: {
         url: '/directory/number-competitor-list/?format=json',
         number_competitors : [], // Список клиентских справочников
-        selected_competitor: sel(),
         selected: 0,
         options: [],
         comps: [],
@@ -96,6 +83,7 @@ number_competitor_app = new Vue({
             return competitors_id
         },
         del_chip(comp){
+            /* Кнопка сброс */
             this.comps = []
             this.all_selected = false
             this.selected = 0
@@ -127,27 +115,14 @@ number_competitor_app = new Vue({
         }
     },
     mounted(){
-        //axios.get(this.url).then(response => this.number_competitors = (JSON.parse(response.data.number_competitors)))
         axios.get(this.url)
                 .then(function (response){
                    number_competitor_app.number_competitors = JSON.parse(response.data.number_competitors)
-                   /*for(i=0;i<number_competitor_app.number_competitors.length;i++){
-                        text = number_competitor_app.number_competitors[i].name
-                        id = number_competitor_app.number_competitors[i].pk
-                        number_competitor_app.options.push({
-                            id: id,
-                            text: text
-                        })
-                     }*/
                      number_competitor_app.options = _filter(number_competitor_app.number_competitors)
-                     number_competitor_app.selected = 1
+                     number_competitor_app.selected = number_competitor_app.options[0].id
                  })
 
     },
-    updated(){
-        //let select_competitor = document.querySelector('.sel-competitor');
-        //M.FormSelect.init(select_competitor);
-    }
 })
 
 

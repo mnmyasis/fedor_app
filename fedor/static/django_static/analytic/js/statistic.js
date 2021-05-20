@@ -69,26 +69,6 @@ Vue.component('bar-user-rating', {
     }
 })
 
-/* Виды изменения статусов */
-/*Vue.component('line-status-changes', {
-    extends: VueChartJs.Line,
-    props: ['statistic'],
-    methods:{
-        draw_statistic(){
-            this.renderChart(this.statistic, {responsive: true, maintainAspectRatio: false})
-        },
-
-    },
-    watch:{
-        statistic: function (){
-            this.draw_statistic()
-        }
-    },
-    mounted() {
-        this.draw_statistic()
-    }
-})*/
-
 /* Необработанные */
 Vue.component('bar-raw-sku', {
     extends: VueChartJs.Bar,
@@ -177,104 +157,12 @@ analytic = new Vue({
             });
         },
 
-        /* Виды изменения статусов */
-        /*status_changes(){
-            let request_params = {
-                'start_date': this.start_date,
-                'end_date': this.end_date,
-                'number_competitor': JSON.stringify(number_competitor_app.sel_comp())
-            }
-            axios.get(this.url_status_changes, {params: request_params})
-                .then(function (response){
-                    let stats = response.data.stats
-                    let labels = []
-                    let data_progress = []
-                    let data_manual = []
-                    let data_not_found = []
-                    let data_add_eas = []
-                    let data_barcode = []
-                    let data_barcode_chek = []
-                    let data_other = []
-                    let data_algoritm = []
-                    for(let i = 0; i < stats.length; i++){
-                        labels.push(stats[i].date)
-                        data_progress.push(stats[i].statistic.progress)
-                        data_manual.push(stats[i].statistic.manual)
-                        data_not_found.push(stats[i].statistic.not_found)
-                        data_add_eas.push(stats[i].statistic.add_eas)
-                        data_barcode.push(stats[i].statistic.barcode)
-                        data_barcode_chek.push(stats[i].statistic.barcode_check)
-                        data_other.push(stats[i].statistic.other)
-                        data_algoritm.push(stats[i].statistic.algoritm)
-                    }
-                    let datasets = [
-                        {
-                            label: 'В обработке',
-                            backgroundColor: "transparent",
-                            borderColor: '#1fd191',
-                            data: data_progress
-                        },
-                        {
-                            label: 'Ручная',
-                            backgroundColor: "transparent",
-                            borderColor: '#d34767',
-                            data: data_manual
-                        },
-                        {
-                            label: 'Не найдено',
-                            backgroundColor: "transparent",
-                            borderColor: '#e9d3b0',
-                            data: data_not_found
-                        },
-                        {
-                            label: 'Предложено добавить',
-                            backgroundColor: "transparent",
-                            borderColor: '#bf8c1d',
-                            data: data_add_eas
-                        },
-                        {
-                            label: 'Штрих-код',
-                            backgroundColor: "transparent",
-                            borderColor: '#ffe21d',
-                            data: data_barcode
-                        },
-                        {
-                            label: 'Штрих-код проверка',
-                            backgroundColor: "transparent",
-                            borderColor: '#d870ef',
-                            data: data_barcode_chek
-                        },
-                        {
-                            label: 'Алгоритм',
-                            backgroundColor: "transparent",
-                            borderColor: '#909af4',
-                            data: data_algoritm
-                        },
-                        {
-                            label: 'Прочее',
-                            backgroundColor: "transparent",
-                            borderColor: '#ac9995',
-                            data: data_other
-                        },
-
-                    ]
-                    analytic.data_collection_status_change = {
-                        labels: labels,
-                        datasets: datasets
-                    }
-
-                }).catch(function (error){
-                modal_error_app.error_message(error)
-            });
-        },*/
-
         /* Измененные статусы пользователем */
         user_status_changes(){
             this.datasets_status_change = []
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
-                //'number_competitor': number_competitor_app.sel_comp()
             }
             axios.get(this.url_user_status_changes, {params: request_params})
                 .then(function (response){
@@ -285,7 +173,6 @@ analytic = new Vue({
                             backgroundColor: random_color(),
 
                             data: [
-                                //stats[i].statistic.progress,
                                 stats[i].statistic.manual,
                                 stats[i].statistic.not_found,
                                 stats[i].statistic.add_eas,
@@ -309,7 +196,6 @@ analytic = new Vue({
             let request_params = {
                 'start_date': this.start_date,
                 'end_date': this.end_date,
-                //'number_competitor': number_competitor_app.sel_comp()
             }
             axios.get(this.url_user_rating, {params: request_params})
                 .then(function (response){

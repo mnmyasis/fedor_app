@@ -4,7 +4,6 @@ main_menu_app = new Vue({
         show_menu(e){
             let main_menu = document.querySelector('.sidenav');
             M.Sidenav.init(main_menu);
-            //var instance = M.Sidenav.init($('.sidenav'));
         }
     }
 })

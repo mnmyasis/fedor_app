@@ -1,0 +1,62 @@
+version: '3.1'
+
+services:
+  rabbit:
+    build: ./docker/rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_NODENAME: "django@localhost"
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "django"
+      RABBITMQ_DEFAULT_PASS: "12345"
+      RABBITMQ_DEFAULT_VHOST: "vfedor"
+    ports:
+      - 5674:5672
+  db:
+    build:
+      context: ./docker/db
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 12345
+    volumes:
+    - ./docker/databases:/var/lib/postgresql/data
+    - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+    - 5433:5432
+
+  fedor:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+    - ./:/home/www/
+    depends_on:
+      - db
+      - rabbit
+      - celery_worker
+    ports:
+    - 6080:6080
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - fedor
+      - db
+    ports:
+    - 80:80
+    volumes:
+      - ./fedor/static/:/static
+
+  celery_worker:
+    build: ./docker/celery_worker
+    command: celery -A fedor worker --beat --scheduler django --loglevel=info
+    depends_on:
+      - rabbit
+      - db
+    volumes:
+      - ./fedor/.:/home/

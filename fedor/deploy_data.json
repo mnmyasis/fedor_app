@@ -1,0 +1,44 @@
+[
+  {
+    "model": "admin_panel.accesslevel",
+    "pk": 1,
+    "fields": {
+      "level": 1,
+      "level_name": "Админ"
+    }
+  },
+  {
+    "model": "admin_panel.AccessLevel",
+    "pk": 2,
+    "fields": {
+      "level": 2,
+      "level_name": "Суперюзер"
+    }
+  },
+  {
+    "model": "admin_panel.AccessLevel",
+    "pk": 3,
+    "fields": {
+      "level": 3,
+      "level_name": "Сотрудник pharma.Global"
+    }
+  },
+  {
+    "model": "admin_panel.AccessLevel",
+    "pk": 4,
+    "fields": {
+      "level": 4,
+      "level_name": "Аптека"
+    }
+  },
+  {
+    "model": "admin_panel.profile",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "access_level": 1,
+      "competitor": null
+    }
+  }
+  
+]

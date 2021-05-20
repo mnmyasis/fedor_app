@@ -128,7 +128,6 @@ def schedule_add(request):
     """Добавить расписание"""
     user = request.user
     request = json.loads(request.body.decode('utf-8'))
-    date_start = request['data']['date']
     time_start = request['data']['time']
     if time_start:
         time_start = datetime.strptime(time_start, '%H:%M')
@@ -319,7 +318,6 @@ def tasks_user_list(request):
             tsk_res = TaskResult.objects.get(task_id=task.task_id)
             result_task = tsk_res
             result_task.result = json.loads(tsk_res.result)
-            print(result_task.result)
             if type(result_task.result) == dict:  # Если тип результат словарь, значит, задача закончилась ошибкой
                 if result_task.result.get('exc_type') is not None:
                     type_error = result_task.result.get('exc_type')  # Тип ошибки

@@ -27,6 +27,7 @@ task_add_app = new Vue({
     },
     methods: {
         create_task_algoritm(){
+            /*Создать задачу Алгоритм*/
             console.log(this.selected_task)
             console.log(this.name)
             console.log(this.selected_crontab)
@@ -58,30 +59,6 @@ task_add_app = new Vue({
                 error_message('Не заполнены необходимые поля')
             }
         },
-        create_task_sync_directory(){
-            if(this.selected_task != 0 && this.name && this.selected_crontab){
-                let request_params = {
-                    'name': this.name,
-                    'description': this.description,
-                    'crontab': this.selected_crontab,
-                    'task_status': this.task_status,
-                    'one_task_status': this.one_task_status,
-                    'selected_task': this.selected_task
-                }
-                axios.post(this.url_add_task_algoritm, {data: request_params})
-                    .then(function (response){
-                       console.log(response.data)
-                       if(response.data==true){
-                            document.location.href = "/admin/task/schedule-list/"
-                       }
-
-                    }).catch(error => {
-                        error_message(error)
-                    });
-            }else{
-                error_message('Не заполнены необходимые поля')
-            }
-        }
     },
     updated(){
 
@@ -89,8 +66,6 @@ task_add_app = new Vue({
         M.FormSelect.init(sel_crontab);
         let form_sel = document.querySelector('.select-new-sku');
         M.FormSelect.init(form_sel);
-        /*let select_competitor = document.querySelector('.sel-competitor');
-        M.FormSelect.init(select_competitor);*/
     },
     mounted(){
         let sel_task = document.querySelectorAll('.select-task');
@@ -101,9 +76,6 @@ task_add_app = new Vue({
     watch:{
         new_sku_status: function (){
             if(this.new_sku_status == true){
-                /*let request_params = {
-                    'number_competitor_id' : this.selected_competitor,
-                }*/
                 let request_params = {
                     'number_competitor_id' : JSON.stringify(number_competitor_app.sel_comp()),
                 }

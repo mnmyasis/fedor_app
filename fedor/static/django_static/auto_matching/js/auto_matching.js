@@ -16,14 +16,12 @@ auto_matching_app = new Vue({
     },
     methods: {
         start_matching(){
-            console.log(this.action)
-            console.log(this.barcode_match)
-            console.log(this.new_sku)
+            /* Запуск алгоритма DEV*/
 
             preloader_app.show_preloading = true
             axios.post(this.url_auto_matching, {
                 data: {
-                    number_competitor_id: JSON.stringify(number_competitor_app.selected_competitor),
+                    number_competitor_id: JSON.stringify(number_competitor_app.sel_comp()),
                     action: this.action,
                     barcode_match: this.barcode_match,
                     new_sku: this.new_sku
@@ -44,13 +42,11 @@ auto_matching_app = new Vue({
         },
 
         start_worker_matching(){
-            console.log(this.action)
-            console.log(this.barcode_match)
-            console.log(this.new_sku)
+            /* Запуск алгоритма*/
 
             axios.post(this.url_start_matching_worker, {
                 data: {
-                    number_competitor_id: JSON.stringify(number_competitor_app.selected_competitor),
+                    number_competitor_id: JSON.stringify(number_competitor_app.sel_comp()),
                     action: this.action,
                     barcode_match: this.barcode_match,
                     new_sku: this.new_sku,
@@ -74,7 +70,7 @@ auto_matching_app = new Vue({
         new_sku_status: function (){
             if(this.new_sku_status == true){
                 let request_params = {
-                    'number_competitor_id' : JSON.stringify(number_competitor_app.selected_competitor),
+                    'number_competitor_id' : JSON.stringify(number_competitor_app.sel_comp()),
                 }
                 axios.get(this.url_new_sku, {params: request_params})
                     .then(function (response){

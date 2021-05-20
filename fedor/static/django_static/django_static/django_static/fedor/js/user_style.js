@@ -6,6 +6,7 @@ user_style_app = new Vue({
     },
     methods:{
         style_change(){
+            /* Изменение цветовый схемы */
             let cookie_value = document.cookie.replace(/(?:(?:^|.*;\s*)user_style\s*\=\s*([^;]*).*$)|^.*$/, "$1");
             if(cookie_value){
                 if(cookie_value == 'dark'){
@@ -19,6 +20,7 @@ user_style_app = new Vue({
             location.reload()
         },
         reset_font_size(){
+            /* Сброс размера шрифтов */
            let cookie_date = new Date ( );  // Текущая дата и время
            cookie_date.setTime ( cookie_date.getTime() - 1 );
            document.cookie = "fedor_font_size=; expires=" + cookie_date.toGMTString();
@@ -37,6 +39,7 @@ user_style_app = new Vue({
     },
     watch: {
         font_size: function(){
+            /* Изменение размера шрифта */
             console.log(document.querySelectorAll('.fedor-item'))
             let fedor_items = document.querySelectorAll('.fedor-item')
             for(let i = 0; i < fedor_items.length; i++){

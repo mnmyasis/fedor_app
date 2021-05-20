@@ -9,6 +9,7 @@ final_filters_app = new Vue({
     },
     methods:{
         clear_filter(){
+            /* Сброс фильтров */
             this.statuses = []
             this.sku_form = ''
             this.eas_form = ''
@@ -19,9 +20,10 @@ final_filters_app = new Vue({
         },
 
         filter(){
+            /* Фильтр по статусам */
             if(this.statuses.length > 0 || this.sku_form || this.eas_form){
                 let request_params = {
-                    'number_competitor_id': JSON.stringify(number_competitor_app.selected_competitor),
+                    'number_competitor_id': JSON.stringify(number_competitor_app.sel_comp()),
                     'statuses': JSON.stringify(this.statuses),
                     'sku_form': this.sku_form,
                     'eas_form': this.eas_form

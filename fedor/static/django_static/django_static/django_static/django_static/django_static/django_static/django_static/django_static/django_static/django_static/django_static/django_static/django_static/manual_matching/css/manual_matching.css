@@ -1,0 +1,13 @@
+.matching-lists{
+    height: 500px;
+    overflow: auto;
+}
+
+.rematching-redactor{
+    height: 90% !important;
+    width: 90% !important;
+}
+
+.float-right{
+    float: right;
+}

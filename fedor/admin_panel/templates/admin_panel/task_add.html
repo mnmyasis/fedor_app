@@ -62,18 +62,6 @@
             </div>
             <div class="row">
                 <div v-show="selected_task == 'admin_panel.tasks.create_task_starting_algoritm'" class="col s12">
-                    <div class="row">
-                        <!--<div class="input-field col s6">
-                            <select class="sel-competitor" v-model="selected_competitor" multiple>
-                                <option value="0" disabled selected>Выберите справочник</option>
-                                <option v-for="data in number_competitors"
-                                        :value="data.pk"
-                                        :selected="data.pk == 3"
-                                >{( data.name )}</option>
-                            </select>
-                            <label>Клиентский справочник</label>
-                        </div>-->
-                    </div>
                     <span class="card-title">Параметры</span>
                     <p>
                         <label>
@@ -107,13 +95,6 @@
                         </div>
                     </div>
                 </div>
-                <!--<div v-show="selected_task == 'eas_api' || selected_task == 'sku_api' " class="col s12">
-                    <div class="row">
-                        <div class="col s2 ">
-                            <button class="btn btn-primary" v-on:click="create_task_sync_directory">Добавить</button>
-                        </div>
-                    </div>
-                </div>-->
             </div>
         </div>
     </div>
