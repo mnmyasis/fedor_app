@@ -13,7 +13,7 @@ node_modules/
 *.py[cod]
 
 # Log files
-#*.log
+*.log
 
 # Package files
 *.jar
@@ -45,7 +45,7 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-*.log
 *.pyc
-*.xlsx
+out*.xlsx
+
 /databases
