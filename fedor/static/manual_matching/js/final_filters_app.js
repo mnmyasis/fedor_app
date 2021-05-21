@@ -3,6 +3,7 @@ final_filters_app = new Vue({
     el: '#final-filters-app', //работает в файле final_filters.html
     data: {
         url:'/matching/final-filters/',
+        all_result_matching_url: '/matching/final/all-result-matching/',
         statuses: [],
         sku_form: '',
         eas_form: ''
@@ -36,6 +37,20 @@ final_filters_app = new Vue({
                     });
             }
         },
+        all_result_matching(){
+            /* Выгрузить все результаты мэтчинга */
+            let request_params = {
+                    'number_competitor_id': JSON.stringify(number_competitor_app.sel_comp()),
+                }
+            axios.get(this.all_result_matching_url, {params: request_params})
+                    .then(function (response){
+                    console.log(response.data)
+                        console.log(JSON.parse(response.data.matching))
+                        final_matching_app.matching_data = (JSON.parse(response.data.matching))
+                    }).catch(function (error){
+                        error_message(error)
+                    });
+        }
 
     },
     mounted(){

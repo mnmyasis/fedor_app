@@ -35,7 +35,6 @@ services:
     depends_on:
       - db
       - rabbit
-      - celery_worker
     ports:
     - 6080:6080
 
@@ -53,10 +52,12 @@ services:
       - ./fedor/static/:/static
 
   celery_worker:
+    restart: always
     build: ./docker/celery_worker
     command: celery -A fedor worker --beat --scheduler django --loglevel=info
     depends_on:
       - rabbit
       - db
+      - fedor
     volumes:
       - ./fedor/.:/home/

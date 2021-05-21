@@ -3,6 +3,7 @@
         <thead>
 
         <tr>
+            <th></th>
             <th>ТОВАРЫ КЛИЕНТА</th>
             <th>БАЗОВЫЙ СПРАВОЧНИК (ЕАС)</th>
             <th>СПРАВОЧНИК</th>
@@ -13,7 +14,15 @@
 
         <tbody>
         <tr v-for="final_data in matching_data">
-
+            <td class="f-ml">
+                <a class="waves-effect waves-light material-icons " v-on:click="open_rematching(
+                final_data.sku_dict__pk,
+                final_data.sku_dict__name,
+                final_data.number_competitor
+                )">
+                    <i class="material-icons">create</i>
+                </a>
+            </td>
             <td>{( final_data.sku_dict__name )}</td>
             <td>{( final_data.eas_dict__tn_fv)}</td>
             <td>{( final_data.number_competitor )}</td>
@@ -29,5 +38,6 @@
         </tr>
         </tbody>
     </table>
+    {% include 'manual_matching/final_rematching.html' %}
 </div>
 

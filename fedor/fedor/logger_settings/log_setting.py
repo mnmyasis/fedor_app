@@ -21,13 +21,6 @@ def get_log_settings():
             },
         },
         'handlers': {
-            'file': {
-                'level': 'DEBUG',
-                'class': 'logging.FileHandler',
-                'filename': '{}/logs/info.log'.format(settings.BASE_DIR),
-                'filters': ['require_debug_true'],
-                'formatter': 'verbose'
-            },
             'console': {
                 'level': 'DEBUG',
                 'class': 'logging.StreamHandler',
@@ -42,7 +35,7 @@ def get_log_settings():
                 'propagate': True,
             },
             'auth_fedor': {
-                'handlers': ['file', 'console'],
+                'handlers': ['console'],
                 'level': 'DEBUG',
                 'propagate': True,
             },

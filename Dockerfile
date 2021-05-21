@@ -1,12 +1,9 @@
 FROM python:3.8
 
 WORKDIR /home/www/
-COPY requirements.txt .
-COPY entrypoint.sh .
+COPY . .
 
 RUN pip install -r requirements.txt
-RUN chmod o+x entrypoint.sh
-RUN ls
-COPY . .
-RUN ls
+RUN chmod +x entrypoint.sh
+
 ENTRYPOINT ["/home/www/entrypoint.sh"]

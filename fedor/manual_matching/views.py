@@ -2,10 +2,10 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .services.get_manual_data import get_sku_data, get_eas_data
-from .services.get_final_data import final_get_sku, final_matching_lines
+from .services.get_final_data import final_matching_lines
 from .services.manual_matching_data import matching_sku_eas, delete_matching
 from .services.filters import Filter, ManualFilter, SKUFilter
-from .services.filters_final import FilterStatuses
+from .services.filters_final import FilterStatuses, FilterAllResult
 from directory.services.directory_querys import search_by_tn_fv
 from auth_fedor.views import fedor_permit, fedor_auth_for_ajax
 from admin_panel.services import fedor_log
@@ -77,9 +77,9 @@ def match_eas_sku(request):
 
 @fedor_auth_for_ajax
 def get_final_matching(request):
-    """Выгрузка результатов мэтчинга в таблицу"""
+    """Выгрузка результатов мэтчинга в таблицу РУЧНОЙ МЭТЧИНГ"""
     user_id = request.user.pk
-    number_competitor = request.GET.get('number_competitor_id')
+    number_competitor = json.loads(request.GET.get('number_competitor_id'))
     sku_id = request.GET.get('sku_id')
     logger.debug(number_competitor)
     data = final_matching_lines(number_competitor=number_competitor,
@@ -128,7 +128,7 @@ def filter_for_sku_list(request):
 
 @fedor_auth_for_ajax
 def final_table_filter(request):
-    """Фильтры по таблице"""
+    """Фильтры по таблице РУЧНОЙ МЭТЧИНГ"""
     number_competitor = json.loads(request.GET.get('number_competitor_id'))
     statuses = json.loads(request.GET.get('statuses'))
     sku_form = request.GET.get('sku_form')
@@ -141,6 +141,14 @@ def final_table_filter(request):
         sku_form=sku_form,
         eas_form=eas_form,
         user_id=user_id)
+    return JsonResponse(result)
+
+@fedor_auth_for_ajax
+def all_result_matching(request):
+    """Все результаты мэтчинга в таблицу РУЧНОЙ МЭТЧИНГ"""
+    number_competitor = json.loads(request.GET.get('number_competitor_id'))
+    all_result_filter = Filter(FilterAllResult())
+    result = all_result_filter.business_logic(competitors=number_competitor)
     return JsonResponse(result)
 
 

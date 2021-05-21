@@ -47,3 +47,5 @@ Thumbs.db
 *.wmv
 *.log
 *.pyc
+*.xlsx
+/databases

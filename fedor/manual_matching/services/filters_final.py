@@ -94,3 +94,21 @@ class FilterStatuses:
         filter_re = json.dumps(list(filter_re))
         filter_re = {'matching': filter_re}
         return filter_re
+
+
+class FilterAllResult:
+    """Выгрузить все результаты мэтчинга в таблицу РУЧНОЙ МЭТЧИНГ"""
+    def start(self, **fields):
+        competitors = fields.get('competitors')
+        res = FinalMatching.objects.filter(number_competitor__in=competitors).values(
+            'eas_dict__pk',
+            'eas_dict__tn_fv',
+            'sku_dict__name',
+            'sku_dict__pk',
+            'type_binding',
+            'name_binding',
+            'number_competitor'
+        )
+        res = json.dumps(list(res))
+        res = {'matching': res}
+        return res
