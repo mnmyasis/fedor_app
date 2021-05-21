@@ -47,7 +47,7 @@ services:
       - fedor
       - db
     ports:
-    - 80:80
+    - 8000:80
     volumes:
       - ./fedor/static/:/static
 
