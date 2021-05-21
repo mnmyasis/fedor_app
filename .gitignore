@@ -48,4 +48,4 @@ Thumbs.db
 *.pyc
 out*.xlsx
 
-/databases
+databases/
