@@ -34,14 +34,14 @@ def create_task_starting_algoritm(*args, **kwargs):
     """Запуск мэтчинга по щтрихкоду"""
     barcode_match_result, sku = alg.barcode_matching(sku_data, number_competitor_id, eas_dict, barcode_match)
     """Запуск алгоритм"""
-    if len(sku) > 0:  # Если все записи смэтчились по штрихкоду
+    if len(sku) > 0:  # Если все записи смэтчились по штрихкоду, алгоритм не запускается
         matching_result = alg.start_test(sku, eas_dict)  # Старт алгоритма
     change_matching_status_sku(sku_data)  # Изменение поля matching_status directory/services/sku_querys
     """Запись результата работы алгоритма"""
     match = Matching()
     [match.wr_match(matching_state=x['qnt'], matching_line=x) for x in
      barcode_match_result]  # Запись мэчтинга по штрихкоду
-    if len(sku) > 0:  # Если все записи смэтчились по штрихкоду
+    if len(sku) > 0:  # Если все записи смэтчились по штрихкоду, результатов алгоритма нет
         [match.wr_match(matching_state=x['qnt'], matching_line=x) for x in
          matching_result['data']]  # Запись мэчтинга алгоритма
     return 'Matching complete {}!'.format(datetime.now().strftime('%d-%m-%Y %H:%M'))

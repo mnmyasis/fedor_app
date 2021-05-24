@@ -51,19 +51,19 @@ def request_eas_api():
                         }
                     }"""
     statuses = [1, 3]
-    count_error = 0
+    count_error = 10
     for status in statuses:
         api_status = True
         page = 0
         while api_status:
-            if count_error == 20:
+            if count_error == 0:
                 raise ApiEasException("EAS API connection error")
             variables = {"status": status, 'page': page, 'count': 500}
             try:
                 data = client.execute(query=query, variables=variables)
             except:
-                print('connect eas error')
-                count_error += 1
+                print('connect eas error {}'.format(count_error))
+                count_error -= 1
                 time.sleep(60)
                 continue
             eas_list = data.get('data').get('eas_product')
@@ -110,16 +110,16 @@ def try_repeat(func):
     """Повторный вызов функции"""
 
     def wrapper(*args, **kwargs):
-        count = 0
+        count = 10
         while True:
-            if count == 20:
+            if count == 0:
                 raise ApiSkuException("SKU API connection error")
             try:
                 return func(*args, **kwargs)
             except:
-                print('connect sku error')
+                print('connect sku error {}'.format(count))
                 time.sleep(60)
-                count += 1
+                count -= 1
 
     return wrapper
 
