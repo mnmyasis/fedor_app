@@ -53,7 +53,7 @@ services:
   celery_worker:
     restart: always
     build: ./docker/celery_worker
-    command: celery -A fedor worker --beat --scheduler django --loglevel=info
+    command: celery -A fedor worker --beat --scheduler django --loglevel=info --concurrency=1
     depends_on:
       - rabbit
       - db

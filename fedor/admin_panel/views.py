@@ -348,7 +348,7 @@ def tasks_user_list(request):
             'admin_panel.tasks.sku_api',
             'admin_panel.tasks.eas_api',
             'admin_panel.tasks.create_task_starting_algoritm'],
-            status__in=['STARTED', 'SUCCESS']),
+            status__in=['STARTED', 'SUCCESS', 'FAILURE']),
         ~Q(task_id__in=[res.get('task_id') for res in result]))  # ~Q исключить пересечение admin_panel.tasks.create_task_starting_algoritm
     for p_task in periodic_tasks:
         result.insert(0,

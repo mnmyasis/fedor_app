@@ -1,5 +1,14 @@
 from directory.models import SyncEAS, SyncSKU, Competitors
 from python_graphql_client import GraphqlClient
+import time
+
+
+class ApiEasException(Exception):
+    pass
+
+
+class ApiSkuException(Exception):
+    pass
 
 
 def request_eas_api():
@@ -42,12 +51,21 @@ def request_eas_api():
                         }
                     }"""
     statuses = [1, 3]
+    count_error = 0
     for status in statuses:
         api_status = True
         page = 0
         while api_status:
+            if count_error == 20:
+                raise ApiEasException("EAS API connection error")
             variables = {"status": status, 'page': page, 'count': 500}
-            data = client.execute(query=query, variables=variables)
+            try:
+                data = client.execute(query=query, variables=variables)
+            except:
+                print('connect eas error')
+                count_error += 1
+                time.sleep(60)
+                continue
             eas_list = data.get('data').get('eas_product')
             if eas_list:
                 for eas_data in eas_list:
@@ -88,6 +106,25 @@ def request_eas_api():
     return True
 
 
+def try_repeat(func):
+    """Повторный вызов функции"""
+
+    def wrapper(*args, **kwargs):
+        count = 0
+        while True:
+            if count == 20:
+                raise ApiSkuException("SKU API connection error")
+            try:
+                return func(*args, **kwargs)
+            except:
+                print('connect sku error')
+                time.sleep(60)
+                count += 1
+
+    return wrapper
+
+
+@try_repeat
 def request_sku_api():
     """Синхронизация клиентских справочников"""
     client = GraphqlClient(endpoint="https://rio.pharma.global/graphql-local")
@@ -114,7 +151,8 @@ def request_sku_api():
         sku_wr['name'] = "{} {}".format(sku_data.get('name'), sku_data.get('producer'))
         competitor['pharmacy_id'] = sku_data.get('pharmacy_id')
         competitor['firm_id'] = sku_data.get('firm_id')
-        competitor['name'] = 'test pharmacy_id-{} firm_id-{}'.format(sku_data.get('pharmacy_id'), sku_data.get('firm_id'))
+        competitor['name'] = 'test pharmacy_id-{} firm_id-{}'.format(sku_data.get('pharmacy_id'),
+                                                                     sku_data.get('firm_id'))
         sku_wr['nnt'] = sku_data.get('ean')
         number_competitor, created = Competitors.objects.get_or_create(**competitor, defaults=competitor)
         sku_wr['number_competitor'] = number_competitor
