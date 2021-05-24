@@ -11,7 +11,7 @@ services:
       RABBITMQ_DEFAULT_PASS: "12345"
       RABBITMQ_DEFAULT_VHOST: "vfedor"
     ports:
-      - 5674:5672
+      - 127.0.0.1:5674:5672
   db:
     build:
       context: ./docker/db
