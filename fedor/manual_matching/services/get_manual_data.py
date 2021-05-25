@@ -1,6 +1,7 @@
 from directory.models import *
 from manual_matching.models import *
 from django.core import serializers
+from directory.models import Competitors
 import logging, re, time, json
 import operator
 logger = logging.getLogger(__name__)
@@ -14,7 +15,7 @@ def binding_decorator(model):
             count_data = model.objects.filter(
                 user=kwargs['user_id']).distinct('sku_dict__pk').count()  # Кол-во записей привязанных к пользователю
             logger.debug('Id пользователя - {}    Записей - {}'.format(kwargs['user_id'], count_data))
-            if count_data < 200:  # Если записей у пользователя меньше 50, привязывается еще 100шт.
+            if count_data < 50 * Competitors.objects.all().count():  # Если записей у пользователя меньше 50, привязывается еще 100шт.
                 for competitor in kwargs.get('number_competitor'):
                     model.objects.filter(sku_dict__pk__in=
                                          model.objects.filter(number_competitor=competitor,
