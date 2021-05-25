@@ -12,15 +12,15 @@ def binding_decorator(model):
     def wrapper(func):
         def wrap_binding(*args, **kwargs):
             count_data = model.objects.filter(
-                number_competitor__in=kwargs['number_competitor'],
-                user=kwargs['user_id']).distinct('sku_dict').count()  # Кол-во записей привязанных к пользователю
+                user=kwargs['user_id']).distinct('sku_dict__pk').count()  # Кол-во записей привязанных к пользователю
             logger.debug('Id пользователя - {}    Записей - {}'.format(kwargs['user_id'], count_data))
-            if count_data < 50:  # Если записей у пользователя меньше 50, привязывается еще 100шт.
-                model.objects.filter(pk__in=
-                                     model.objects.filter(number_competitor__in=kwargs['number_competitor'],
-                                                          user=None).distinct(
-                                         'sku_dict').values('pk')[:100]
-                                     ).update(user=kwargs['user_id'])  # Привязка данных к юзеру
+            if count_data < 200:  # Если записей у пользователя меньше 50, привязывается еще 100шт.
+                for competitor in kwargs.get('number_competitor'):
+                    model.objects.filter(sku_dict__pk__in=
+                                         model.objects.filter(number_competitor=competitor,
+                                                              user=None).distinct(
+                                             'sku_dict__pk').values('sku_dict__pk')[:50]
+                                         ).update(user=kwargs['user_id'])  # Привязка данных к юзеру
             return func(*args, **kwargs)
 
         return wrap_binding
