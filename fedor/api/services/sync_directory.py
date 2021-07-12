@@ -119,7 +119,7 @@ def request_sku_api():
         number_competitor, created = Competitors.objects.get_or_create(**competitor, defaults=competitor)
         sku_wr['number_competitor'] = number_competitor
         s_sku, s_status = SyncSKU.objects.update_or_create(
-            name=sku_wr['name'],
+            name=sku_wr['sku_id'],
             number_competitor=sku_wr['number_competitor'],
             defaults=sku_wr)
         print(s_sku)
